@@ -21,9 +21,8 @@
 #include <inttypes.h>
 
 // Include Steamworks API headers
-#include "steam/steam_api.h"
+#include "steam/steam_gameserver.h"
 #include "steam/steamnetworkingfakeip.h"
-#include "steam/isteamdualsense.h"
 
 // Include Godot headers
 #include <godot_cpp/core/class_db.hpp>
@@ -46,6 +45,7 @@ class Steam: public Object {
 		// STEAMWORKS API ENUMS
 		/////////////////////////////////////////
 		//
+		
 		enum AccountType {
 			ACCOUNT_TYPE_INVALID = k_EAccountTypeInvalid,
 			ACCOUNT_TYPE_INDIVIDUAL = k_EAccountTypeIndividual,
@@ -58,7 +58,7 @@ class Steam: public Object {
 			ACCOUNT_TYPE_CHAT = k_EAccountTypeChat,
 			ACCOUNT_TYPE_CONSOLE_USER = k_EAccountTypeConsoleUser,
 			ACCOUNT_TYPE_ANON_USER = k_EAccountTypeAnonUser,
-			ACCOUNT_TYPE_MAX = k_EAccountTypeMax
+            ACCOUNT_TYPE_MAX = k_EAccountTypeMax
 		};
 		enum AuthSessionResponse {
 			AUTH_SESSION_RESPONSE_OK = k_EAuthSessionResponseOK,
@@ -76,7 +76,7 @@ class Steam: public Object {
 		enum BeginAuthSessionResult {
 			BEGIN_AUTH_SESSION_RESULT_OK = k_EBeginAuthSessionResultOK,
 			BEGIN_AUTH_SESSION_RESULT_INVALID_TICKET = k_EBeginAuthSessionResultInvalidTicket,
-			BEGIN_AUTH_SESSION_RESULT_DUPLICATE_REQUEST = k_EBeginAuthSessionResultDuplicateRequest, 
+			BEGIN_AUTH_SESSION_RESULT_DUPLICATE_REQUEST = k_EBeginAuthSessionResultDuplicateRequest,
 			BEGIN_AUTH_SESSION_RESULT_INVALID_VERSION = k_EBeginAuthSessionResultInvalidVersion,
 			BEGIN_AUTH_SESSION_RESULT_GAME_MISMATCH = k_EBeginAuthSessionResultGameMismatch,
 			BEGIN_AUTH_SESSION_RESULT_EXPIRED_TICKET = k_EBeginAuthSessionResultExpiredTicket
@@ -414,7 +414,7 @@ class Steam: public Object {
 			FRIEND_RELATION_IGNORED = k_EFriendRelationshipIgnored,
 			FRIEND_RELATION_IGNORED_FRIEND = k_EFriendRelationshipIgnoredFriend,
 			FRIEND_RELATION_SUGGESTED = k_EFriendRelationshipSuggested_DEPRECATED,
-			FRIEND_RELATION_MAX = k_EFriendRelationshipMax		
+			FRIEND_RELATION_MAX = k_EFriendRelationshipMax
 		};
 		enum OverlayToStoreFlag {
 			OVERLAY_TO_STORE_FLAG_NONE = k_EOverlayToStoreFlag_None,
@@ -1092,15 +1092,6 @@ class Steam: public Object {
 			INPUT_TYPE_COUNT = k_ESteamInputType_Count,
 			INPUT_TYPE_MAXIMUM_POSSIBLE_VALUE = k_ESteamInputType_MaximumPossibleValue
 		};
-		enum SCEPadTriggerEffectMode {
-			PAD_TRIGGER_EFFECT_MODE_OFF = SCE_PAD_TRIGGER_EFFECT_MODE_OFF,
-			PAD_TRIGGER_EFFECT_MODE_FEEDBACK = SCE_PAD_TRIGGER_EFFECT_MODE_FEEDBACK,
-			PAD_TRIGGER_EFFECT_MODE_WEAPON = SCE_PAD_TRIGGER_EFFECT_MODE_WEAPON,
-			PAD_TRIGGER_EFFECT_MODE_VIBRATION = SCE_PAD_TRIGGER_EFFECT_MODE_VIBRATION,
-			PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_FEEDBACK = SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_FEEDBACK,
-			PAD_TRIGGER_EFFECT_MODE_SLOPE_FEEDBACK = SCE_PAD_TRIGGER_EFFECT_MODE_SLOPE_FEEDBACK,
-			PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_VIBRATION = SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_VIBRATION
-		};
 		enum XboxOrigin {
 			XBOX_ORIGIN_A = k_EXboxOrigin_A,
 			XBOX_ORIGIN_B = k_EXboxOrigin_B,
@@ -1152,7 +1143,7 @@ class Steam: public Object {
 			LOBBY_COMPARISON_EQUAL_TO_OR_LESS_THAN = k_ELobbyComparisonEqualToOrLessThan,
 			LOBBY_COMPARISON_LESS_THAN = k_ELobbyComparisonLessThan,
 			LOBBY_COMPARISON_EQUAL = k_ELobbyComparisonEqual,
-			LOBBY_COMPARISON_GREATER_THAN = k_ELobbyComparisonGreaterThan, 
+			LOBBY_COMPARISON_GREATER_THAN = k_ELobbyComparisonGreaterThan,
 			OBBY_COMPARISON_EQUAL_TO_GREATER_THAN = k_ELobbyComparisonEqualToOrGreaterThan,
 			LOBBY_COMPARISON_NOT_EQUAL = k_ELobbyComparisonNotEqual
 		};
@@ -1170,6 +1161,14 @@ class Steam: public Object {
 			LOBBY_TYPE_PRIVATE_UNIQUE = k_ELobbyTypePrivateUnique
 
 		};
+
+        // Game Server enums
+        enum ServerMode {
+            SERVER_MODE_INVALID = eServerModeInvalid,
+            SERVER_MODE_NO_AUTHENTICATION = eServerModeNoAuthentication,
+            SERVER_MODE_AUTHENTICATION = eServerModeAuthentication,
+            SERVER_MODE_AUTHENTICATION_AND_SECURE = eServerModeAuthenticationAndSecure
+        };
 
 		// Matchmaking Servers enums
 		enum MatchMakingServerResponse {
@@ -1391,7 +1390,7 @@ class Steam: public Object {
 		enum NetworkingConfigDataType {
 			NETWORKING_CONFIG_TYPE_INT32 = k_ESteamNetworkingConfig_Int32,
 			NETWORKING_CONFIG_TYPE_INT64 = k_ESteamNetworkingConfig_Int64,
-			NETWORKING_CONFIG_TYPE_FLOAT = k_ESteamNetworkingConfig_Float, 
+			NETWORKING_CONFIG_TYPE_FLOAT = k_ESteamNetworkingConfig_Float,
 			ETWORKING_CONFIG_TYPE_STRING = k_ESteamNetworkingConfig_String,
 			NETWORKING_CONFIG_TYPE_FUNCTION_PTR = k_ESteamNetworkingConfig_Ptr,
 			NETWORKING_CONFIG_TYPE_FORCE_32BIT = k_ESteamNetworkingConfigDataType__Force32Bit
@@ -1403,7 +1402,7 @@ class Steam: public Object {
 			NETWORKING_CONFIG_SCOPE_CONNECTION = k_ESteamNetworkingConfig_Connection,
 			NETWORKING_CONFIG_SCOPE_FORCE_32BIT = k_ESteamNetworkingConfigScope__Force32Bit
 		};
-		
+
 		// Parental Settings enums
 		enum ParentalFeature {
 			FEATURE_INVALID = k_EFeatureInvalid,
@@ -1637,7 +1636,7 @@ class Steam: public Object {
 			USERUGCLISTSORTORDER_TITLEASC = k_EUserUGCListSortOrder_TitleAsc,
 			USERUGCLISTSORTORDER_LASTUPDATEDDESC = k_EUserUGCListSortOrder_LastUpdatedDesc,
 			USERUGCLISTSORTORDER_SUBSCRIPTIONDATEDESC = k_EUserUGCListSortOrder_SubscriptionDateDesc,
-			USERUGCLISTSORTORDER_VOTESCOREDESC = k_EUserUGCListSortOrder_VoteScoreDesc, 
+			USERUGCLISTSORTORDER_VOTESCOREDESC = k_EUserUGCListSortOrder_VoteScoreDesc,
 			SERUGCLISTSORTORDER_FORMODERATION = k_EUserUGCListSortOrder_ForModeration
 		};
 
@@ -1775,7 +1774,7 @@ class Steam: public Object {
 		bool markContentCorrupt(bool missing_files_only);
 		bool setDLCContext(uint32_t app_id);
 		void uninstallDLC(uint32_t dlc_id);
-		
+
 		// App Lists ////////////////////////////
 		uint32 getNumInstalledApps();
 		Array getInstalledApps(uint32 max_app_ids);
@@ -1822,7 +1821,7 @@ class Steam: public Object {
 		FriendRelationship getFriendRelationship(uint64_t steam_id);
 		String getFriendRichPresence(uint64_t friend_id, const String& key);
 		int getFriendRichPresenceKeyCount(uint64_t friend_id);
-		String getFriendRichPresenceKeyByIndex(uint64_t friend_id, int key);		
+		String getFriendRichPresenceKeyByIndex(uint64_t friend_id, int key);
 		int getFriendsGroupCount();
 		int16 getFriendsGroupIDByIndex(int friend_group);
 		int getFriendsGroupMembersCount(int friend_group);
@@ -1946,7 +1945,7 @@ class Steam: public Object {
 		uint8 setHTTPRequestRawPostBody(uint32 request_handle, const String& content_type, uint32 body_length);
 		bool setHTTPRequestRequiresVerifiedCertificate(uint32 request_handle, bool require_verified_certificate);
 		bool setHTTPRequestUserAgentInfo(uint32 request_handle, const String& user_agent_info);
-		
+
 		// Input ////////////////////////////////
 		void activateActionSet(uint64_t input_handle, uint64_t action_set_handle);
 		void activateActionSetLayer(uint64_t input_handle, uint64_t action_set_layer_handle);
@@ -1995,7 +1994,6 @@ class Steam: public Object {
 		void triggerVibration(uint64_t input_handle, int left_speed, int right_speed);
 		void triggerVibrationExtended(uint64_t input_handle, int left_speed, int right_speed, int left_trigger_speed, int right_trigger_speed);
 		bool setInputActionManifestFilePath(const String& manifest_path);
-		void setDualSenseTriggerEffect(uint64_t input_handle, int parameter_index, int trigger_mask, SCEPadTriggerEffectMode effect_mode, int position, int amplitude, int frequency);
 		bool waitForData(bool wait_forever, uint32 timeout);
 
 		// Inventory ////////////////////////////
@@ -2066,6 +2064,44 @@ class Steam: public Object {
 		bool setLobbyJoinable(uint64_t steam_lobby_id, bool joinable);
 		uint64_t getLobbyOwner(uint64_t steam_lobby_id);
 		bool setLobbyOwner(uint64_t steam_lobby_id, uint64_t steam_id_new_owner);
+
+        // Game Servers /////////////////////////
+		bool serverInit(const String& ip, int game_port, int query_port, ServerMode server_mode, const String& version_string);
+		void runServerCallbacks();
+		void associateWithClan(uint64_t clan_id);
+		int beginServerAuthSession(int auth_ticket, uint64_t steam_id);
+		void cancelServerAuthTicket(uint32 auth_ticket);
+		void clearAllKeyValues();
+		void computeNewPlayerCompatibility(uint64_t steam_id);
+		void endServerAuthSession(uint64_t steam_id);
+		// Dictionary getServerAuthSessionTicket();
+		void getNextOutgoingPacket();
+		uint32 getPublicIP();
+		uint64_t getSteamServerID();
+		// PackedByteArray handleIncomingPacket(int packet, const String& ip, int port);
+		void logOff();
+		void logOn(const String &token);
+		void logOnAnonymous();
+		bool secure();
+		void setAdvertiseServerActive(bool active);
+		void setBotPlayerCount(int bots);
+		void setDedicatedServer(bool dedicated);
+		void setGameData(const String& data);
+		void setGameDescription(const String& description);
+		void setGameTags(const String &tag_list);
+		// void setHeartbeatInterval(int interval); This function is deprecated in current version of SteamWorks SDK (v1.58)
+		void setKeyValue(const String& key, const String& value);
+		void setMapName(const String& map);
+		void setMaxPlayerCount(int players_max);
+		void setModDir(const String& mod_dir);
+		void setPasswordProtected(bool password_protected);
+		void setProduct(const String& product);
+		void setRegion(const String& region);
+		void setServerName(const String& name);
+		void setSpectatorPort(uint32 port);
+		void setSpectatorServerName(const String& name);
+		int serverUserHasLicenseForApp(uint64_t steam_id, uint32 app_id);
+		bool wasRestartRequested();
 
 		// Matchmaking Servers //////////////////
 		void cancelQuery(uint64_t server_list_request = 0);
@@ -2148,7 +2184,7 @@ class Steam: public Object {
 		Dictionary getSessionConnectionInfo(const String& identity_reference, bool get_connection, bool get_status);
 		Array receiveMessagesOnChannel(int channel, int max_messages);
 		int sendMessageToUser(const String& identity_reference, const PackedByteArray data, int flags, int channel);
-		
+
 		// Networking Sockets ///////////////////
 		int acceptConnection(uint32 connection_handle);
 		bool beginAsyncRequestFakeIP(int num_ports);
@@ -2191,7 +2227,7 @@ class Steam: public Object {
 		void runNetworkingCallbacks();
 		void sendMessages(int messages, const PackedByteArray data, uint32 connection_handle, int flags);
 		Dictionary sendMessageToConnection(uint32 connection_handle, const PackedByteArray data, int flags);
-		Dictionary setCertificate(const PackedByteArray& certificate);		
+		Dictionary setCertificate(const PackedByteArray& certificate);
 		bool setConnectionPollGroup(uint32 connection_handle, uint32 poll_group);
 		void setConnectionName(uint32 peer, const String& name);
 
@@ -2233,7 +2269,7 @@ class Steam: public Object {
 		String toIdentityString(const String& reference_name);
 		String toIPAddressString(const String& reference_name, bool with_port);
 		const SteamNetworkingConfigValue_t* convertOptionsArray(Array options);
-		
+
 		// Networking Utils /////////////////////
 		bool checkPingDataUpToDate(float max_age_in_seconds);
 		String convertPingLocationToString(PackedByteArray location);
@@ -2254,7 +2290,7 @@ class Steam: public Object {
 		bool setConnectionConfigValueInt32(uint32 connection, NetworkingConfigValue config, int32 value);
 		bool setConnectionConfigValueString(uint32 connection, NetworkingConfigValue config, const String& value);
 //		bool setConfigValue(NetworkingConfigValue setting, NetworkingConfigScope scope_type, uint32_t connection_handle, NetworkingConfigDataType data_type, auto value);
-		bool setGlobalConfigValueFloat(NetworkingConfigValue config, float value);		
+		bool setGlobalConfigValueFloat(NetworkingConfigValue config, float value);
 		bool setGlobalConfigValueInt32(NetworkingConfigValue config, int32 value);
 		bool setGlobalConfigValueString(NetworkingConfigValue config, const String& value);
 
@@ -2278,7 +2314,7 @@ class Steam: public Object {
 		uint32 getNumActiveBeacons();
 		void joinParty(uint64_t beacon_id);
 		void onReservationCompleted(uint64_t beacon_id, uint64_t steam_id);
-		
+
 		// Remote Play //////////////////////////
 		uint32 getSessionCount();
 		uint32 getSessionID(uint32 index);
@@ -2323,7 +2359,7 @@ class Steam: public Object {
 		void ugcDownload(uint64_t content, uint32 priority);
 		void ugcDownloadToLocation(uint64_t content, const String& location, uint32 priority);
 		PackedByteArray ugcRead(uint64_t content, int32 data_size, uint32 offset, UGCReadAction action);
-		
+
 		// Screenshots //////////////////////////
 		uint32_t addScreenshotToLibrary(const String& filename, const String& thumbnail_filename, int width, int height);
 		uint32_t addVRScreenshotToLibrary(VRScreenshotType type, const String& filename, const String& vr_filename);
@@ -2546,7 +2582,7 @@ class Steam: public Object {
 
 		// Apps
 		uint64_t current_app_id = 0;
-		
+
 		// Friends
 		CSteamID clan_activity;
 
@@ -2601,7 +2637,6 @@ class Steam: public Object {
 		void run_callbacks(){
 			SteamAPI_RunCallbacks();
 		}
-
 
 		/////////////////////////////////////////
 		// STEAM CALLBACKS
@@ -2685,6 +2720,18 @@ class Steam: public Object {
 		STEAM_CALLBACK(Steam, inventory_definition_update, SteamInventoryDefinitionUpdate_t, callbackInventoryDefinitionUpdate);
 		STEAM_CALLBACK(Steam, inventory_full_update, SteamInventoryFullUpdate_t, callbackInventoryFullUpdate);
 		STEAM_CALLBACK(Steam, inventory_result_ready, SteamInventoryResultReady_t, callbackInventoryResultReady);
+
+		// Game Server callbacks ////////////////
+		// TODO: define funtions for all callbacks //
+		STEAM_CALLBACK(Steam, client_approved, GSClientApprove_t, callbackClientApproved);
+		STEAM_CALLBACK(Steam, client_denied, GSClientDeny_t, callbackClientDenied);
+		//STEAM_CALLBACK(Steam, client_group_status, GSClientGroupStatus_t, callbackClientGroupStatus);
+		STEAM_CALLBACK(Steam, client_kick, GSClientKick_t, callbackClientKick);
+		STEAM_CALLBACK(Steam, player_compat, ComputeNewPlayerCompatibilityResult_t, callbackPlayerCompat);
+		STEAM_CALLBACK(Steam, policy_response, GSPolicyResponse_t, callbackPolicyResponse);
+		STEAM_CALLBACK(Steam, server_connect_failure, SteamServerConnectFailure_t, callbackConnectFailure);
+		STEAM_CALLBACK(Steam, server_connected, SteamServersConnected_t, callbackServerConnected);
+		STEAM_CALLBACK(Steam, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
 
 		// Matchmaking callbacks ////////////////
 		STEAM_CALLBACK(Steam, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
@@ -3006,9 +3053,9 @@ VARIANT_BITFIELD_CAST(Steam::RemoteStoragePlatform);
 VARIANT_ENUM_CAST(Steam::RemoteStoragePublishedFileVisibility);
 VARIANT_ENUM_CAST(Steam::Result);
 
-VARIANT_ENUM_CAST(Steam::SCEPadTriggerEffectMode);
 VARIANT_ENUM_CAST(Steam::SocketConnectionType);
 VARIANT_ENUM_CAST(Steam::SocketState);
+VARIANT_ENUM_CAST(Steam::ServerMode);
 
 VARIANT_ENUM_CAST(Steam::TextFilteringContext);
 

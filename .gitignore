@@ -11,3 +11,8 @@
 .vscode/
 bin/
 .sconsign.dblite
+**/godotsteam/sdk/public/
+**/godotsteam/sdk/redistributable_bin/
+*.cbp
+**/codelite/
+**/ctagsd/
