@@ -36,9 +36,9 @@
 
 using namespace godot;
 
-class Steam: public Object {
-	GDCLASS(Steam, Object);
-	static Steam *singleton;
+class SteamServer: public Object {
+	GDCLASS(SteamServer, Object);
+	static SteamServer *singleton;
 
 	public:
 		/////////////////////////////////////////
@@ -484,63 +484,6 @@ class Steam: public Object {
 			PLAYER_RESULT_COMPLETED = k_EPlayerResultCompleted
 		};
 
-		// HTMLSurface enums
-		enum HTMLKeyModifiers {
-			HTML_KEY_MODIFIER_NONE = ISteamHTMLSurface::k_eHTMLKeyModifier_None,
-			HTML_KEY_MODIFIER_ALT_DOWN = ISteamHTMLSurface::k_eHTMLKeyModifier_AltDown,
-			HTML_KEY_MODIFIER_CTRL_DOWN = ISteamHTMLSurface::k_eHTMLKeyModifier_CtrlDown,
-			HTML_KEY_MODIFIER_SHIFT_DOWN = ISteamHTMLSurface::k_eHTMLKeyModifier_ShiftDown
-		};
-		enum HTMLMouseButton {
-			HTML_MOUSE_BUTTON_LEFT = ISteamHTMLSurface::eHTMLMouseButton_Left,
-			HTML_MOUSE_BUTTON_RIGHT = ISteamHTMLSurface::eHTMLMouseButton_Right,
-			HTML_MOUSE_BUTTON_MIDDLE = ISteamHTMLSurface::eHTMLMouseButton_Middle
-		};
-		enum MouseCursor {
-			DC_USER = ISteamHTMLSurface::dc_user,
-			DC_NONE = ISteamHTMLSurface::dc_none,
-			DC_ARROW = ISteamHTMLSurface::dc_arrow,
-			DC_IBEAM = ISteamHTMLSurface::dc_ibeam,
-			DC_HOUR_GLASS = ISteamHTMLSurface::dc_hourglass,
-			DC_WAIT_ARROW = ISteamHTMLSurface::dc_waitarrow,
-			DC_CROSSHAIR = ISteamHTMLSurface::dc_crosshair,
-			DC_UP = ISteamHTMLSurface::dc_up,
-			DC_SIZE_NW = ISteamHTMLSurface::dc_sizenw,
-			DC_SIZE_SE = ISteamHTMLSurface::dc_sizese,
-			DC_SIZE_NE = ISteamHTMLSurface::dc_sizene,
-			DC_SIZE_SW = ISteamHTMLSurface::dc_sizesw,
-			DC_SIZE_W = ISteamHTMLSurface::dc_sizew,
-			DC_SIZE_E = ISteamHTMLSurface::dc_sizee,
-			DC_SIZE_N = ISteamHTMLSurface::dc_sizen,
-			DC_SIZE_S = ISteamHTMLSurface::dc_sizes,
-			DC_SIZE_WE = ISteamHTMLSurface::dc_sizewe,
-			DC_SIZE_NS = ISteamHTMLSurface::dc_sizens,
-			DC_SIZE_ALL = ISteamHTMLSurface::dc_sizeall,
-			DC_NO = ISteamHTMLSurface::dc_no,
-			DC_HAND = ISteamHTMLSurface::dc_hand,
-			DC_BLANK = ISteamHTMLSurface::dc_blank,
-			DC_MIDDLE_PAN = ISteamHTMLSurface::dc_middle_pan,
-			DC_NORTH_PAN = ISteamHTMLSurface::dc_north_pan,
-			DC_NORTH_EAST_PAN = ISteamHTMLSurface::dc_north_east_pan,
-			DC_EAST_PAN = ISteamHTMLSurface::dc_east_pan,
-			DC_SOUTH_EAST_PAN = ISteamHTMLSurface::dc_south_east_pan,
-			DC_SOUTH_PAN = ISteamHTMLSurface::dc_south_pan,
-			DC_SOUTH_WEST_PAN = ISteamHTMLSurface::dc_south_west_pan,
-			DC_WEST_PAN = ISteamHTMLSurface::dc_west_pan,
-			DC_NORTH_WEST_PAN = ISteamHTMLSurface::dc_north_west_pan,
-			DC_ALIAS = ISteamHTMLSurface::dc_alias,
-			DC_CELL = ISteamHTMLSurface::dc_cell,
-			DC_COL_RESIZE = ISteamHTMLSurface::dc_colresize,
-			DC_COPY_CUR = ISteamHTMLSurface::dc_copycur,
-			DC_VERTICAL_TEXT = ISteamHTMLSurface::dc_verticaltext,
-			DC_ROW_RESIZE = ISteamHTMLSurface::dc_rowresize,
-			DC_ZOOM_IN = ISteamHTMLSurface::dc_zoomin,
-			DC_ZOOM_OUT = ISteamHTMLSurface::dc_zoomout,
-			DC_HELP = ISteamHTMLSurface::dc_help,
-			DC_CUSTOM = ISteamHTMLSurface::dc_custom,
-			DC_LAST = ISteamHTMLSurface::dc_last
-		};
-
 		// HTTP enums
 		enum HTTPMethod {
 			HTTP_METHOD_INVALID = k_EHTTPMethodInvalid,
@@ -601,529 +544,6 @@ class Steam: public Object {
 			HTTP_STATUS_CODE_5XX_UNKNOWN = k_EHTTPStatusCode5xxUnknown
 		};
 
-		// Input enums
-		enum ControllerHapticLocation {
-			CONTROLLER_HAPTIC_LOCATION_LEFT = k_EControllerHapticLocation_Left,
-			CONTROLLER_HAPTIC_LOCATION_RIGHT = k_EControllerHapticLocation_Right,
-			CONTROLLER_HAPTIC_LOCATION_BOTH = k_EControllerHapticLocation_Both
-		};
-		enum ControllerHapticType {
-			CONTROLLER_HAPTIC_TYPE_OFF = k_EControllerHapticType_Off,
-			CONTROLLER_HAPTIC_TYPE_TICK = k_EControllerHapticType_Tick,
-			CONTROLLER_HAPTIC_TYPE_CLICK = k_EControllerHapticType_Click
-		};
-		enum ControllerPad {
-			STEAM_CONTROLLER_PAD_LEFT = k_ESteamControllerPad_Left,
-			STEAM_CONTROLLER_PAD_RIGHT = k_ESteamControllerPad_Right
-		};
-		enum InputActionEventType {
-			INPUT_ACTION_EVENT_TYPE_DIGITAL_ACTION = ESteamInputActionEventType_DigitalAction,
-			INPUT_ACTION_EVENT_TYPE_ANALOG_ACTION = ESteamInputActionEventType_AnalogAction
-		};
-		enum InputActionOrigin {
-			INPUT_ACTION_ORIGIN_NONE = k_EInputActionOrigin_None,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_A = k_EInputActionOrigin_SteamController_A,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_B = k_EInputActionOrigin_SteamController_B,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_X = k_EInputActionOrigin_SteamController_X,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_Y = k_EInputActionOrigin_SteamController_Y,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTBUMPER = k_EInputActionOrigin_SteamController_LeftBumper,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTBUMPER = k_EInputActionOrigin_SteamController_RightBumper,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTGRIP = k_EInputActionOrigin_SteamController_LeftGrip,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTGRIP = k_EInputActionOrigin_SteamController_RightGrip,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_START = k_EInputActionOrigin_SteamController_Start,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_BACK = k_EInputActionOrigin_SteamController_Back,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_TOUCH = k_EInputActionOrigin_SteamController_LeftPad_Touch,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_SWIPE = k_EInputActionOrigin_SteamController_LeftPad_Swipe,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_CLICK = k_EInputActionOrigin_SteamController_LeftPad_Click,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_DPADNORTH = k_EInputActionOrigin_SteamController_LeftPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_DPADSOUTH = k_EInputActionOrigin_SteamController_LeftPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_DPADWEST = k_EInputActionOrigin_SteamController_LeftPad_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTPAD_DPADEAST = k_EInputActionOrigin_SteamController_LeftPad_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_TOUCH = k_EInputActionOrigin_SteamController_RightPad_Touch,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_SWIPE = k_EInputActionOrigin_SteamController_RightPad_Swipe,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_CLICK = k_EInputActionOrigin_SteamController_RightPad_Click,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_DPADNORTH = k_EInputActionOrigin_SteamController_RightPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_DPADSOUTH = k_EInputActionOrigin_SteamController_RightPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_DPADWEST = k_EInputActionOrigin_SteamController_RightPad_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTPAD_DPADEAST = k_EInputActionOrigin_SteamController_RightPad_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTTRIGGER_PULL = k_EInputActionOrigin_SteamController_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTTRIGGER_CLICK = k_EInputActionOrigin_SteamController_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTTRIGGER_PULL = k_EInputActionOrigin_SteamController_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_SteamController_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_MOVE = k_EInputActionOrigin_SteamController_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_CLICK = k_EInputActionOrigin_SteamController_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_SteamController_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_SteamController_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_DPADWEST = k_EInputActionOrigin_SteamController_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_LEFTSTICK_DPADEAST = k_EInputActionOrigin_SteamController_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_GYRO_MOVE = k_EInputActionOrigin_SteamController_Gyro_Move,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_GYRO_PITCH = k_EInputActionOrigin_SteamController_Gyro_Pitch,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_GYRO_YAW = k_EInputActionOrigin_SteamController_Gyro_Yaw,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_GYRO_ROLL = k_EInputActionOrigin_SteamController_Gyro_Roll,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED0 = k_EInputActionOrigin_SteamController_Reserved0,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED1 = k_EInputActionOrigin_SteamController_Reserved1,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED2 = k_EInputActionOrigin_SteamController_Reserved2,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED3 = k_EInputActionOrigin_SteamController_Reserved3,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED4 = k_EInputActionOrigin_SteamController_Reserved4,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED5 = k_EInputActionOrigin_SteamController_Reserved5,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED6 = k_EInputActionOrigin_SteamController_Reserved6,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED7 = k_EInputActionOrigin_SteamController_Reserved7,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED8 = k_EInputActionOrigin_SteamController_Reserved8,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED9 = k_EInputActionOrigin_SteamController_Reserved9,
-			INPUT_ACTION_ORIGIN_STEAMCONTROLLER_RESERVED10 = k_EInputActionOrigin_SteamController_Reserved10,
-			INPUT_ACTION_ORIGIN_PS4_X = k_EInputActionOrigin_PS4_X,
-			INPUT_ACTION_ORIGIN_PS4_CIRCLE = k_EInputActionOrigin_PS4_Circle,
-			INPUT_ACTION_ORIGIN_PS4_TRIANGLE = k_EInputActionOrigin_PS4_Triangle,
-			INPUT_ACTION_ORIGIN_PS4_SQUARE = k_EInputActionOrigin_PS4_Square,
-			INPUT_ACTION_ORIGIN_PS4_LEFTBUMPER = k_EInputActionOrigin_PS4_LeftBumper,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTBUMPER = k_EInputActionOrigin_PS4_RightBumper,
-			INPUT_ACTION_ORIGIN_PS4_OPTIONS = k_EInputActionOrigin_PS4_Options,
-			INPUT_ACTION_ORIGIN_PS4_SHARE = k_EInputActionOrigin_PS4_Share,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_TOUCH = k_EInputActionOrigin_PS4_LeftPad_Touch,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_SWIPE = k_EInputActionOrigin_PS4_LeftPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_CLICK = k_EInputActionOrigin_PS4_LeftPad_Click,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_DPADNORTH = k_EInputActionOrigin_PS4_LeftPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_DPADSOUTH = k_EInputActionOrigin_PS4_LeftPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_DPADWEST = k_EInputActionOrigin_PS4_LeftPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS4_LEFTPAD_DPADEAST = k_EInputActionOrigin_PS4_LeftPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_TOUCH = k_EInputActionOrigin_PS4_RightPad_Touch,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_SWIPE = k_EInputActionOrigin_PS4_RightPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_CLICK = k_EInputActionOrigin_PS4_RightPad_Click,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_DPADNORTH = k_EInputActionOrigin_PS4_RightPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_DPADSOUTH = k_EInputActionOrigin_PS4_RightPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_DPADWEST = k_EInputActionOrigin_PS4_RightPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTPAD_DPADEAST = k_EInputActionOrigin_PS4_RightPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_TOUCH = k_EInputActionOrigin_PS4_CenterPad_Touch,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_SWIPE = k_EInputActionOrigin_PS4_CenterPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_CLICK = k_EInputActionOrigin_PS4_CenterPad_Click,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_DPADNORTH = k_EInputActionOrigin_PS4_CenterPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_DPADSOUTH = k_EInputActionOrigin_PS4_CenterPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_DPADWEST = k_EInputActionOrigin_PS4_CenterPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS4_CENTERPAD_DPADEAST = k_EInputActionOrigin_PS4_CenterPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS4_LEFTTRIGGER_PULL = k_EInputActionOrigin_PS4_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_PS4_LEFTTRIGGER_CLICK = k_EInputActionOrigin_PS4_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTTRIGGER_PULL = k_EInputActionOrigin_PS4_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_PS4_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_MOVE = k_EInputActionOrigin_PS4_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_CLICK = k_EInputActionOrigin_PS4_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_PS4_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_PS4_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_DPADWEST = k_EInputActionOrigin_PS4_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_PS4_LEFTSTICK_DPADEAST = k_EInputActionOrigin_PS4_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_MOVE = k_EInputActionOrigin_PS4_RightStick_Move,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_CLICK = k_EInputActionOrigin_PS4_RightStick_Click,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_PS4_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_PS4_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_PS4_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_PS4_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_PS4_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_PS4_DPAD_NORTH = k_EInputActionOrigin_PS4_DPad_North,
-			INPUT_ACTION_ORIGIN_PS4_DPAD_SOUTH = k_EInputActionOrigin_PS4_DPad_South,
-			INPUT_ACTION_ORIGIN_PS4_DPAD_WEST = k_EInputActionOrigin_PS4_DPad_West,
-			INPUT_ACTION_ORIGIN_PS4_DPAD_EAST = k_EInputActionOrigin_PS4_DPad_East,
-			INPUT_ACTION_ORIGIN_PS4_GYRO_MOVE = k_EInputActionOrigin_PS4_Gyro_Move,
-			INPUT_ACTION_ORIGIN_PS4_GYRO_PITCH = k_EInputActionOrigin_PS4_Gyro_Pitch,
-			INPUT_ACTION_ORIGIN_PS4_GYRO_YAW = k_EInputActionOrigin_PS4_Gyro_Yaw,
-			INPUT_ACTION_ORIGIN_PS4_GYRO_ROLL = k_EInputActionOrigin_PS4_Gyro_Roll,
-			INPUT_ACTION_ORIGIN_PS4_DPAD_MOVE = k_EInputActionOrigin_PS4_DPad_Move,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED1 = k_EInputActionOrigin_PS4_Reserved1,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED2 = k_EInputActionOrigin_PS4_Reserved2,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED3 = k_EInputActionOrigin_PS4_Reserved3,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED4 = k_EInputActionOrigin_PS4_Reserved4,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED5 = k_EInputActionOrigin_PS4_Reserved5,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED6 = k_EInputActionOrigin_PS4_Reserved6,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED7 = k_EInputActionOrigin_PS4_Reserved7,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED8 = k_EInputActionOrigin_PS4_Reserved8,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED9 = k_EInputActionOrigin_PS4_Reserved9,
-			INPUT_ACTION_ORIGIN_PS4_RESERVED10 = k_EInputActionOrigin_PS4_Reserved10,
-			INPUT_ACTION_ORIGIN_XBOXONE_A = k_EInputActionOrigin_XBoxOne_A,
-			INPUT_ACTION_ORIGIN_XBOXONE_B = k_EInputActionOrigin_XBoxOne_B,
-			INPUT_ACTION_ORIGIN_XBOXONE_X = k_EInputActionOrigin_XBoxOne_X,
-			INPUT_ACTION_ORIGIN_XBOXONE_Y = k_EInputActionOrigin_XBoxOne_Y,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTBUMPER = k_EInputActionOrigin_XBoxOne_LeftBumper,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTBUMPER = k_EInputActionOrigin_XBoxOne_RightBumper,
-			INPUT_ACTION_ORIGIN_XBOXONE_MENU = k_EInputActionOrigin_XBoxOne_Menu,
-			INPUT_ACTION_ORIGIN_XBOXONE_VIEW = k_EInputActionOrigin_XBoxOne_View,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTTRIGGER_PULL = k_EInputActionOrigin_XBoxOne_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTTRIGGER_CLICK = k_EInputActionOrigin_XBoxOne_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTTRIGGER_PULL = k_EInputActionOrigin_XBoxOne_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_XBoxOne_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_MOVE = k_EInputActionOrigin_XBoxOne_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_CLICK = k_EInputActionOrigin_XBoxOne_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_XBoxOne_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_XBoxOne_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_DPADWEST = k_EInputActionOrigin_XBoxOne_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTSTICK_DPADEAST = k_EInputActionOrigin_XBoxOne_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_MOVE = k_EInputActionOrigin_XBoxOne_RightStick_Move,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_CLICK = k_EInputActionOrigin_XBoxOne_RightStick_Click,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_XBoxOne_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_XBoxOne_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_XBoxOne_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_XBoxOne_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_XBOXONE_DPAD_NORTH = k_EInputActionOrigin_XBoxOne_DPad_North,
-			INPUT_ACTION_ORIGIN_XBOXONE_DPAD_SOUTH = k_EInputActionOrigin_XBoxOne_DPad_South,
-			INPUT_ACTION_ORIGIN_XBOXONE_DPAD_WEST = k_EInputActionOrigin_XBoxOne_DPad_West,
-			INPUT_ACTION_ORIGIN_XBOXONE_DPAD_EAST = k_EInputActionOrigin_XBoxOne_DPad_East,
-			INPUT_ACTION_ORIGIN_XBOXONE_DPAD_MOVE = k_EInputActionOrigin_XBoxOne_DPad_Move,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTGRIP_LOWER = k_EInputActionOrigin_XBoxOne_LeftGrip_Lower,
-			INPUT_ACTION_ORIGIN_XBOXONE_LEFTGRIP_UPPER = k_EInputActionOrigin_XBoxOne_LeftGrip_Upper,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTGRIP_LOWER = k_EInputActionOrigin_XBoxOne_RightGrip_Lower,
-			INPUT_ACTION_ORIGIN_XBOXONE_RIGHTGRIP_UPPER = k_EInputActionOrigin_XBoxOne_RightGrip_Upper,
-			INPUT_ACTION_ORIGIN_XBOXONE_SHARE = k_EInputActionOrigin_XBoxOne_Share,
-			INPUT_ACTION_ORIGIN_XBOXONE_RESERVED6 = k_EInputActionOrigin_XBoxOne_Reserved6,
-			INPUT_ACTION_ORIGIN_XBOXONE_RESERVED7 = k_EInputActionOrigin_XBoxOne_Reserved7,
-			INPUT_ACTION_ORIGIN_XBOXONE_RESERVED8 = k_EInputActionOrigin_XBoxOne_Reserved8,
-			INPUT_ACTION_ORIGIN_XBOXONE_RESERVED9 = k_EInputActionOrigin_XBoxOne_Reserved9,
-			INPUT_ACTION_ORIGIN_XBOXONE_RESERVED10 = k_EInputActionOrigin_XBoxOne_Reserved10,
-			INPUT_ACTION_ORIGIN_XBOX360_A = k_EInputActionOrigin_XBox360_A,
-			INPUT_ACTION_ORIGIN_XBOX360_B = k_EInputActionOrigin_XBox360_B,
-			INPUT_ACTION_ORIGIN_XBOX360_X = k_EInputActionOrigin_XBox360_X,
-			INPUT_ACTION_ORIGIN_XBOX360_Y = k_EInputActionOrigin_XBox360_Y,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTBUMPER = k_EInputActionOrigin_XBox360_LeftBumper,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTBUMPER = k_EInputActionOrigin_XBox360_RightBumper,
-			INPUT_ACTION_ORIGIN_XBOX360_START = k_EInputActionOrigin_XBox360_Start,
-			INPUT_ACTION_ORIGIN_XBOX360_BACK = k_EInputActionOrigin_XBox360_Back,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTTRIGGER_PULL = k_EInputActionOrigin_XBox360_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTTRIGGER_CLICK = k_EInputActionOrigin_XBox360_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTTRIGGER_PULL = k_EInputActionOrigin_XBox360_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_XBox360_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_MOVE = k_EInputActionOrigin_XBox360_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_CLICK = k_EInputActionOrigin_XBox360_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_XBox360_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_XBox360_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_DPADWEST = k_EInputActionOrigin_XBox360_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_XBOX360_LEFTSTICK_DPADEAST = k_EInputActionOrigin_XBox360_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_MOVE = k_EInputActionOrigin_XBox360_RightStick_Move,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_CLICK = k_EInputActionOrigin_XBox360_RightStick_Click,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_XBox360_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_XBox360_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_XBox360_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_XBOX360_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_XBox360_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_XBOX360_DPAD_NORTH = k_EInputActionOrigin_XBox360_DPad_North,
-			INPUT_ACTION_ORIGIN_XBOX360_DPAD_SOUTH = k_EInputActionOrigin_XBox360_DPad_South,
-			INPUT_ACTION_ORIGIN_XBOX360_DPAD_WEST = k_EInputActionOrigin_XBox360_DPad_West,
-			INPUT_ACTION_ORIGIN_XBOX360_DPAD_EAST = k_EInputActionOrigin_XBox360_DPad_East,
-			INPUT_ACTION_ORIGIN_XBOX360_DPAD_MOVE = k_EInputActionOrigin_XBox360_DPad_Move,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED1 = k_EInputActionOrigin_XBox360_Reserved1,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED2 = k_EInputActionOrigin_XBox360_Reserved2,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED3 = k_EInputActionOrigin_XBox360_Reserved3,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED4 = k_EInputActionOrigin_XBox360_Reserved4,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED5 = k_EInputActionOrigin_XBox360_Reserved5,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED6 = k_EInputActionOrigin_XBox360_Reserved6,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED7 = k_EInputActionOrigin_XBox360_Reserved7,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED8 = k_EInputActionOrigin_XBox360_Reserved8,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED9 = k_EInputActionOrigin_XBox360_Reserved9,
-			INPUT_ACTION_ORIGIN_XBOX360_RESERVED10 = k_EInputActionOrigin_XBox360_Reserved10,
-			INPUT_ACTION_ORIGIN_SWITCH_A = k_EInputActionOrigin_Switch_A,
-			INPUT_ACTION_ORIGIN_SWITCH_B = k_EInputActionOrigin_Switch_B,
-			INPUT_ACTION_ORIGIN_SWITCH_X = k_EInputActionOrigin_Switch_X,
-			INPUT_ACTION_ORIGIN_SWITCH_Y = k_EInputActionOrigin_Switch_Y,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTBUMPER = k_EInputActionOrigin_Switch_LeftBumper,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTBUMPER = k_EInputActionOrigin_Switch_RightBumper,
-			INPUT_ACTION_ORIGIN_SWITCH_PLUS = k_EInputActionOrigin_Switch_Plus,
-			INPUT_ACTION_ORIGIN_SWITCH_MINUS = k_EInputActionOrigin_Switch_Minus,
-			INPUT_ACTION_ORIGIN_SWITCH_CAPTURE = k_EInputActionOrigin_Switch_Capture,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTTRIGGER_PULL = k_EInputActionOrigin_Switch_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTTRIGGER_CLICK = k_EInputActionOrigin_Switch_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTTRIGGER_PULL = k_EInputActionOrigin_Switch_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_Switch_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_MOVE = k_EInputActionOrigin_Switch_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_CLICK = k_EInputActionOrigin_Switch_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_Switch_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_Switch_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_DPADWEST = k_EInputActionOrigin_Switch_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTSTICK_DPADEAST = k_EInputActionOrigin_Switch_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_MOVE = k_EInputActionOrigin_Switch_RightStick_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_CLICK = k_EInputActionOrigin_Switch_RightStick_Click,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_Switch_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_Switch_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_Switch_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_Switch_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_SWITCH_DPAD_NORTH = k_EInputActionOrigin_Switch_DPad_North,
-			INPUT_ACTION_ORIGIN_SWITCH_DPAD_SOUTH = k_EInputActionOrigin_Switch_DPad_South,
-			INPUT_ACTION_ORIGIN_SWITCH_DPAD_WEST = k_EInputActionOrigin_Switch_DPad_West,
-			INPUT_ACTION_ORIGIN_SWITCH_DPAD_EAST = k_EInputActionOrigin_Switch_DPad_East,
-			INPUT_ACTION_ORIGIN_SWITCH_PROGYRO_MOVE = k_EInputActionOrigin_Switch_ProGyro_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_PROGYRO_PITCH = k_EInputActionOrigin_Switch_ProGyro_Pitch,
-			INPUT_ACTION_ORIGIN_SWITCH_PROGYRO_YAW = k_EInputActionOrigin_Switch_ProGyro_Yaw,
-			INPUT_ACTION_ORIGIN_SWITCH_PROGYRO_ROLL = k_EInputActionOrigin_Switch_ProGyro_Roll,
-			INPUT_ACTION_ORIGIN_SWITCH_DPAD_MOVE = k_EInputActionOrigin_Switch_DPad_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED1 = k_EInputActionOrigin_Switch_Reserved1,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED2 = k_EInputActionOrigin_Switch_Reserved2,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED3 = k_EInputActionOrigin_Switch_Reserved3,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED4 = k_EInputActionOrigin_Switch_Reserved4,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED5 = k_EInputActionOrigin_Switch_Reserved5,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED6 = k_EInputActionOrigin_Switch_Reserved6,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED7 = k_EInputActionOrigin_Switch_Reserved7,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED8 = k_EInputActionOrigin_Switch_Reserved8,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED9 = k_EInputActionOrigin_Switch_Reserved9,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED10 = k_EInputActionOrigin_Switch_Reserved10,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGYRO_MOVE = k_EInputActionOrigin_Switch_RightGyro_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGYRO_PITCH = k_EInputActionOrigin_Switch_RightGyro_Pitch,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGYRO_YAW = k_EInputActionOrigin_Switch_RightGyro_Yaw,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGYRO_ROLL = k_EInputActionOrigin_Switch_RightGyro_Roll,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGYRO_MOVE = k_EInputActionOrigin_Switch_LeftGyro_Move,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGYRO_PITCH = k_EInputActionOrigin_Switch_LeftGyro_Pitch,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGYRO_YAW = k_EInputActionOrigin_Switch_LeftGyro_Yaw,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGYRO_ROLL = k_EInputActionOrigin_Switch_LeftGyro_Roll,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGRIP_LOWER = k_EInputActionOrigin_Switch_LeftGrip_Lower,
-			INPUT_ACTION_ORIGIN_SWITCH_LEFTGRIP_UPPER = k_EInputActionOrigin_Switch_LeftGrip_Upper,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGRIP_LOWER = k_EInputActionOrigin_Switch_RightGrip_Lower,
-			INPUT_ACTION_ORIGIN_SWITCH_RIGHTGRIP_UPPER = k_EInputActionOrigin_Switch_RightGrip_Upper,
-			INPUT_ACTION_ORIGIN_SWITCH_JOYCON_BUTTON_N = k_EInputActionOrigin_Switch_JoyConButton_N,
-			INPUT_ACTION_ORIGIN_SWITCH_JOYCON_BUTTON_E = k_EInputActionOrigin_Switch_JoyConButton_E,
-			INPUT_ACTION_ORIGIN_SWITCH_JOYCON_BUTTON_S = k_EInputActionOrigin_Switch_JoyConButton_S,
-			INPUT_ACTION_ORIGIN_SWITCH_JOYCON_BUTTON_W = k_EInputActionOrigin_Switch_JoyConButton_W,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED15 = k_EInputActionOrigin_Switch_Reserved15,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED16 = k_EInputActionOrigin_Switch_Reserved16,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED17 = k_EInputActionOrigin_Switch_Reserved17,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED18 = k_EInputActionOrigin_Switch_Reserved18,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED19 = k_EInputActionOrigin_Switch_Reserved19,
-			INPUT_ACTION_ORIGIN_SWITCH_RESERVED20 = k_EInputActionOrigin_Switch_Reserved20,
-			INPUT_ACTION_ORIGIN_PS5_X = k_EInputActionOrigin_PS5_X,
-			INPUT_ACTION_ORIGIN_PS5_CIRCLE = k_EInputActionOrigin_PS5_Circle,
-			INPUT_ACTION_ORIGIN_PS5_TRIANGLE = k_EInputActionOrigin_PS5_Triangle,
-			INPUT_ACTION_ORIGIN_PS5_SQUARE = k_EInputActionOrigin_PS5_Square,
-			INPUT_ACTION_ORIGIN_PS5_LEFTBUMPER = k_EInputActionOrigin_PS5_LeftBumper,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTBUMPER = k_EInputActionOrigin_PS5_RightBumper,
-			INPUT_ACTION_ORIGIN_PS5_OPTION = k_EInputActionOrigin_PS5_Option,
-			INPUT_ACTION_ORIGIN_PS5_CREATE = k_EInputActionOrigin_PS5_Create,
-			INPUT_ACTION_ORIGIN_PS5_MUTE = k_EInputActionOrigin_PS5_Mute,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_TOUCH = k_EInputActionOrigin_PS5_LeftPad_Touch,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_SWIPE = k_EInputActionOrigin_PS5_LeftPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_CLICK = k_EInputActionOrigin_PS5_LeftPad_Click,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_DPADNORTH = k_EInputActionOrigin_PS5_LeftPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_DPADSOUTH = k_EInputActionOrigin_PS5_LeftPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_DPADWEST = k_EInputActionOrigin_PS5_LeftPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS5_LEFTPAD_DPADEAST = k_EInputActionOrigin_PS5_LeftPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_TOUCH = k_EInputActionOrigin_PS5_RightPad_Touch,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_SWIPE = k_EInputActionOrigin_PS5_RightPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_CLICK = k_EInputActionOrigin_PS5_RightPad_Click,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_DPADNORTH = k_EInputActionOrigin_PS5_RightPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_DPADSOUTH = k_EInputActionOrigin_PS5_RightPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_DPADWEST = k_EInputActionOrigin_PS5_RightPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTPAD_DPADEAST = k_EInputActionOrigin_PS5_RightPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_TOUCH = k_EInputActionOrigin_PS5_CenterPad_Touch,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_SWIPE = k_EInputActionOrigin_PS5_CenterPad_Swipe,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_CLICK = k_EInputActionOrigin_PS5_CenterPad_Click,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_DPADNORTH = k_EInputActionOrigin_PS5_CenterPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_DPADSOUTH = k_EInputActionOrigin_PS5_CenterPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_DPADWEST = k_EInputActionOrigin_PS5_CenterPad_DPadWest,
-			INPUT_ACTION_ORIGIN_PS5_CENTERPAD_DPADEAST = k_EInputActionOrigin_PS5_CenterPad_DPadEast,
-			INPUT_ACTION_ORIGIN_PS5_LEFTTRIGGER_PULL = k_EInputActionOrigin_PS5_LeftTrigger_Pull,
-			INPUT_ACTION_ORIGIN_PS5_LEFTTRIGGER_CLICK = k_EInputActionOrigin_PS5_LeftTrigger_Click,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTTRIGGER_PULL = k_EInputActionOrigin_PS5_RightTrigger_Pull,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTTRIGGER_CLICK = k_EInputActionOrigin_PS5_RightTrigger_Click,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_MOVE = k_EInputActionOrigin_PS5_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_CLICK = k_EInputActionOrigin_PS5_LeftStick_Click,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_PS5_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_PS5_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_DPADWEST = k_EInputActionOrigin_PS5_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_PS5_LEFTSTICK_DPADEAST = k_EInputActionOrigin_PS5_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_MOVE = k_EInputActionOrigin_PS5_RightStick_Move,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_CLICK = k_EInputActionOrigin_PS5_RightStick_Click,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_PS5_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_PS5_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_PS5_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_PS5_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_PS5_DPAD_NORTH = k_EInputActionOrigin_PS5_DPad_North,
-			INPUT_ACTION_ORIGIN_PS5_DPAD_SOUTH = k_EInputActionOrigin_PS5_DPad_South,
-			INPUT_ACTION_ORIGIN_PS5_DPAD_WEST = k_EInputActionOrigin_PS5_DPad_West,
-			INPUT_ACTION_ORIGIN_PS5_DPAD_EAST = k_EInputActionOrigin_PS5_DPad_East,
-			INPUT_ACTION_ORIGIN_PS5_GYRO_MOVE = k_EInputActionOrigin_PS5_Gyro_Move,
-			INPUT_ACTION_ORIGIN_PS5_GYRO_PITCH = k_EInputActionOrigin_PS5_Gyro_Pitch,
-			INPUT_ACTION_ORIGIN_PS5_GYRO_YAW = k_EInputActionOrigin_PS5_Gyro_Yaw,
-			INPUT_ACTION_ORIGIN_PS5_GYRO_ROLL = k_EInputActionOrigin_PS5_Gyro_Roll,
-			INPUT_ACTION_ORIGIN_PS5_DPAD_MOVE = k_EInputActionOrigin_PS5_DPad_Move,
-			INPUT_ACTION_ORIGIN_PS5_LEFTGRIP = k_EInputActionOrigin_PS5_LeftGrip,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTGRIP = k_EInputActionOrigin_PS5_RightGrip,
-			INPUT_ACTION_ORIGIN_PS5_LEFTFN = k_EInputActionOrigin_PS5_LeftFn,
-			INPUT_ACTION_ORIGIN_PS5_RIGHTFN = k_EInputActionOrigin_PS5_RightFn,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED5 = k_EInputActionOrigin_PS5_Reserved5,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED6 = k_EInputActionOrigin_PS5_Reserved6,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED7 = k_EInputActionOrigin_PS5_Reserved7,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED8 = k_EInputActionOrigin_PS5_Reserved8,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED9 = k_EInputActionOrigin_PS5_Reserved9,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED10 = k_EInputActionOrigin_PS5_Reserved10,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED11 = k_EInputActionOrigin_PS5_Reserved11,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED12 = k_EInputActionOrigin_PS5_Reserved12,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED13 = k_EInputActionOrigin_PS5_Reserved13,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED14 = k_EInputActionOrigin_PS5_Reserved14,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED15 = k_EInputActionOrigin_PS5_Reserved15,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED16 = k_EInputActionOrigin_PS5_Reserved16,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED17 = k_EInputActionOrigin_PS5_Reserved17,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED18 = k_EInputActionOrigin_PS5_Reserved18,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED19 = k_EInputActionOrigin_PS5_Reserved19,
-			INPUT_ACTION_ORIGIN_PS5_RESERVED20 = k_EInputActionOrigin_PS5_Reserved20,
-			INPUT_ACTION_ORIGIN_STEAMDECK_A = k_EInputActionOrigin_SteamDeck_A,
-			INPUT_ACTION_ORIGIN_STEAMDECK_B = k_EInputActionOrigin_SteamDeck_B,
-			INPUT_ACTION_ORIGIN_STEAMDECK_X = k_EInputActionOrigin_SteamDeck_X,
-			INPUT_ACTION_ORIGIN_STEAMDECK_Y = k_EInputActionOrigin_SteamDeck_Y,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L1 = k_EInputActionOrigin_SteamDeck_L1,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R1 = k_EInputActionOrigin_SteamDeck_R1,
-			INPUT_ACTION_ORIGIN_STEAMDECK_MENU = k_EInputActionOrigin_SteamDeck_Menu,
-			INPUT_ACTION_ORIGIN_STEAMDECK_VIEW = k_EInputActionOrigin_SteamDeck_View,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_TOUCH = k_EInputActionOrigin_SteamDeck_LeftPad_Touch,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_SWIPE = k_EInputActionOrigin_SteamDeck_LeftPad_Swipe,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_CLICK = k_EInputActionOrigin_SteamDeck_LeftPad_Click,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_DPADNORTH = k_EInputActionOrigin_SteamDeck_LeftPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_DPADSOUTH = k_EInputActionOrigin_SteamDeck_LeftPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_DPADWEST = k_EInputActionOrigin_SteamDeck_LeftPad_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTPAD_DPADEAST = k_EInputActionOrigin_SteamDeck_LeftPad_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_TOUCH = k_EInputActionOrigin_SteamDeck_RightPad_Touch,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_SWIPE = k_EInputActionOrigin_SteamDeck_RightPad_Swipe,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_CLICK = k_EInputActionOrigin_SteamDeck_RightPad_Click,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_DPADNORTH = k_EInputActionOrigin_SteamDeck_RightPad_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_DPADSOUTH = k_EInputActionOrigin_SteamDeck_RightPad_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_DPADWEST = k_EInputActionOrigin_SteamDeck_RightPad_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTPAD_DPADEAST = k_EInputActionOrigin_SteamDeck_RightPad_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L2_SOFTPULL = k_EInputActionOrigin_SteamDeck_L2_SoftPull,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L2 = k_EInputActionOrigin_SteamDeck_L2,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R2_SOFTPULL = k_EInputActionOrigin_SteamDeck_R2_SoftPull,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R2 = k_EInputActionOrigin_SteamDeck_R2,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_MOVE = k_EInputActionOrigin_SteamDeck_LeftStick_Move,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L3 = k_EInputActionOrigin_SteamDeck_L3,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_DPADNORTH = k_EInputActionOrigin_SteamDeck_LeftStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_DPADSOUTH = k_EInputActionOrigin_SteamDeck_LeftStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_DPADWEST = k_EInputActionOrigin_SteamDeck_LeftStick_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_DPADEAST = k_EInputActionOrigin_SteamDeck_LeftStick_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMDECK_LEFTSTICK_TOUCH = k_EInputActionOrigin_SteamDeck_LeftStick_Touch,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_MOVE = k_EInputActionOrigin_SteamDeck_RightStick_Move,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R3 = k_EInputActionOrigin_SteamDeck_R3,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_DPADNORTH = k_EInputActionOrigin_SteamDeck_RightStick_DPadNorth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_DPADSOUTH = k_EInputActionOrigin_SteamDeck_RightStick_DPadSouth,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_DPADWEST = k_EInputActionOrigin_SteamDeck_RightStick_DPadWest,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_DPADEAST = k_EInputActionOrigin_SteamDeck_RightStick_DPadEast,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RIGHTSTICK_TOUCH = k_EInputActionOrigin_SteamDeck_RightStick_Touch,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L4 = k_EInputActionOrigin_SteamDeck_L4,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R4 = k_EInputActionOrigin_SteamDeck_R4,
-			INPUT_ACTION_ORIGIN_STEAMDECK_L5 = k_EInputActionOrigin_SteamDeck_L5,
-			INPUT_ACTION_ORIGIN_STEAMDECK_R5 = k_EInputActionOrigin_SteamDeck_R5,
-			INPUT_ACTION_ORIGIN_STEAMDECK_DPAD_MOVE = k_EInputActionOrigin_SteamDeck_DPad_Move,
-			INPUT_ACTION_ORIGIN_STEAMDECK_DPAD_NORTH = k_EInputActionOrigin_SteamDeck_DPad_North,
-			INPUT_ACTION_ORIGIN_STEAMDECK_DPAD_SOUTH = k_EInputActionOrigin_SteamDeck_DPad_South,
-			INPUT_ACTION_ORIGIN_STEAMDECK_DPAD_WEST = k_EInputActionOrigin_SteamDeck_DPad_West,
-			INPUT_ACTION_ORIGIN_STEAMDECK_DPAD_EAST = k_EInputActionOrigin_SteamDeck_DPad_East,
-			INPUT_ACTION_ORIGIN_STEAMDECK_GYRO_MOVE = k_EInputActionOrigin_SteamDeck_Gyro_Move,
-			INPUT_ACTION_ORIGIN_STEAMDECK_GYRO_PITCH = k_EInputActionOrigin_SteamDeck_Gyro_Pitch,
-			INPUT_ACTION_ORIGIN_STEAMDECK_GYRO_YAW = k_EInputActionOrigin_SteamDeck_Gyro_Yaw,
-			INPUT_ACTION_ORIGIN_STEAMDECK_GYRO_ROLL = k_EInputActionOrigin_SteamDeck_Gyro_Roll,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED1 = k_EInputActionOrigin_SteamDeck_Reserved1,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED2 = k_EInputActionOrigin_SteamDeck_Reserved2,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED3 = k_EInputActionOrigin_SteamDeck_Reserved3,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED4 = k_EInputActionOrigin_SteamDeck_Reserved4,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED5 = k_EInputActionOrigin_SteamDeck_Reserved5,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED6 = k_EInputActionOrigin_SteamDeck_Reserved6,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED7 = k_EInputActionOrigin_SteamDeck_Reserved7,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED8 = k_EInputActionOrigin_SteamDeck_Reserved8,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED9 = k_EInputActionOrigin_SteamDeck_Reserved9,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED10 = k_EInputActionOrigin_SteamDeck_Reserved10,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED11 = k_EInputActionOrigin_SteamDeck_Reserved11,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED12 = k_EInputActionOrigin_SteamDeck_Reserved12,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED13 = k_EInputActionOrigin_SteamDeck_Reserved13,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED14 = k_EInputActionOrigin_SteamDeck_Reserved14,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED15 = k_EInputActionOrigin_SteamDeck_Reserved15,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED16 = k_EInputActionOrigin_SteamDeck_Reserved16,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED17 = k_EInputActionOrigin_SteamDeck_Reserved17,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED18 = k_EInputActionOrigin_SteamDeck_Reserved18,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED19 = k_EInputActionOrigin_SteamDeck_Reserved19,
-			INPUT_ACTION_ORIGIN_STEAMDECK_RESERVED20 = k_EInputActionOrigin_SteamDeck_Reserved20,
-			INPUT_ACTION_ORIGIN_COUNT = k_EInputActionOrigin_Count,
-			INPUT_ACTION_ORIGIN_MAXIMUM_POSSIBLE_VALUE = k_EInputActionOrigin_MaximumPossibleValue
-		};
-		enum InputConfigurationEnableType {
-			INPUT_CONFIGURATION_ENABLE_TYPE_NONE = k_ESteamInputConfigurationEnableType_None,
-			INPUT_CONFIGURATION_ENABLE_TYPE_PLAYSTATION = k_ESteamInputConfigurationEnableType_Playstation,
-			INPUT_CONFIGURATION_ENABLE_TYPE_XBOX = k_ESteamInputConfigurationEnableType_Xbox,
-			INPUT_CONFIGURATION_ENABLE_TYPE_GENERIC = k_ESteamInputConfigurationEnableType_Generic,
-			INPUT_CONFIGURATION_ENABLE_TYPE_SWITCH = k_ESteamInputConfigurationEnableType_Switch
-		};
-		enum InputGlyphSize {
-			INPUT_GLYPH_SIZE_SMALL = k_ESteamInputGlyphSize_Small,
-			INPUT_GLYPH_SIZE_MEDIUM = k_ESteamInputGlyphSize_Medium,
-			INPUT_GLYPH_SIZE_LARGE = k_ESteamInputGlyphSize_Large,
-			INPUT_GLYPH_SIZE_COUNT = k_ESteamInputGlyphSize_Count
-		};
-		enum InputGlyphStyle {
-			INPUT_GLYPH_STYLE_KNOCKOUT = ESteamInputGlyphStyle_Knockout,
-			INPUT_GLYPH_STYLE_LIGHT = ESteamInputGlyphStyle_Light,
-			INPUT_GLYPH_STYLE_DARK = ESteamInputGlyphStyle_Dark,
-			INPUT_GLYPH_STYLE_NEUTRAL_COLOR_ABXY = ESteamInputGlyphStyle_NeutralColorABXY,
-			INPUT_GLYPH_STYLE_SOLID_ABXY = ESteamInputGlyphStyle_SolidABXY
-		};
-		enum InputLEDFlag {
-			INPUT_LED_FLAG_SET_COLOR = k_ESteamInputLEDFlag_SetColor,
-			INPUT_LED_FLAG_RESTORE_USER_DEFAULT = k_ESteamInputLEDFlag_RestoreUserDefault
-		};
-		enum InputSourceMode {
-			INPUT_SOURCE_MODE_NONE = k_EInputSourceMode_None,
-			INPUT_SOURCE_MODE_DPAD = k_EInputSourceMode_Dpad,
-			INPUT_SOURCE_MODE_BUTTONS = k_EInputSourceMode_Buttons,
-			INPUT_SOURCE_MODE_FOUR_BUTTONS = k_EInputSourceMode_FourButtons,
-			INPUT_SOURCE_MODE_ABSOLUTE_MOUSE = k_EInputSourceMode_AbsoluteMouse,
-			INPUT_SOURCE_MODE_RELATIVE_MOUSE = k_EInputSourceMode_RelativeMouse,
-			INPUT_SOURCE_MODE_JOYSTICK_MOVE = k_EInputSourceMode_JoystickMove,
-			INPUT_SOURCE_MODE_JOYSTICK_MOUSE = k_EInputSourceMode_JoystickMouse,
-			INPUT_SOURCE_MODE_JOYSTICK_CAMERA = k_EInputSourceMode_JoystickCamera,
-			INPUT_SOURCE_MODE_SCROLL_WHEEL = k_EInputSourceMode_ScrollWheel,
-			INPUT_SOURCE_MODE_TRIGGER = k_EInputSourceMode_Trigger,
-			INPUT_SOURCE_MODE_TOUCH_MENU = k_EInputSourceMode_TouchMenu,
-			INPUT_SOURCE_MODE_MOUSE_JOYSTICK = k_EInputSourceMode_MouseJoystick,
-			INPUT_SOURCE_MODE_MOUSE_REGION = k_EInputSourceMode_MouseRegion,
-			INPUT_SOURCE_MODE_RADIAL_MENU = k_EInputSourceMode_RadialMenu,
-			INPUT_SOURCE_MODE_SINGLE_BUTTON = k_EInputSourceMode_SingleButton,
-			INPUT_SOURCE_MODE_SWITCH = k_EInputSourceMode_Switches
-		};
-		enum InputType {
-			INPUT_TYPE_UNKNOWN = k_ESteamInputType_Unknown,
-			INPUT_TYPE_STEAM_CONTROLLER = k_ESteamInputType_SteamController,
-			INPUT_TYPE_XBOX360_CONTROLLER = k_ESteamInputType_XBox360Controller,
-			INPUT_TYPE_XBOXONE_CONTROLLER = k_ESteamInputType_XBoxOneController,
-			INPUT_TYPE_GENERIC_XINPUT = k_ESteamInputType_GenericGamepad,
-			INPUT_TYPE_PS4_CONTROLLER = k_ESteamInputType_PS4Controller,
-			INPUT_TYPE_APPLE_MFI_CONTROLLER = k_ESteamInputType_AppleMFiController,
-			INPUT_TYPE_ANDROID_CONTROLLER = k_ESteamInputType_AndroidController,
-			INPUT_TYPE_SWITCH_JOYCON_PAIR = k_ESteamInputType_SwitchJoyConPair,
-			INPUT_TYPE_SWITCH_JOYCON_SINGLE = k_ESteamInputType_SwitchJoyConSingle,
-			INPUT_TYPE_SWITCH_PRO_CONTROLLER = k_ESteamInputType_SwitchProController,
-			INPUT_TYPE_MOBILE_TOUCH = k_ESteamInputType_MobileTouch,
-			INPUT_TYPE_PS3_CONTROLLER = k_ESteamInputType_PS3Controller,
-			INPUT_TYPE_PS5_CONTROLLER = k_ESteamInputType_PS5Controller,
-			INPUT_TYPE_STEAM_DECK_CONTROLLER = k_ESteamInputType_SteamDeckController,
-			INPUT_TYPE_COUNT = k_ESteamInputType_Count,
-			INPUT_TYPE_MAXIMUM_POSSIBLE_VALUE = k_ESteamInputType_MaximumPossibleValue
-		};
-		enum XboxOrigin {
-			XBOX_ORIGIN_A = k_EXboxOrigin_A,
-			XBOX_ORIGIN_B = k_EXboxOrigin_B,
-			XBOX_ORIGIN_X = k_EXboxOrigin_X,
-			XBOX_ORIGIN_Y = k_EXboxOrigin_Y,
-			XBOX_ORIGIN_LEFT_BUMPER = k_EXboxOrigin_LeftBumper,
-			XBOX_ORIGIN_RIGHT_BUMPER = k_EXboxOrigin_RightBumper,
-			XBOX_ORIGIN_MENU = k_EXboxOrigin_Menu,
-			XBOX_ORIGIN_VIEW = k_EXboxOrigin_View,
-			XBOX_ORIGIN_LEFT_TRIGGER_PULL = k_EXboxOrigin_LeftTrigger_Pull,
-			XBOX_ORIGIN_LEFT_TRIGGER_CLICK = k_EXboxOrigin_LeftTrigger_Click,
-			XBOX_ORIGIN_RIGHT_TRIGGER_PULL = k_EXboxOrigin_RightTrigger_Pull,
-			XBOX_ORIGIN_RIGHT_TRIGGER_CLICK = k_EXboxOrigin_RightTrigger_Click,
-			XBOX_ORIGIN_LEFT_STICK_MOVE = k_EXboxOrigin_LeftStick_Move,
-			XBOX_ORIGIN_LEFT_STICK_CLICK = k_EXboxOrigin_LeftStick_Click,
-			XBOX_ORIGIN_LEFT_STICK_DPAD_NORTH = k_EXboxOrigin_LeftStick_DPadNorth,
-			XBOX_ORIGIN_LEFT_STICK_DPAD_SOUTH = k_EXboxOrigin_LeftStick_DPadSouth,
-			XBOX_ORIGIN_LEFT_STICK_DPAD_WEST = k_EXboxOrigin_LeftStick_DPadWest,
-			XBOX_ORIGIN_LEFT_STICK_DPAD_EAT = k_EXboxOrigin_LeftStick_DPadEast,
-			XBOX_ORIGIN_RIGHT_STICK_MOVE = k_EXboxOrigin_RightStick_Move,
-			XBOX_ORIGIN_RIGHT_STICK_CLICK = k_EXboxOrigin_RightStick_Click,
-			XBOX_ORIGIN_RIGHT_STICK_DPAD_NORTH = k_EXboxOrigin_RightStick_DPadNorth,
-			XBOX_ORIGIN_RIGHT_STICK_DPAD_SOUTH = k_EXboxOrigin_RightStick_DPadSouth,
-			XBOX_ORIGIN_RIGHT_STICK_DPAD_WEST = k_EXboxOrigin_RightStick_DPadWest,
-			XBOX_ORIGIN_RIGHT_STICK_DPAD_EAST = k_EXboxOrigin_RightStick_DPadEast,
-			XBOX_ORIGIN_DPAD_NORTH = k_EXboxOrigin_DPad_North,
-			XBOX_ORIGIN_DPAD_SOUTH = k_EXboxOrigin_DPad_South,
-			XBOX_ORIGIN_DPAD_WEST = k_EXboxOrigin_DPad_West,
-			XBOX_ORIGIN_DPAD_EAST = k_EXboxOrigin_DPad_East,
-			XBOX_ORIGIN_COUNT = k_EXboxOrigin_Count
-		};
-
 		// Inventory enums
 		enum ItemFlags {
 			STEAM_ITEM_NO_TRADE = k_ESteamItemNoTrade,
@@ -1175,14 +595,6 @@ class Steam: public Object {
 			SERVER_RESPONDED = eServerResponded,
 			SERVER_FAILED_TO_RESPOND = eServerFailedToRespond,
 			NO_SERVERS_LISTED_ON_MASTER_SERVER = eNoServersListedOnMasterServer
-		};
-
-		// Music enums
-		enum AudioPlaybackStatus {
-			AUDIO_PLAYBACK_UNDEFINED = AudioPlayback_Undefined,
-			AUDIO_PLAYBACK_PLAYING = AudioPlayback_Playing,
-			AUDIO_PLAYBACK_PAUSED = AudioPlayback_Paused,
-			AUDIO_PLAYBACK_IDLE = AudioPlayback_Idle
 		};
 
 		// Networking enums
@@ -1403,26 +815,6 @@ class Steam: public Object {
 			NETWORKING_CONFIG_SCOPE_FORCE_32BIT = k_ESteamNetworkingConfigScope__Force32Bit
 		};
 
-		// Parental Settings enums
-		enum ParentalFeature {
-			FEATURE_INVALID = k_EFeatureInvalid,
-			FEATURE_STORE = k_EFeatureStore,
-			FEATURE_COMMUNITY = k_EFeatureCommunity,
-			FEATURE_PROFILE = k_EFeatureProfile,
-			FEATURE_FRIENDS = k_EFeatureFriends,
-			FEATURE_NEWS = k_EFeatureNews,
-			FEATURE_TRADING = k_EFeatureTrading,
-			FEATURE_SETTINGS = k_EFeatureSettings,
-			FEATURE_CONSOLE = k_EFeatureConsole,
-			FEATURE_BROWSER = k_EFeatureBrowser,
-			FEATURE_PARENTAL_SETUP = k_EFeatureParentalSetup,
-			FEATURE_LIBRARY = k_EFeatureLibrary,
-			FEATURE_TEST = k_EFeatureTest,
-			FEATURE_SITE_LICENSE = k_EFeatureSiteLicense,
-			FEATURE_KIOSK_MODE = k_EFeatureKioskMode,
-			FEATURE_MAX = k_EFeatureMax
-		};
-
 		// Steam Parties enums
 		enum PartyBeaconLocationData {
 			STEAM_PARTY_BEACON_LOCATION_DATA = k_ESteamPartyBeaconLocationDataInvalid,
@@ -1435,15 +827,6 @@ class Steam: public Object {
 			STEAM_PARTY_BEACON_LOCATIONTYPE_INVALID = k_ESteamPartyBeaconLocationType_Invalid,
 			STEAM_PARTY_BEACON_LOCATIONTYPE_CHAT_GROUP = k_ESteamPartyBeaconLocationType_ChatGroup,
 			STEAM_PARTY_BEACON_LOCATION_TYPE_MAX = k_ESteamPartyBeaconLocationType_Max
-		};
-
-		// Remote Play enums
-		enum DeviceFormFactor {
-			FORM_FACTOR_UNKNOWN = k_ESteamDeviceFormFactorUnknown,
-			FORM_FACTOR_PHONE = k_ESteamDeviceFormFactorPhone,
-			FORM_FACTOR_TABLET = k_ESteamDeviceFormFactorTablet,
-			FORM_FACTOR_COMPUTER = k_ESteamDeviceFormFactorComputer,
-			FORM_FACTOR_TV = k_ESteamDeviceFormFactorTV
 		};
 
 		// Remote Storage enums
@@ -1521,16 +904,6 @@ class Steam: public Object {
 			WORKSHOP_VOTE_FOR = k_EWorkshopVoteFor,
 			WORKSHOP_VOTE_AGAINST = k_EWorkshopVoteAgainst,
 			WORKSHOP_VOTE_LATER = k_EWorkshopVoteLater
-		};
-
-		// Screenshot enums
-		enum VRScreenshotType {
-			VR_SCREENSHOT_TYPE_NONE = k_EVRScreenshotType_None,
-			VR_SCREENSHOT_TYPE_MONO = k_EVRScreenshotType_Mono,
-			VR_SCREENSHOT_TYPE_STEREO = k_EVRScreenshotType_Stereo,
-			VR_SCREENSHOT_TYPE_MONO_CUBE_MAP = k_EVRScreenshotType_MonoCubemap,
-			VR_SCREENSHOT_TYPE_MONO_PANORAMA = k_EVRScreenshotType_MonoPanorama,
-			VR_SCREENSHOT_TYPE_STEREO_PANORAMA = k_EVRScreenshotType_StereoPanorama
 		};
 
 		// UGC enums
@@ -1727,9 +1100,9 @@ class Steam: public Object {
 		};
 
 		// Steamworks
-		static Steam *get_singleton();
-		Steam();
-		~Steam();
+		static SteamServer *get_singleton();
+		SteamServer();
+		~SteamServer();
 
 
 		/////////////////////////////////////////
@@ -1738,11 +1111,12 @@ class Steam: public Object {
 		//
 		CSteamID createSteamID(uint64_t steam_id, AccountType account_type = AccountType(-1));
 
+        bool checkMasterRestartRequest(uint32 app_id);
+
+		bool serverInit(const String &ip, int game_port, int query_port, ServerMode server_mode, const String &version_string);
+
 		// Main /////////////////////////////////
-		bool isSteamRunning();
-		bool restartAppIfNecessary(uint32 app_id);
 		void steamworksError(const String& failed_signal);
-		Dictionary steamInit(bool retrieve_stats = true);
 		void steamShutdown();
 
 		// Apps /////////////////////////////////
@@ -1883,42 +1257,6 @@ class Steam: public Object {
 		int submitPlayerResult(uint64_t game_id, uint64_t player_id, PlayerResult player_result);
 		int endGame(uint64_t game_id);
 
-		// HTML Surface /////////////////////////
-		void addHeader(const String& key, const String& value, uint32 this_handle = 0);
-		void allowStartRequest(bool allowed, uint32 this_handle = 0);
-		void copyToClipboard(uint32 this_handle = 0);
-		void createBrowser(const String& user_agent, const String& user_css);
-		void executeJavascript(const String& javascript, uint32 this_handle = 0);
-		void find(const String& search, bool currently_in_find, bool reverse, uint32 this_handle = 0);
-		void getLinkAtPosition(int x, int y, uint32 this_handle = 0);
-		void goBack(uint32 this_handle = 0);
-		void goForward(uint32 this_handle = 0);
-		void htmlInit();
-		void jsDialogResponse(bool result, uint32 this_handle = 0);
-		void keyChar(uint32 unicode_char, BitField<HTMLKeyModifiers> key_modifiers, uint32 this_handle = 0);
-		void keyDown(uint32 native_key_code, BitField<HTMLKeyModifiers> key_modifiers, uint32 this_handle = 0);
-		void keyUp(uint32 native_key_code, BitField<HTMLKeyModifiers> key_modifiers, uint32 this_handle = 0);
-		void loadURL(const String& url, const String& post_data, uint32 this_handle = 0);
-		void mouseDoubleClick(HTMLMouseButton mouse_button, uint32 this_handle = 0);
-		void mouseDown(HTMLMouseButton mouse_button, uint32 this_handle = 0);
-		void mouseMove(int x, int y, uint32 this_handle = 0);
-		void mouseUp(HTMLMouseButton mouse_button, uint32 this_handle = 0);
-		void mouseWheel(int32 delta, uint32 this_handle = 0);
-		void pasteFromClipboard(uint32 this_handle = 0);
-		void reload(uint32 this_handle = 0);
-		void removeBrowser(uint32 this_handle = 0);
-		void setBackgroundMode(bool background_mode, uint32 this_handle = 0);
-		void setCookie(const String& hostname, const String& key, const String& value, const String& path, uint32 expires, bool secure, bool http_only);
-		void setHorizontalScroll(uint32 absolute_pixel_scroll, uint32 this_handle = 0);
-		void setKeyFocus(bool has_key_focus, uint32 this_handle = 0);
-		void setPageScaleFactor(float zoom, int point_x, int point_y, uint32 this_handle = 0);
-		void setSize(uint32 width, uint32 height, uint32 this_handle = 0);
-		void setVerticalScroll(uint32 absolute_pixel_scroll, uint32 this_handle = 0);
-		bool htmlShutdown();
-		void stopFind(uint32 this_handle = 0);
-		void stopLoad(uint32 this_handle = 0);
-		void viewSource(uint32 this_handle = 0);
-
 		// HTTP /////////////////////////////////
 		uint32_t createCookieContainer( bool allow_responses_to_modify);
 		uint32_t createHTTPRequest(HTTPMethod request_method, const String& absolute_url);
@@ -1945,56 +1283,6 @@ class Steam: public Object {
 		uint8 setHTTPRequestRawPostBody(uint32 request_handle, const String& content_type, uint32 body_length);
 		bool setHTTPRequestRequiresVerifiedCertificate(uint32 request_handle, bool require_verified_certificate);
 		bool setHTTPRequestUserAgentInfo(uint32 request_handle, const String& user_agent_info);
-
-		// Input ////////////////////////////////
-		void activateActionSet(uint64_t input_handle, uint64_t action_set_handle);
-		void activateActionSetLayer(uint64_t input_handle, uint64_t action_set_layer_handle);
-		void deactivateActionSetLayer(uint64_t input_handle, uint64_t action_set_handle);
-		void deactivateAllActionSetLayers(uint64_t input_handle);
-		void enableDeviceCallbacks();
-//		void enableActionEventCallbacks();
-		uint64_t getActionSetHandle(const String& action_set_name);
-		InputActionOrigin getActionOriginFromXboxOrigin(uint64_t input_handle, int origin);
-		Array getActiveActionSetLayers(uint64_t input_handle);
-		Dictionary getAnalogActionData(uint64_t input_handle, uint64_t analog_action_handle);
-		uint64_t getAnalogActionHandle(const String& action_name);
-		Array getAnalogActionOrigins(uint64_t input_handle, uint64_t action_set_handle, uint64_t analog_action_handle);
-		Array getConnectedControllers();
-		uint64_t getControllerForGamepadIndex(int index);
-		uint64_t getCurrentActionSet(uint64_t input_handle);
-		Array getDeviceBindingRevision(uint64_t input_handle);
-		Dictionary getDigitalActionData(uint64_t input_handle, uint64_t digital_action_handle);
-		uint64_t getDigitalActionHandle(const String& action_name);
-		Array getDigitalActionOrigins(uint64_t input_handle, uint64_t action_set_handle, uint64_t digital_action_handle);
-		int getGamepadIndexForController(uint64_t input_handle);
-		String getGlyphForActionOrigin(InputActionOrigin origin);
-		String getGlyphForXboxOrigin(int origin);
-		String getGlyphPNGForActionOrigin(InputActionOrigin origin, InputGlyphSize size, uint32 flags);
-		String getGlyphSVGForActionOrigin(InputActionOrigin origin, uint32 flags);
-		String getInputTypeForHandle(uint64_t input_handle);
-		Dictionary getMotionData(uint64_t input_handle);
-		int getRemotePlaySessionID(uint64_t input_handle);
-		uint16 getSessionInputConfigurationSettings();
-		String getStringForActionOrigin(InputActionOrigin origin);
-		String getStringForAnalogActionName(uint64_t action_handle);
-		String getStringForDigitalActionName(uint64_t action_handle);
-		String getStringForXboxOrigin(int origin);
-		bool inputInit(bool explicitly_call_runframe = false);
-		bool inputShutdown();
-		void inputActionEventCallback(SteamInputActionEvent_t* call_data);
-		bool newDataAvailable();
-		void runFrame(bool reserved_value = true);
-		void setLEDColor(uint64_t input_handle, int color_r, int color_g, int color_b, int flags);
-		bool showBindingPanel(uint64_t input_handle);
-		void stopAnalogActionMomentum(uint64_t input_handle, uint64_t action);
-		int translateActionOrigin(InputType destination_input, InputActionOrigin source_origin);
-		void triggerHapticPulse(uint64_t input_handle, int target_pad, int duration);
-		void triggerRepeatedHapticPulse(uint64_t input_handle, int target_pad, int duration, int offset, int repeat, int flags);
-		void triggerSimpleHapticEvent(uint64_t input_handle, int haptic_location, int intensity, const String& gain_db, int other_intensity, const String& other_gain_db);
-		void triggerVibration(uint64_t input_handle, int left_speed, int right_speed);
-		void triggerVibrationExtended(uint64_t input_handle, int left_speed, int right_speed, int left_trigger_speed, int right_trigger_speed);
-		bool setInputActionManifestFilePath(const String& manifest_path);
-		bool waitForData(bool wait_forever, uint32 timeout);
 
 		// Inventory ////////////////////////////
 		int32 addPromoItem(uint32 item);
@@ -2066,8 +1354,6 @@ class Steam: public Object {
 		bool setLobbyOwner(uint64_t steam_lobby_id, uint64_t steam_id_new_owner);
 
         // Game Servers /////////////////////////
-		bool serverInit(const String& ip, int game_port, int query_port, ServerMode server_mode, const String& version_string);
-		void runServerCallbacks();
 		void associateWithClan(uint64_t clan_id);
 		int beginServerAuthSession(int auth_ticket, uint64_t steam_id);
 		void cancelServerAuthTicket(uint32 auth_ticket);
@@ -2101,7 +1387,6 @@ class Steam: public Object {
 		void setSpectatorPort(uint32 port);
 		void setSpectatorServerName(const String& name);
 		int serverUserHasLicenseForApp(uint64_t steam_id, uint32 app_id);
-		bool wasRestartRequested();
 
 		// Matchmaking Servers //////////////////
 		void cancelQuery(uint64_t server_list_request = 0);
@@ -2121,51 +1406,6 @@ class Steam: public Object {
 		uint64_t requestLANServerList(uint32 app_id);
 		uint64_t requestSpectatorServerList(uint32 app_id, Array filters);
 		int serverRules(const String& ip, int port);
-
-		// Music ////////////////////////////////
-		bool musicIsEnabled();
-		bool musicIsPlaying();
-		AudioPlaybackStatus getPlaybackStatus();
-		float musicGetVolume();
-		void musicPause();
-		void musicPlay();
-		void musicPlayNext();
-		void musicPlayPrev();
-		void musicSetVolume(float volume);
-
-		// Music Remote /////////////////////////
-		bool activationSuccess(bool activate);
-		bool isCurrentMusicRemote();
-		bool currentEntryDidChange();
-		bool currentEntryIsAvailable(bool available);
-		bool currentEntryWillChange();
-		bool deregisterSteamMusicRemote();
-		bool enableLooped(bool loop);
-		bool enablePlaylists(bool playlists);
-		bool enablePlayNext(bool next);
-		bool enablePlayPrevious(bool previous);
-		bool enableQueue(bool queue);
-		bool enableShuffled(bool shuffle);
-		bool playlistDidChange();
-		bool playlistWillChange();
-		bool queueDidChange();
-		bool queueWillChange();
-		bool registerSteamMusicRemote(const String& name);
-		bool resetPlaylistEntries();
-		bool resetQueueEntries();
-		bool setCurrentPlaylistEntry(int id);
-		bool setCurrentQueueEntry(int id);
-		bool setDisplayName(const String& name);
-		bool setPlaylistEntry(int id, int position, const String& entry_text);
-		bool setPNGIcon64x64(PackedByteArray icon);
-		bool setQueueEntry(int id, int position, const String& entry_text);
-		bool updateCurrentEntryCoverArt(PackedByteArray art);
-		bool updateCurrentEntryElapsedSeconds(int seconds);
-		bool updateCurrentEntryText(const String& text);
-		bool updateLooped(bool looped);
-		bool updatePlaybackStatus(AudioPlaybackStatus status);
-		bool updateShuffled(bool shuffle);
-		bool updateVolume(float volume);
 
 		// Networking ///////////////////////////
 		bool acceptP2PSessionWithUser(uint64_t steam_id_remote);
@@ -2294,14 +1534,6 @@ class Steam: public Object {
 		bool setGlobalConfigValueInt32(NetworkingConfigValue config, int32 value);
 		bool setGlobalConfigValueString(NetworkingConfigValue config, const String& value);
 
-		// Parental Settings ////////////////////
-		bool isParentalLockEnabled();
-		bool isParentalLockLocked();
-		bool isAppBlocked(uint32 app_id);
-		bool isAppInBlockList(uint32 app_id);
-		bool isFeatureBlocked(ParentalFeature feature);
-		bool isFeatureInBlockList(ParentalFeature feature);
-
 		// Parties //////////////////////////////
 		void cancelReservation(uint64_t beacon_id, uint64_t steam_id);
 		void changeNumOpenSlots(uint64_t beacon_id, uint32 open_slots);
@@ -2314,15 +1546,6 @@ class Steam: public Object {
 		uint32 getNumActiveBeacons();
 		void joinParty(uint64_t beacon_id);
 		void onReservationCompleted(uint64_t beacon_id, uint64_t steam_id);
-
-		// Remote Play //////////////////////////
-		uint32 getSessionCount();
-		uint32 getSessionID(uint32 index);
-		uint64_t getSessionSteamID(uint32 session_id);
-		String getSessionClientName(uint32 session_id);
-		int getSessionClientFormFactor(uint32 session_id);
-		Dictionary getSessionClientResolution(uint32 session_id);
-		bool sendRemotePlayTogetherInvite(uint64_t friend_id);
 
 		// Remote Storage ///////////////////////
 		bool beginFileWriteBatch();
@@ -2359,17 +1582,6 @@ class Steam: public Object {
 		void ugcDownload(uint64_t content, uint32 priority);
 		void ugcDownloadToLocation(uint64_t content, const String& location, uint32 priority);
 		PackedByteArray ugcRead(uint64_t content, int32 data_size, uint32 offset, UGCReadAction action);
-
-		// Screenshots //////////////////////////
-		uint32_t addScreenshotToLibrary(const String& filename, const String& thumbnail_filename, int width, int height);
-		uint32_t addVRScreenshotToLibrary(VRScreenshotType type, const String& filename, const String& vr_filename);
-		void hookScreenshots(bool hook);
-		bool isScreenshotsHooked();
-		bool setLocation(uint32_t screenshot, const String& location);
-		bool tagPublishedFile(uint32_t screenshot, uint64_t file_id);
-		bool tagUser(uint32_t screenshot, uint64_t steam_id);
-		void triggerScreenshot();
-		uint32_t writeScreenshot(const PackedByteArray& rgb, int width, int height);
 
 		// UGC //////////////////////////////////
 		void addAppDependency(uint64_t published_file_id, uint32_t app_id);
@@ -2567,12 +1779,6 @@ class Steam: public Object {
 		bool isSteamRunningOnSteamDeck();
 		bool dismissFloatingGamepadTextInput();
 
-		// Video ////////////////////////////////
-		void getOPFSettings(uint32_t app_id);
-		String getOPFStringForApp(uint32_t app_id);
-		void getVideoURL(uint32_t app_id);
-		Dictionary isBroadcasting();
-
 	protected:
 		static void _bind_methods();
 
@@ -2585,9 +1791,6 @@ class Steam: public Object {
 
 		// Friends
 		CSteamID clan_activity;
-
-		// HTML Surface
-		uint32 browser_handle;
 
 		// Inventory
 		SteamInventoryUpdateHandle_t inventory_update_handle;
@@ -2633,9 +1836,9 @@ class Steam: public Object {
 		// Utils
 		uint64_t api_handle = 0;
 
-		// Run the Steamworks API callbacks /////
+		// Run the Steamworks Game server API callbacks /////
 		void run_callbacks(){
-			SteamAPI_RunCallbacks();
+			SteamGameServer_RunCallbacks();
 		}
 
 		/////////////////////////////////////////
@@ -2643,194 +1846,141 @@ class Steam: public Object {
 		/////////////////////////////////////////
 		//
 		// Apps callbacks ///////////////////////
-		STEAM_CALLBACK(Steam, dlc_installed, DlcInstalled_t, callbackDLCInstalled);
-		STEAM_CALLBACK(Steam, file_details_result, FileDetailsResult_t, callbackFileDetailsResult);
-		STEAM_CALLBACK(Steam, new_launch_url_parameters, NewUrlLaunchParameters_t, callbackNewLaunchURLParameters);
-		STEAM_CALLBACK(Steam, timed_trial_status, TimedTrialStatus_t, callbackTimedTrialStatus);
+		STEAM_CALLBACK(SteamServer, dlc_installed, DlcInstalled_t, callbackDLCInstalled);
+		STEAM_CALLBACK(SteamServer, file_details_result, FileDetailsResult_t, callbackFileDetailsResult);
+		STEAM_CALLBACK(SteamServer, new_launch_url_parameters, NewUrlLaunchParameters_t, callbackNewLaunchURLParameters);
+		STEAM_CALLBACK(SteamServer, timed_trial_status, TimedTrialStatus_t, callbackTimedTrialStatus);
 
 		// Apps List callbacks //////////////////
-		STEAM_CALLBACK(Steam, app_installed, SteamAppInstalled_t, callbackAppInstalled);
-		STEAM_CALLBACK(Steam, app_uninstalled, SteamAppUninstalled_t, callbackAppUninstalled);
+		STEAM_CALLBACK(SteamServer, app_installed, SteamAppInstalled_t, callbackAppInstalled);
+		STEAM_CALLBACK(SteamServer, app_uninstalled, SteamAppUninstalled_t, callbackAppUninstalled);
 
 		// Friends callbacks ////////////////////
-		STEAM_CALLBACK(Steam, avatar_loaded, AvatarImageLoaded_t, callbackAvatarLoaded);
-		STEAM_CALLBACK(Steam, avatar_image_loaded, AvatarImageLoaded_t, callbackAvatarImageLoaded);
-		STEAM_CALLBACK(Steam, clan_activity_downloaded, DownloadClanActivityCountsResult_t, callbackClanActivityDownloaded);
-		STEAM_CALLBACK(Steam, friend_rich_presence_update, FriendRichPresenceUpdate_t, callbackFriendRichPresenceUpdate);
-		STEAM_CALLBACK(Steam, connected_chat_join, GameConnectedChatJoin_t, callbackConnectedChatJoin);
-		STEAM_CALLBACK(Steam, connected_chat_leave, GameConnectedChatLeave_t, callbackConnectedChatLeave);
-		STEAM_CALLBACK(Steam, connected_clan_chat_message, GameConnectedClanChatMsg_t, callbackConnectedClanChatMessage);
-		STEAM_CALLBACK(Steam, connected_friend_chat_message, GameConnectedFriendChatMsg_t, callbackConnectedFriendChatMessage);
-		STEAM_CALLBACK(Steam, join_requested, GameLobbyJoinRequested_t, callbackJoinRequested);
-		STEAM_CALLBACK(Steam, overlay_toggled, GameOverlayActivated_t, callbackOverlayToggled);
-		STEAM_CALLBACK(Steam, join_game_requested, GameRichPresenceJoinRequested_t, callbackJoinGameRequested);
-		STEAM_CALLBACK(Steam, change_server_requested, GameServerChangeRequested_t, callbackChangeServerRequested);
-		STEAM_CALLBACK(Steam, join_clan_chat_complete, JoinClanChatRoomCompletionResult_t, callbackJoinClanChatComplete);
-		STEAM_CALLBACK(Steam, persona_state_change, PersonaStateChange_t, callbackPersonaStateChange);
-		STEAM_CALLBACK(Steam, name_changed, SetPersonaNameResponse_t, callbackNameChanged);
-		STEAM_CALLBACK(Steam, overlay_browser_protocol, OverlayBrowserProtocolNavigation_t, callbackOverlayBrowserProtocol);
-		STEAM_CALLBACK(Steam, unread_chat_messages_changed, UnreadChatMessagesChanged_t, callbackUnreadChatMessagesChanged);
-		STEAM_CALLBACK(Steam, equipped_profile_items_changed, EquippedProfileItemsChanged_t, callbackEquippedProfileItemsChanged);
+		STEAM_CALLBACK(SteamServer, avatar_loaded, AvatarImageLoaded_t, callbackAvatarLoaded);
+		STEAM_CALLBACK(SteamServer, avatar_image_loaded, AvatarImageLoaded_t, callbackAvatarImageLoaded);
+		STEAM_CALLBACK(SteamServer, clan_activity_downloaded, DownloadClanActivityCountsResult_t, callbackClanActivityDownloaded);
+		STEAM_CALLBACK(SteamServer, friend_rich_presence_update, FriendRichPresenceUpdate_t, callbackFriendRichPresenceUpdate);
+		STEAM_CALLBACK(SteamServer, connected_chat_join, GameConnectedChatJoin_t, callbackConnectedChatJoin);
+		STEAM_CALLBACK(SteamServer, connected_chat_leave, GameConnectedChatLeave_t, callbackConnectedChatLeave);
+		STEAM_CALLBACK(SteamServer, connected_clan_chat_message, GameConnectedClanChatMsg_t, callbackConnectedClanChatMessage);
+		STEAM_CALLBACK(SteamServer, connected_friend_chat_message, GameConnectedFriendChatMsg_t, callbackConnectedFriendChatMessage);
+		STEAM_CALLBACK(SteamServer, join_requested, GameLobbyJoinRequested_t, callbackJoinRequested);
+		STEAM_CALLBACK(SteamServer, overlay_toggled, GameOverlayActivated_t, callbackOverlayToggled);
+		STEAM_CALLBACK(SteamServer, join_game_requested, GameRichPresenceJoinRequested_t, callbackJoinGameRequested);
+		STEAM_CALLBACK(SteamServer, change_server_requested, GameServerChangeRequested_t, callbackChangeServerRequested);
+		STEAM_CALLBACK(SteamServer, join_clan_chat_complete, JoinClanChatRoomCompletionResult_t, callbackJoinClanChatComplete);
+		STEAM_CALLBACK(SteamServer, persona_state_change, PersonaStateChange_t, callbackPersonaStateChange);
+		STEAM_CALLBACK(SteamServer, name_changed, SetPersonaNameResponse_t, callbackNameChanged);
+		STEAM_CALLBACK(SteamServer, overlay_browser_protocol, OverlayBrowserProtocolNavigation_t, callbackOverlayBrowserProtocol);
+		STEAM_CALLBACK(SteamServer, unread_chat_messages_changed, UnreadChatMessagesChanged_t, callbackUnreadChatMessagesChanged);
+		STEAM_CALLBACK(SteamServer, equipped_profile_items_changed, EquippedProfileItemsChanged_t, callbackEquippedProfileItemsChanged);
 
 		// Game Search callbacks ////////////////
-		STEAM_CALLBACK(Steam, search_for_game_progress, SearchForGameProgressCallback_t, callbackSearchForGameProgress);
-		STEAM_CALLBACK(Steam, search_for_game_result, SearchForGameResultCallback_t, callbackSearchForGameResult);
-		STEAM_CALLBACK(Steam, request_players_for_game_progress, RequestPlayersForGameProgressCallback_t, callbackRequestPlayersForGameProgress);
-		STEAM_CALLBACK(Steam, request_players_for_game_result, RequestPlayersForGameResultCallback_t, callbackRequestPlayersForGameResult);
-		STEAM_CALLBACK(Steam, request_players_for_game_final_result, RequestPlayersForGameFinalResultCallback_t, callbackRequestPlayersForGameFinalResult);
-		STEAM_CALLBACK(Steam, submit_player_result, SubmitPlayerResultResultCallback_t, callbackSubmitPlayerResult);
-		STEAM_CALLBACK(Steam, end_game_result, EndGameResultCallback_t, callbackEndGameResult);
-
-		// HTML Surface callbacks ///////////////
-		STEAM_CALLBACK(Steam, html_browser_ready, HTML_BrowserReady_t, callbackHTMLBrowserReady);
-		STEAM_CALLBACK(Steam, html_can_go_backandforward, HTML_CanGoBackAndForward_t, callbackHTMLCanGoBackandforward);
-		STEAM_CALLBACK(Steam, html_changed_title, HTML_ChangedTitle_t, callbackHTMLChangedTitle);
-		STEAM_CALLBACK(Steam, html_close_browser, HTML_CloseBrowser_t, callbackHTMLCloseBrowser);
-		STEAM_CALLBACK(Steam, html_file_open_dialog, HTML_FileOpenDialog_t, callbackHTMLFileOpenDialog);
-		STEAM_CALLBACK(Steam, html_finished_request, HTML_FinishedRequest_t, callbackHTMLFinishedRequest);
-		STEAM_CALLBACK(Steam, html_hide_tooltip, HTML_HideToolTip_t, callbackHTMLHideTooltip);
-		STEAM_CALLBACK(Steam, html_horizontal_scroll, HTML_HorizontalScroll_t, callbackHTMLHorizontalScroll);
-		STEAM_CALLBACK(Steam, html_js_alert, HTML_JSAlert_t, callbackHTMLJSAlert);
-		STEAM_CALLBACK(Steam, html_js_confirm, HTML_JSConfirm_t, callbackHTMLJSConfirm);
-		STEAM_CALLBACK(Steam, html_link_at_position, HTML_LinkAtPosition_t, callbackHTMLLinkAtPosition);
-		STEAM_CALLBACK(Steam, html_needs_paint, HTML_NeedsPaint_t, callbackHTMLNeedsPaint);
-		STEAM_CALLBACK(Steam, html_new_window, HTML_NewWindow_t, callbackHTMLNewWindow);
-		STEAM_CALLBACK(Steam, html_open_link_in_new_tab, HTML_OpenLinkInNewTab_t, callbackHTMLOpenLinkInNewTab);
-		STEAM_CALLBACK(Steam, html_search_results, HTML_SearchResults_t, callbackHTMLSearchResults);
-		STEAM_CALLBACK(Steam, html_set_cursor, HTML_SetCursor_t, callbackHTMLSetCursor);
-		STEAM_CALLBACK(Steam, html_show_tooltip, HTML_ShowToolTip_t, callbackHTMLShowTooltip);
-		STEAM_CALLBACK(Steam, html_start_request, HTML_StartRequest_t, callbackHTMLStartRequest);
-		STEAM_CALLBACK(Steam, html_status_text, HTML_StatusText_t, callbackHTMLStatusText);
-		STEAM_CALLBACK(Steam, html_update_tooltip, HTML_UpdateToolTip_t, callbackHTMLUpdateTooltip);
-		STEAM_CALLBACK(Steam, html_url_changed, HTML_URLChanged_t, callbackHTMLURLChanged);
-		STEAM_CALLBACK(Steam, html_vertical_scroll, HTML_VerticalScroll_t, callbackHTMLVerticalScroll);
+		STEAM_CALLBACK(SteamServer, search_for_game_progress, SearchForGameProgressCallback_t, callbackSearchForGameProgress);
+		STEAM_CALLBACK(SteamServer, search_for_game_result, SearchForGameResultCallback_t, callbackSearchForGameResult);
+		STEAM_CALLBACK(SteamServer, request_players_for_game_progress, RequestPlayersForGameProgressCallback_t, callbackRequestPlayersForGameProgress);
+		STEAM_CALLBACK(SteamServer, request_players_for_game_result, RequestPlayersForGameResultCallback_t, callbackRequestPlayersForGameResult);
+		STEAM_CALLBACK(SteamServer, request_players_for_game_final_result, RequestPlayersForGameFinalResultCallback_t, callbackRequestPlayersForGameFinalResult);
+		STEAM_CALLBACK(SteamServer, submit_player_result, SubmitPlayerResultResultCallback_t, callbackSubmitPlayerResult);
+		STEAM_CALLBACK(SteamServer, end_game_result, EndGameResultCallback_t, callbackEndGameResult);
 
 		// HTTP callbacks ///////////////////////
-		STEAM_CALLBACK(Steam, http_request_completed, HTTPRequestCompleted_t, callbackHTTPRequestCompleted);
-		STEAM_CALLBACK(Steam, http_request_data_received, HTTPRequestDataReceived_t, callbackHTTPRequestDataReceived);
-		STEAM_CALLBACK(Steam, http_request_headers_received, HTTPRequestHeadersReceived_t, callbackHTTPRequestHeadersReceived);
-
-		// Input callbacks //////////////////////
-		STEAM_CALLBACK(Steam, input_device_connected, SteamInputDeviceConnected_t, callbackInputDeviceConnected);
-		STEAM_CALLBACK(Steam, input_device_disconnected, SteamInputDeviceDisconnected_t, callbackInputDeviceDisconnected);
-		STEAM_CALLBACK(Steam, input_configuration_loaded, SteamInputConfigurationLoaded_t, callbackInputConfigurationLoaded);
-		STEAM_CALLBACK(Steam, input_gamepad_slot_change, SteamInputGamepadSlotChange_t, callbackInputGamePadSlotChange);
+		STEAM_CALLBACK(SteamServer, http_request_completed, HTTPRequestCompleted_t, callbackHTTPRequestCompleted);
+		STEAM_CALLBACK(SteamServer, http_request_data_received, HTTPRequestDataReceived_t, callbackHTTPRequestDataReceived);
+		STEAM_CALLBACK(SteamServer, http_request_headers_received, HTTPRequestHeadersReceived_t, callbackHTTPRequestHeadersReceived);
 
 		// Inventory callbacks //////////////////
-		STEAM_CALLBACK(Steam, inventory_definition_update, SteamInventoryDefinitionUpdate_t, callbackInventoryDefinitionUpdate);
-		STEAM_CALLBACK(Steam, inventory_full_update, SteamInventoryFullUpdate_t, callbackInventoryFullUpdate);
-		STEAM_CALLBACK(Steam, inventory_result_ready, SteamInventoryResultReady_t, callbackInventoryResultReady);
+		STEAM_CALLBACK(SteamServer, inventory_definition_update, SteamInventoryDefinitionUpdate_t, callbackInventoryDefinitionUpdate);
+		STEAM_CALLBACK(SteamServer, inventory_full_update, SteamInventoryFullUpdate_t, callbackInventoryFullUpdate);
+		STEAM_CALLBACK(SteamServer, inventory_result_ready, SteamInventoryResultReady_t, callbackInventoryResultReady);
 
 		// Game Server callbacks ////////////////
 		// TODO: define funtions for all callbacks //
-		STEAM_GAMESERVER_CALLBACK(Steam, client_approved, GSClientApprove_t, callbackClientApproved);
-		STEAM_GAMESERVER_CALLBACK(Steam, client_denied, GSClientDeny_t, callbackClientDenied);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, client_approved, GSClientApprove_t, callbackClientApproved);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, client_denied, GSClientDeny_t, callbackClientDenied);
 		//STEAM_GAMESERVER_CALLBACK(Steam, client_group_status, GSClientGroupStatus_t, callbackClientGroupStatus);
-		STEAM_GAMESERVER_CALLBACK(Steam, client_kick, GSClientKick_t, callbackClientKick);
-		STEAM_GAMESERVER_CALLBACK(Steam, player_compat, ComputeNewPlayerCompatibilityResult_t, callbackPlayerCompat);
-		STEAM_GAMESERVER_CALLBACK(Steam, policy_response, GSPolicyResponse_t, callbackPolicyResponse);
-		STEAM_GAMESERVER_CALLBACK(Steam, server_connect_failure, SteamServerConnectFailure_t, callbackConnectFailure);
-		STEAM_GAMESERVER_CALLBACK(Steam, server_connected, SteamServersConnected_t, callbackServerConnected);
-		STEAM_GAMESERVER_CALLBACK(Steam, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, client_kick, GSClientKick_t, callbackClientKick);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, player_compat, ComputeNewPlayerCompatibilityResult_t, callbackPlayerCompat);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, policy_response, GSPolicyResponse_t, callbackPolicyResponse);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, server_connect_failure, SteamServerConnectFailure_t, callbackConnectFailure);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, server_connected, SteamServersConnected_t, callbackServerConnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
 
 		// Matchmaking callbacks ////////////////
-		STEAM_CALLBACK(Steam, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
-		STEAM_CALLBACK(Steam, favorites_list_changed, FavoritesListChanged_t, callbackFavoritesListChanged);
-		STEAM_CALLBACK(Steam, lobby_message, LobbyChatMsg_t, callbackLobbyMessage);
-		STEAM_CALLBACK(Steam, lobby_chat_update, LobbyChatUpdate_t, callbackLobbyChatUpdate);
-		STEAM_CALLBACK(Steam, lobby_data_update, LobbyDataUpdate_t, callbackLobbyDataUpdate);
-		STEAM_CALLBACK(Steam, lobby_joined, LobbyEnter_t, callbackLobbyJoined);
-		STEAM_CALLBACK(Steam, lobby_game_created, LobbyGameCreated_t, callbackLobbyGameCreated);
-		STEAM_CALLBACK(Steam, lobby_invite, LobbyInvite_t, callbackLobbyInvite);
-		STEAM_CALLBACK(Steam, lobby_kicked, LobbyKicked_t, callbackLobbyKicked);
-
-		// Music Remote callbacks ///////////////
-		STEAM_CALLBACK(Steam, music_player_remote_to_front, MusicPlayerRemoteToFront_t, callbackMusicPlayerRemoteToFront);
-		STEAM_CALLBACK(Steam, music_player_remote_will_activate, MusicPlayerRemoteWillActivate_t, callbackMusicPlayerRemoteWillActivate);
-		STEAM_CALLBACK(Steam, music_player_remote_will_deactivate, MusicPlayerRemoteWillDeactivate_t, callbackMusicPlayerRemoteWillDeactivate);
-		STEAM_CALLBACK(Steam, music_player_selects_playlist_entry, MusicPlayerSelectsPlaylistEntry_t, callbackMusicPlayerSelectsPlaylistEntry);
-		STEAM_CALLBACK(Steam, music_player_selects_queue_entry, MusicPlayerSelectsQueueEntry_t, callbackMusicPlayerSelectsQueueEntry);
-		STEAM_CALLBACK(Steam, music_player_wants_looped, MusicPlayerWantsLooped_t, callbackMusicPlayerWantsLooped);
-		STEAM_CALLBACK(Steam, music_player_wants_pause, MusicPlayerWantsPause_t, callbackMusicPlayerWantsPause);
-		STEAM_CALLBACK(Steam, music_player_wants_playing_repeat_status, MusicPlayerWantsPlayingRepeatStatus_t, callbackMusicPlayerWantsPlayingRepeatStatus);
-		STEAM_CALLBACK(Steam, music_player_wants_play_next, MusicPlayerWantsPlayNext_t, callbackMusicPlayerWantsPlayNext);
-		STEAM_CALLBACK(Steam, music_player_wants_play_previous, MusicPlayerWantsPlayPrevious_t, callbackMusicPlayerWantsPlayPrevious);
-		STEAM_CALLBACK(Steam, music_player_wants_play, MusicPlayerWantsPlay_t, callbackMusicPlayerWantsPlay);
-		STEAM_CALLBACK(Steam, music_player_wants_shuffled, MusicPlayerWantsShuffled_t, callbackMusicPlayerWantsShuffled);
-		STEAM_CALLBACK(Steam, music_player_wants_volume, MusicPlayerWantsVolume_t, callbackMusicPlayerWantsVolume);
-		STEAM_CALLBACK(Steam, music_player_will_quit, MusicPlayerWillQuit_t, callbackMusicPlayerWillQuit);
+		STEAM_CALLBACK(SteamServer, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
+		STEAM_CALLBACK(SteamServer, favorites_list_changed, FavoritesListChanged_t, callbackFavoritesListChanged);
+		STEAM_CALLBACK(SteamServer, lobby_message, LobbyChatMsg_t, callbackLobbyMessage);
+		STEAM_CALLBACK(SteamServer, lobby_chat_update, LobbyChatUpdate_t, callbackLobbyChatUpdate);
+		STEAM_CALLBACK(SteamServer, lobby_data_update, LobbyDataUpdate_t, callbackLobbyDataUpdate);
+		STEAM_CALLBACK(SteamServer, lobby_joined, LobbyEnter_t, callbackLobbyJoined);
+		STEAM_CALLBACK(SteamServer, lobby_game_created, LobbyGameCreated_t, callbackLobbyGameCreated);
+		STEAM_CALLBACK(SteamServer, lobby_invite, LobbyInvite_t, callbackLobbyInvite);
+		STEAM_CALLBACK(SteamServer, lobby_kicked, LobbyKicked_t, callbackLobbyKicked);
 
 		// Networking callbacks /////////////////
-		STEAM_CALLBACK(Steam, p2p_session_connect_fail, P2PSessionConnectFail_t, callbackP2PSessionConnectFail);
-		STEAM_CALLBACK(Steam, p2p_session_request, P2PSessionRequest_t, callbackP2PSessionRequest);
+		STEAM_CALLBACK(SteamServer, p2p_session_connect_fail, P2PSessionConnectFail_t, callbackP2PSessionConnectFail);
+		STEAM_CALLBACK(SteamServer, p2p_session_request, P2PSessionRequest_t, callbackP2PSessionRequest);
 
 		// Networking Messages callbacks ////////
-		STEAM_CALLBACK(Steam, network_messages_session_request, SteamNetworkingMessagesSessionRequest_t, callbackNetworkMessagesSessionRequest);
-		STEAM_CALLBACK(Steam, network_messages_session_failed, SteamNetworkingMessagesSessionFailed_t, callbackNetworkMessagesSessionFailed);
+		STEAM_CALLBACK(SteamServer, network_messages_session_request, SteamNetworkingMessagesSessionRequest_t, callbackNetworkMessagesSessionRequest);
+		STEAM_CALLBACK(SteamServer, network_messages_session_failed, SteamNetworkingMessagesSessionFailed_t, callbackNetworkMessagesSessionFailed);
 
 		// Networking Sockets callbacks /////////
-		STEAM_CALLBACK(Steam, network_connection_status_changed, SteamNetConnectionStatusChangedCallback_t, callbackNetworkConnectionStatusChanged);
-		STEAM_CALLBACK(Steam, network_authentication_status, SteamNetAuthenticationStatus_t, callbackNetworkAuthenticationStatus);
-		STEAM_CALLBACK(Steam, fake_ip_result, SteamNetworkingFakeIPResult_t, callbackNetworkingFakeIPResult);
+		STEAM_CALLBACK(SteamServer, network_connection_status_changed, SteamNetConnectionStatusChangedCallback_t, callbackNetworkConnectionStatusChanged);
+		STEAM_CALLBACK(SteamServer, network_authentication_status, SteamNetAuthenticationStatus_t, callbackNetworkAuthenticationStatus);
+		STEAM_CALLBACK(SteamServer, fake_ip_result, SteamNetworkingFakeIPResult_t, callbackNetworkingFakeIPResult);
 
 		// Networking Utils callbacks ///////////
-		STEAM_CALLBACK(Steam, relay_network_status, SteamRelayNetworkStatus_t, callbackRelayNetworkStatus);
-
-		// Parental Settings callbacks //////////
-		STEAM_CALLBACK(Steam, parental_setting_changed, SteamParentalSettingsChanged_t, callbackParentlSettingChanged);
+		STEAM_CALLBACK(SteamServer, relay_network_status, SteamRelayNetworkStatus_t, callbackRelayNetworkStatus);
 
 		// Parties callbacks ////////////////////
-		STEAM_CALLBACK(Steam, reservation_notification, ReservationNotificationCallback_t, callbackReserveNotification);
-		STEAM_CALLBACK(Steam, available_beacon_locations_updated, AvailableBeaconLocationsUpdated_t, callbackAvailableBeaconLocationsUpdated);
-		STEAM_CALLBACK(Steam, active_beacons_updated, ActiveBeaconsUpdated_t, callbackActiveBeaconsUpdated);
+		STEAM_CALLBACK(SteamServer, reservation_notification, ReservationNotificationCallback_t, callbackReserveNotification);
+		STEAM_CALLBACK(SteamServer, available_beacon_locations_updated, AvailableBeaconLocationsUpdated_t, callbackAvailableBeaconLocationsUpdated);
+		STEAM_CALLBACK(SteamServer, active_beacons_updated, ActiveBeaconsUpdated_t, callbackActiveBeaconsUpdated);
 
 		// Remote Play callbacks ////////////////
-		STEAM_CALLBACK(Steam, remote_play_session_connected, SteamRemotePlaySessionConnected_t, callbackRemotePlaySessionConnected);
-		STEAM_CALLBACK(Steam, remote_play_session_disconnected, SteamRemotePlaySessionDisconnected_t, callbackRemotePlaySessionDisconnected);
+		STEAM_CALLBACK(SteamServer, remote_play_session_connected, SteamRemotePlaySessionConnected_t, callbackRemotePlaySessionConnected);
+		STEAM_CALLBACK(SteamServer, remote_play_session_disconnected, SteamRemotePlaySessionDisconnected_t, callbackRemotePlaySessionDisconnected);
 
 		// Remote Storage callbacks /////////////
-		STEAM_CALLBACK(Steam, local_file_changed, RemoteStorageLocalFileChange_t, callbackLocalFileChanged);
+		STEAM_CALLBACK(SteamServer, local_file_changed, RemoteStorageLocalFileChange_t, callbackLocalFileChanged);
 
 		// Screenshot callbacks /////////////////
-		STEAM_CALLBACK(Steam, screenshot_ready, ScreenshotReady_t, callbackScreenshotReady);
-		STEAM_CALLBACK(Steam, screenshot_requested, ScreenshotRequested_t, callbackScreenshotRequested);
+		STEAM_CALLBACK(SteamServer, screenshot_ready, ScreenshotReady_t, callbackScreenshotReady);
+		STEAM_CALLBACK(SteamServer, screenshot_requested, ScreenshotRequested_t, callbackScreenshotRequested);
 
 		// UGC callbacks ////////////////////////
-		STEAM_CALLBACK(Steam, item_downloaded, DownloadItemResult_t, callbackItemDownloaded);
-		STEAM_CALLBACK(Steam, item_installed, ItemInstalled_t, callbackItemInstalled);
-		STEAM_CALLBACK(Steam, user_subscribed_items_list_changed, UserSubscribedItemsListChanged_t, callbackUserSubscribedItemsListChanged);
+		STEAM_CALLBACK(SteamServer, item_downloaded, DownloadItemResult_t, callbackItemDownloaded);
+		STEAM_CALLBACK(SteamServer, item_installed, ItemInstalled_t, callbackItemInstalled);
+		STEAM_CALLBACK(SteamServer, user_subscribed_items_list_changed, UserSubscribedItemsListChanged_t, callbackUserSubscribedItemsListChanged);
 
 		// User callbacks ///////////////////////
-		STEAM_CALLBACK(Steam, client_game_server_deny, ClientGameServerDeny_t, callbackClientGameServerDeny);
-		STEAM_CALLBACK(Steam, game_web_callback, GameWebCallback_t, callbackGameWebCallback);
-		STEAM_CALLBACK(Steam, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetAuthSessionTicketResponse);
-		STEAM_CALLBACK(Steam, get_ticket_for_web_api, GetTicketForWebApiResponse_t, callbackGetTicketForWebApiResponse);
-		STEAM_CALLBACK(Steam, ipc_failure, IPCFailure_t, callbackIPCFailure);
-		STEAM_CALLBACK(Steam, licenses_updated, LicensesUpdated_t, callbackLicensesUpdated);
-		STEAM_CALLBACK(Steam, microtransaction_auth_response, MicroTxnAuthorizationResponse_t, callbackMicrotransactionAuthResponse);
-		STEAM_CALLBACK(Steam, steam_server_connected, SteamServersConnected_t, callbackSteamServerConnected);
-		STEAM_CALLBACK(Steam, steam_server_disconnected, SteamServersDisconnected_t, callbackSteamServerDisconnected);
-		STEAM_CALLBACK(Steam, validate_auth_ticket_response, ValidateAuthTicketResponse_t, callbackValidateAuthTicketResponse);
+		STEAM_CALLBACK(SteamServer, client_game_server_deny, ClientGameServerDeny_t, callbackClientGameServerDeny);
+		STEAM_CALLBACK(SteamServer, game_web_callback, GameWebCallback_t, callbackGameWebCallback);
+		STEAM_CALLBACK(SteamServer, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetAuthSessionTicketResponse);
+		STEAM_CALLBACK(SteamServer, get_ticket_for_web_api, GetTicketForWebApiResponse_t, callbackGetTicketForWebApiResponse);
+		STEAM_CALLBACK(SteamServer, ipc_failure, IPCFailure_t, callbackIPCFailure);
+		STEAM_CALLBACK(SteamServer, licenses_updated, LicensesUpdated_t, callbackLicensesUpdated);
+		STEAM_CALLBACK(SteamServer, microtransaction_auth_response, MicroTxnAuthorizationResponse_t, callbackMicrotransactionAuthResponse);
+		STEAM_CALLBACK(SteamServer, steam_server_connected, SteamServersConnected_t, callbackSteamServerConnected);
+		STEAM_CALLBACK(SteamServer, steam_server_disconnected, SteamServersDisconnected_t, callbackSteamServerDisconnected);
+		STEAM_CALLBACK(SteamServer, validate_auth_ticket_response, ValidateAuthTicketResponse_t, callbackValidateAuthTicketResponse);
 
 		// User stat callbacks //////////////////
-		STEAM_CALLBACK(Steam, user_achievement_stored, UserAchievementStored_t, callbackUserAchievementStored);
-		STEAM_CALLBACK(Steam, current_stats_received, UserStatsReceived_t, callbackCurrentStatsReceived);
-		STEAM_CALLBACK(Steam, user_stats_stored, UserStatsStored_t, callbackUserStatsStored);
-		STEAM_CALLBACK(Steam, user_stats_unloaded, UserStatsUnloaded_t, callbackUserStatsUnloaded);
+		STEAM_CALLBACK(SteamServer, user_achievement_stored, UserAchievementStored_t, callbackUserAchievementStored);
+		STEAM_CALLBACK(SteamServer, current_stats_received, UserStatsReceived_t, callbackCurrentStatsReceived);
+		STEAM_CALLBACK(SteamServer, user_stats_stored, UserStatsStored_t, callbackUserStatsStored);
+		STEAM_CALLBACK(SteamServer, user_stats_unloaded, UserStatsUnloaded_t, callbackUserStatsUnloaded);
 
 		// Utility callbacks ////////////////////
-		STEAM_CALLBACK(Steam, gamepad_text_input_dismissed, GamepadTextInputDismissed_t, callbackGamepadTextInputDismissed);
-		STEAM_CALLBACK(Steam, ip_country, IPCountry_t, callbackIPCountry);
-		STEAM_CALLBACK(Steam, low_power, LowBatteryPower_t, callbackLowPower);
-		STEAM_CALLBACK(Steam, steam_api_call_completed, SteamAPICallCompleted_t, callbackSteamAPICallCompleted);
-		STEAM_CALLBACK(Steam, steam_shutdown, SteamShutdown_t, callbackSteamShutdown);
-		STEAM_CALLBACK(Steam, app_resuming_from_suspend, AppResumingFromSuspend_t, callbackAppResumingFromSuspend);
-		STEAM_CALLBACK(Steam, floating_gamepad_text_input_dismissed, FloatingGamepadTextInputDismissed_t, callbackFloatingGamepadTextInputDismissed);
-		STEAM_CALLBACK(Steam, filter_text_dictionary_changed, FilterTextDictionaryChanged_t, callbackFilterTextDictionaryChanged);
-
-		// Video callbacks //////////////////////
-		STEAM_CALLBACK(Steam, get_opf_settings_result, GetOPFSettingsResult_t, callbackGetOPFSettingsResult);
-		STEAM_CALLBACK(Steam, get_video_result, GetVideoURLResult_t, callbackGetVideoResult);
+		STEAM_CALLBACK(SteamServer, gamepad_text_input_dismissed, GamepadTextInputDismissed_t, callbackGamepadTextInputDismissed);
+		STEAM_CALLBACK(SteamServer, ip_country, IPCountry_t, callbackIPCountry);
+		STEAM_CALLBACK(SteamServer, low_power, LowBatteryPower_t, callbackLowPower);
+		STEAM_CALLBACK(SteamServer, steam_api_call_completed, SteamAPICallCompleted_t, callbackSteamAPICallCompleted);
+		STEAM_CALLBACK(SteamServer, steam_shutdown, SteamShutdown_t, callbackSteamShutdown);
+		STEAM_CALLBACK(SteamServer, app_resuming_from_suspend, AppResumingFromSuspend_t, callbackAppResumingFromSuspend);
+		STEAM_CALLBACK(SteamServer, floating_gamepad_text_input_dismissed, FloatingGamepadTextInputDismissed_t, callbackFloatingGamepadTextInputDismissed);
+		STEAM_CALLBACK(SteamServer, filter_text_dictionary_changed, FilterTextDictionaryChanged_t, callbackFilterTextDictionaryChanged);
 
 
 		/////////////////////////////////////////
@@ -2838,29 +1988,29 @@ class Steam: public Object {
 		/////////////////////////////////////////
 		//
 		// Friends call results /////////////////
-		CCallResult<Steam, ClanOfficerListResponse_t> callResultClanOfficerList;
+		CCallResult<SteamServer, ClanOfficerListResponse_t> callResultClanOfficerList;
 		void request_clan_officer_list(ClanOfficerListResponse_t *call_data, bool io_failure);
-		CCallResult<Steam, FriendsEnumerateFollowingList_t> callResultEnumerateFollowingList;
+		CCallResult<SteamServer, FriendsEnumerateFollowingList_t> callResultEnumerateFollowingList;
 		void enumerate_following_list(FriendsEnumerateFollowingList_t *call_data, bool io_failure);
-		CCallResult<Steam, EquippedProfileItems_t> callResultEquippedProfileItems;
+		CCallResult<SteamServer, EquippedProfileItems_t> callResultEquippedProfileItems;
 		void equipped_profile_items(EquippedProfileItems_t *call_data, bool io_failure);
-		CCallResult<Steam, FriendsGetFollowerCount_t> callResultFollowerCount;
+		CCallResult<SteamServer, FriendsGetFollowerCount_t> callResultFollowerCount;
 		void get_follower_count(FriendsGetFollowerCount_t *call_data, bool io_failure);
-		CCallResult<Steam, FriendsIsFollowing_t> callResultIsFollowing;
+		CCallResult<SteamServer, FriendsIsFollowing_t> callResultIsFollowing;
 		void is_following(FriendsIsFollowing_t *call_data, bool io_failure);
 
 		// Inventory call results ///////////////
-		CCallResult<Steam, SteamInventoryEligiblePromoItemDefIDs_t> callResultEligiblePromoItemDefIDs;
+		CCallResult<SteamServer, SteamInventoryEligiblePromoItemDefIDs_t> callResultEligiblePromoItemDefIDs;
 		void inventory_eligible_promo_item(SteamInventoryEligiblePromoItemDefIDs_t *call_data, bool io_failure);
-		CCallResult<Steam, SteamInventoryRequestPricesResult_t> callResultRequestPrices;
+		CCallResult<SteamServer, SteamInventoryRequestPricesResult_t> callResultRequestPrices;
 		void inventory_request_prices_result(SteamInventoryRequestPricesResult_t *call_data, bool io_failure);
-		CCallResult<Steam, SteamInventoryStartPurchaseResult_t> callResultStartPurchase;
+		CCallResult<SteamServer, SteamInventoryStartPurchaseResult_t> callResultStartPurchase;
 		void inventory_start_purchase_result(SteamInventoryStartPurchaseResult_t *call_data, bool io_failure);
 
 		// Matchmaking call results /////////////
-		CCallResult<Steam, LobbyCreated_t> callResultCreateLobby;
+		CCallResult<SteamServer, LobbyCreated_t> callResultCreateLobby;
 		void lobby_created(LobbyCreated_t *call_data, bool io_failure);
-		CCallResult<Steam, LobbyMatchList_t> callResultLobbyList;
+		CCallResult<SteamServer, LobbyMatchList_t> callResultLobbyList;
 		void lobby_match_list(LobbyMatchList_t *call_data, bool io_failure);
 
 		// Matchmaking Server call results //////
@@ -2868,216 +2018,197 @@ class Steam: public Object {
 		void server_Failed_To_Respond();
 
 		// Parties call results /////////////////
-		CCallResult<Steam, JoinPartyCallback_t> callResultJoinParty;
+		CCallResult<SteamServer, JoinPartyCallback_t> callResultJoinParty;
 		void join_party(JoinPartyCallback_t *call_data, bool io_failure);
-		CCallResult<Steam, CreateBeaconCallback_t> callResultCreateBeacon;
+		CCallResult<SteamServer, CreateBeaconCallback_t> callResultCreateBeacon;
 		void create_beacon(CreateBeaconCallback_t *call_data, bool io_failure);
-		CCallResult<Steam, ChangeNumOpenSlotsCallback_t> callResultChangeNumOpenSlots;
+		CCallResult<SteamServer, ChangeNumOpenSlotsCallback_t> callResultChangeNumOpenSlots;
 		void change_num_open_slots(ChangeNumOpenSlotsCallback_t *call_data, bool io_failure);
 
 		// Remote Storage call results //////////
-		CCallResult<Steam, RemoteStorageFileReadAsyncComplete_t> callResultFileReadAsyncComplete;
+		CCallResult<SteamServer, RemoteStorageFileReadAsyncComplete_t> callResultFileReadAsyncComplete;
 		void file_read_async_complete(RemoteStorageFileReadAsyncComplete_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoteStorageFileShareResult_t> callResultFileShareResult;
+		CCallResult<SteamServer, RemoteStorageFileShareResult_t> callResultFileShareResult;
 		void file_share_result(RemoteStorageFileShareResult_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoteStorageFileWriteAsyncComplete_t> callResultFileWriteAsyncComplete;
+		CCallResult<SteamServer, RemoteStorageFileWriteAsyncComplete_t> callResultFileWriteAsyncComplete;
 		void file_write_async_complete(RemoteStorageFileWriteAsyncComplete_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoteStorageDownloadUGCResult_t> callResultDownloadUGCResult;
+		CCallResult<SteamServer, RemoteStorageDownloadUGCResult_t> callResultDownloadUGCResult;
 		void download_ugc_result(RemoteStorageDownloadUGCResult_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoteStorageUnsubscribePublishedFileResult_t> callResultUnsubscribeItem;
+		CCallResult<SteamServer, RemoteStorageUnsubscribePublishedFileResult_t> callResultUnsubscribeItem;
 		void unsubscribe_item(RemoteStorageUnsubscribePublishedFileResult_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoteStorageSubscribePublishedFileResult_t> callResultSubscribeItem;
+		CCallResult<SteamServer, RemoteStorageSubscribePublishedFileResult_t> callResultSubscribeItem;
 		void subscribe_item(RemoteStorageSubscribePublishedFileResult_t *call_data, bool io_failure);
 
 		// UGC call results /////////////////////
-		CCallResult<Steam, AddAppDependencyResult_t> callResultAddAppDependency;
+		CCallResult<SteamServer, AddAppDependencyResult_t> callResultAddAppDependency;
 		void add_app_dependency_result(AddAppDependencyResult_t *call_data, bool io_failure);
-		CCallResult<Steam, AddUGCDependencyResult_t> callResultAddUGCDependency;
+		CCallResult<SteamServer, AddUGCDependencyResult_t> callResultAddUGCDependency;
 		void add_ugc_dependency_result(AddUGCDependencyResult_t *call_data, bool io_failure);
-		CCallResult<Steam, CreateItemResult_t> callResultItemCreate;
+		CCallResult<SteamServer, CreateItemResult_t> callResultItemCreate;
 		void item_created(CreateItemResult_t *call_data, bool io_failure);
-		CCallResult<Steam, GetAppDependenciesResult_t> callResultGetAppDependencies;
+		CCallResult<SteamServer, GetAppDependenciesResult_t> callResultGetAppDependencies;
 		void get_app_dependencies_result(GetAppDependenciesResult_t *call_data, bool io_failure);
-		CCallResult<Steam, DeleteItemResult_t> callResultDeleteItem;
+		CCallResult<SteamServer, DeleteItemResult_t> callResultDeleteItem;
 		void item_deleted(DeleteItemResult_t *call_data, bool io_failure);
-		CCallResult<Steam, GetUserItemVoteResult_t> callResultGetUserItemVote;
+		CCallResult<SteamServer, GetUserItemVoteResult_t> callResultGetUserItemVote;
 		void get_item_vote_result(GetUserItemVoteResult_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoveAppDependencyResult_t> callResultRemoveAppDependency;
+		CCallResult<SteamServer, RemoveAppDependencyResult_t> callResultRemoveAppDependency;
 		void remove_app_dependency_result(RemoveAppDependencyResult_t *call_data, bool io_failure);
-		CCallResult<Steam, RemoveUGCDependencyResult_t> callResultRemoveUGCDependency;
+		CCallResult<SteamServer, RemoveUGCDependencyResult_t> callResultRemoveUGCDependency;
 		void remove_ugc_dependency_result(RemoveUGCDependencyResult_t *call_data, bool io_failure);
-		CCallResult<Steam, SetUserItemVoteResult_t> callResultSetUserItemVote;
+		CCallResult<SteamServer, SetUserItemVoteResult_t> callResultSetUserItemVote;
 		void set_user_item_vote(SetUserItemVoteResult_t *call_data, bool io_failure);
-		CCallResult<Steam, StartPlaytimeTrackingResult_t> callResultStartPlaytimeTracking;
+		CCallResult<SteamServer, StartPlaytimeTrackingResult_t> callResultStartPlaytimeTracking;
 		void start_playtime_tracking(StartPlaytimeTrackingResult_t *call_data, bool io_failure);
-		CCallResult<Steam, SteamUGCQueryCompleted_t> callResultUGCQueryCompleted;
+		CCallResult<SteamServer, SteamUGCQueryCompleted_t> callResultUGCQueryCompleted;
 		void ugc_query_completed(SteamUGCQueryCompleted_t *call_data, bool io_failure);
-		CCallResult<Steam, StopPlaytimeTrackingResult_t> callResultStopPlaytimeTracking;
+		CCallResult<SteamServer, StopPlaytimeTrackingResult_t> callResultStopPlaytimeTracking;
 		void stop_playtime_tracking(StopPlaytimeTrackingResult_t *call_data, bool io_failure);
-		CCallResult<Steam, SubmitItemUpdateResult_t> callResultItemUpdate;
+		CCallResult<SteamServer, SubmitItemUpdateResult_t> callResultItemUpdate;
 		void item_updated(SubmitItemUpdateResult_t *call_data, bool io_failure);
-		CCallResult<Steam, UserFavoriteItemsListChanged_t> callResultFavoriteItemListChanged;
+		CCallResult<SteamServer, UserFavoriteItemsListChanged_t> callResultFavoriteItemListChanged;
 		void user_favorite_items_list_changed(UserFavoriteItemsListChanged_t *call_data, bool io_failure);
-		CCallResult<Steam, WorkshopEULAStatus_t> callResultWorkshopEULAStatus;
+		CCallResult<SteamServer, WorkshopEULAStatus_t> callResultWorkshopEULAStatus;
 		void workshop_eula_status(WorkshopEULAStatus_t *call_data, bool io_failure);
 
 		// User call results ////////////////////
-		CCallResult<Steam, DurationControl_t> callResultDurationControl;
+		CCallResult<SteamServer, DurationControl_t> callResultDurationControl;
 		void duration_control(DurationControl_t *call_data, bool io_failure);
-		CCallResult<Steam, EncryptedAppTicketResponse_t> callResultEncryptedAppTicketResponse;
+		CCallResult<SteamServer, EncryptedAppTicketResponse_t> callResultEncryptedAppTicketResponse;
 		void encrypted_app_ticket_response(EncryptedAppTicketResponse_t *call_data, bool io_failure);
-		CCallResult<Steam, SteamServerConnectFailure_t> callResultSteamServerConnectFailure;
+		CCallResult<SteamServer, SteamServerConnectFailure_t> callResultSteamServerConnectFailure;
 		void steam_server_connect_failed(SteamServerConnectFailure_t *call_data, bool io_failure);
-		CCallResult<Steam, StoreAuthURLResponse_t> callResultStoreAuthURLResponse;
+		CCallResult<SteamServer, StoreAuthURLResponse_t> callResultStoreAuthURLResponse;
 		void store_auth_url_response(StoreAuthURLResponse_t *call_data, bool io_failure);
 
 		// User stat call results ///////////////
-		CCallResult<Steam, GlobalAchievementPercentagesReady_t> callResultGlobalAchievementPercentagesReady;
+		CCallResult<SteamServer, GlobalAchievementPercentagesReady_t> callResultGlobalAchievementPercentagesReady;
 		void global_achievement_percentages_ready(GlobalAchievementPercentagesReady_t *call_data, bool io_failure);
-		CCallResult<Steam, GlobalStatsReceived_t> callResultGetGlobalStatsReceived;
+		CCallResult<SteamServer, GlobalStatsReceived_t> callResultGetGlobalStatsReceived;
 		void global_stats_received(GlobalStatsReceived_t *call_data, bool io_failure);
-		CCallResult<Steam, LeaderboardFindResult_t> callResultFindLeaderboard;
+		CCallResult<SteamServer, LeaderboardFindResult_t> callResultFindLeaderboard;
 		void leaderboard_find_result(LeaderboardFindResult_t *call_data, bool io_failure);
-		CCallResult<Steam, LeaderboardScoresDownloaded_t> callResultEntries;
+		CCallResult<SteamServer, LeaderboardScoresDownloaded_t> callResultEntries;
 		void leaderboard_scores_downloaded(LeaderboardScoresDownloaded_t *call_data, bool io_failure);
-		CCallResult<Steam, LeaderboardScoreUploaded_t> callResultUploadScore;
+		CCallResult<SteamServer, LeaderboardScoreUploaded_t> callResultUploadScore;
 		void leaderboard_score_uploaded(LeaderboardScoreUploaded_t *call_data, bool io_failure);
-		CCallResult<Steam, LeaderboardUGCSet_t> callResultLeaderboardUGCSet;
+		CCallResult<SteamServer, LeaderboardUGCSet_t> callResultLeaderboardUGCSet;
 		void leaderboard_ugc_set(LeaderboardUGCSet_t *call_data, bool io_failure);
-		CCallResult<Steam, NumberOfCurrentPlayers_t> callResultNumberOfCurrentPlayers;
+		CCallResult<SteamServer, NumberOfCurrentPlayers_t> callResultNumberOfCurrentPlayers;
 		void number_of_current_players(NumberOfCurrentPlayers_t *call_data, bool io_failure);
-		CCallResult<Steam, UserStatsReceived_t> callResultUserStatsReceived;
+		CCallResult<SteamServer, UserStatsReceived_t> callResultUserStatsReceived;
 		void user_stats_received(UserStatsReceived_t *call_data, bool io_failure);
 
 		// Utility call results /////////////////
-		CCallResult<Steam, CheckFileSignature_t> callResultCheckFileSignature;
+		CCallResult<SteamServer, CheckFileSignature_t> callResultCheckFileSignature;
 		void check_file_signature(CheckFileSignature_t *call_data, bool io_failure);
 };
 
-VARIANT_ENUM_CAST(Steam::AccountType);
-VARIANT_ENUM_CAST(Steam::APICallFailure);
-VARIANT_ENUM_CAST(Steam::AudioPlaybackStatus);
-VARIANT_ENUM_CAST(Steam::AuthSessionResponse);
-VARIANT_ENUM_CAST(Steam::AvatarSizes);
+VARIANT_ENUM_CAST(SteamServer::AccountType);
+VARIANT_ENUM_CAST(SteamServer::APICallFailure);
+VARIANT_ENUM_CAST(SteamServer::AuthSessionResponse);
+VARIANT_ENUM_CAST(SteamServer::AvatarSizes);
 
-VARIANT_ENUM_CAST(Steam::BeginAuthSessionResult);
-VARIANT_ENUM_CAST(Steam::BroadcastUploadResult);
+VARIANT_ENUM_CAST(SteamServer::BeginAuthSessionResult);
+VARIANT_ENUM_CAST(SteamServer::BroadcastUploadResult);
 
-VARIANT_ENUM_CAST(Steam::ChatEntryType);
-VARIANT_BITFIELD_CAST(Steam::ChatMemberStateChange);
-VARIANT_ENUM_CAST(Steam::ChatRoomEnterResponse);
-VARIANT_BITFIELD_CAST(Steam::ChatSteamIDInstanceFlags);
-VARIANT_ENUM_CAST(Steam::CheckFileSignature);
-VARIANT_ENUM_CAST(Steam::CommunityProfileItemType);
-VARIANT_ENUM_CAST(Steam::CommunityProfileItemProperty);
-VARIANT_ENUM_CAST(Steam::ControllerHapticLocation);
-VARIANT_ENUM_CAST(Steam::ControllerHapticType);
-VARIANT_ENUM_CAST(Steam::ControllerPad);
+VARIANT_ENUM_CAST(SteamServer::ChatEntryType);
+VARIANT_BITFIELD_CAST(SteamServer::ChatMemberStateChange);
+VARIANT_ENUM_CAST(SteamServer::ChatRoomEnterResponse);
+VARIANT_BITFIELD_CAST(SteamServer::ChatSteamIDInstanceFlags);
+VARIANT_ENUM_CAST(SteamServer::CheckFileSignature);
+VARIANT_ENUM_CAST(SteamServer::CommunityProfileItemType);
+VARIANT_ENUM_CAST(SteamServer::CommunityProfileItemProperty);
 
-VARIANT_ENUM_CAST(Steam::DenyReason);
-VARIANT_ENUM_CAST(Steam::DeviceFormFactor);
-VARIANT_ENUM_CAST(Steam::DurationControlNotification);
-VARIANT_ENUM_CAST(Steam::DurationControlOnlineState);
-VARIANT_ENUM_CAST(Steam::DurationControlProgress);
+VARIANT_ENUM_CAST(SteamServer::DenyReason);
+VARIANT_ENUM_CAST(SteamServer::DurationControlNotification);
+VARIANT_ENUM_CAST(SteamServer::DurationControlOnlineState);
+VARIANT_ENUM_CAST(SteamServer::DurationControlProgress);
 
-VARIANT_ENUM_CAST(Steam::FilePathType);
-VARIANT_ENUM_CAST(Steam::FloatingGamepadTextInputMode);
-VARIANT_BITFIELD_CAST(Steam::FriendFlags);
-VARIANT_ENUM_CAST(Steam::FriendRelationship);
+VARIANT_ENUM_CAST(SteamServer::FilePathType);
+VARIANT_ENUM_CAST(SteamServer::FloatingGamepadTextInputMode);
+VARIANT_BITFIELD_CAST(SteamServer::FriendFlags);
+VARIANT_ENUM_CAST(SteamServer::FriendRelationship);
 
-VARIANT_ENUM_CAST(Steam::GameIDType);
-VARIANT_ENUM_CAST(Steam::GamepadTextInputLineMode);
-VARIANT_ENUM_CAST(Steam::GamepadTextInputMode);
-VARIANT_ENUM_CAST(Steam::GameSearchErrorCode);
+VARIANT_ENUM_CAST(SteamServer::GameIDType);
+VARIANT_ENUM_CAST(SteamServer::GamepadTextInputLineMode);
+VARIANT_ENUM_CAST(SteamServer::GamepadTextInputMode);
+VARIANT_ENUM_CAST(SteamServer::GameSearchErrorCode);
 
-VARIANT_BITFIELD_CAST(Steam::HTMLKeyModifiers);
-VARIANT_ENUM_CAST(Steam::HTMLMouseButton);
-VARIANT_ENUM_CAST(Steam::HTTPMethod);
-VARIANT_ENUM_CAST(Steam::HTTPStatusCode);
+VARIANT_ENUM_CAST(SteamServer::HTTPMethod);
+VARIANT_ENUM_CAST(SteamServer::HTTPStatusCode);
 
-VARIANT_ENUM_CAST(Steam::InputActionEventType);
-VARIANT_ENUM_CAST(Steam::InputActionOrigin);
-VARIANT_BITFIELD_CAST(Steam::InputConfigurationEnableType);
-VARIANT_ENUM_CAST(Steam::InputGlyphSize);
-VARIANT_BITFIELD_CAST(Steam::InputGlyphStyle);
-VARIANT_ENUM_CAST(Steam::InputLEDFlag);
-VARIANT_ENUM_CAST(Steam::InputSourceMode);
-VARIANT_ENUM_CAST(Steam::InputType);
-VARIANT_ENUM_CAST(Steam::IPType);
-VARIANT_ENUM_CAST(Steam::IPv6ConnectivityProtocol);
-VARIANT_ENUM_CAST(Steam::IPv6ConnectivityState);
-VARIANT_BITFIELD_CAST(Steam::ItemFlags);
-VARIANT_ENUM_CAST(Steam::ItemPreviewType);
-VARIANT_BITFIELD_CAST(Steam::ItemState);
-VARIANT_ENUM_CAST(Steam::ItemStatistic);
-VARIANT_ENUM_CAST(Steam::ItemUpdateStatus);
+VARIANT_ENUM_CAST(SteamServer::IPType);
+VARIANT_ENUM_CAST(SteamServer::IPv6ConnectivityProtocol);
+VARIANT_ENUM_CAST(SteamServer::IPv6ConnectivityState);
+VARIANT_BITFIELD_CAST(SteamServer::ItemFlags);
+VARIANT_ENUM_CAST(SteamServer::ItemPreviewType);
+VARIANT_BITFIELD_CAST(SteamServer::ItemState);
+VARIANT_ENUM_CAST(SteamServer::ItemStatistic);
+VARIANT_ENUM_CAST(SteamServer::ItemUpdateStatus);
 
-VARIANT_ENUM_CAST(Steam::LeaderboardDataRequest);
-VARIANT_ENUM_CAST(Steam::LeaderboardDisplayType);
-VARIANT_ENUM_CAST(Steam::LeaderboardSortMethod);
-VARIANT_ENUM_CAST(Steam::LeaderboardUploadScoreMethod);
-VARIANT_ENUM_CAST(Steam::LobbyComparison);
-VARIANT_ENUM_CAST(Steam::LobbyDistanceFilter);
-VARIANT_ENUM_CAST(Steam::LobbyType);
-VARIANT_ENUM_CAST(Steam::LocalFileChange);
+VARIANT_ENUM_CAST(SteamServer::LeaderboardDataRequest);
+VARIANT_ENUM_CAST(SteamServer::LeaderboardDisplayType);
+VARIANT_ENUM_CAST(SteamServer::LeaderboardSortMethod);
+VARIANT_ENUM_CAST(SteamServer::LeaderboardUploadScoreMethod);
+VARIANT_ENUM_CAST(SteamServer::LobbyComparison);
+VARIANT_ENUM_CAST(SteamServer::LobbyDistanceFilter);
+VARIANT_ENUM_CAST(SteamServer::LobbyType);
+VARIANT_ENUM_CAST(SteamServer::LocalFileChange);
 
-VARIANT_ENUM_CAST(Steam::MarketNotAllowedReasonFlags);
-VARIANT_ENUM_CAST(Steam::MatchMakingServerResponse);
-VARIANT_ENUM_CAST(Steam::MouseCursor);
+VARIANT_ENUM_CAST(SteamServer::MarketNotAllowedReasonFlags);
+VARIANT_ENUM_CAST(SteamServer::MatchMakingServerResponse);
 
-VARIANT_ENUM_CAST(Steam::NetworkingAvailability);
-VARIANT_ENUM_CAST(Steam::NetworkingConfigDataType);
-VARIANT_ENUM_CAST(Steam::NetworkingConfigScope);
-VARIANT_ENUM_CAST(Steam::NetworkingConfigValue);
-VARIANT_ENUM_CAST(Steam::NetworkingConnectionEnd);
-VARIANT_ENUM_CAST(Steam::NetworkingConnectionState);
-VARIANT_ENUM_CAST(Steam::NetworkingFakeIPType);
-VARIANT_ENUM_CAST(Steam::NetworkingGetConfigValueResult);
-VARIANT_ENUM_CAST(Steam::NetworkingIdentityType);
-VARIANT_ENUM_CAST(Steam::NetworkingSocketsDebugOutputType);
-VARIANT_ENUM_CAST(Steam::NotificationPosition);
+VARIANT_ENUM_CAST(SteamServer::NetworkingAvailability);
+VARIANT_ENUM_CAST(SteamServer::NetworkingConfigDataType);
+VARIANT_ENUM_CAST(SteamServer::NetworkingConfigScope);
+VARIANT_ENUM_CAST(SteamServer::NetworkingConfigValue);
+VARIANT_ENUM_CAST(SteamServer::NetworkingConnectionEnd);
+VARIANT_ENUM_CAST(SteamServer::NetworkingConnectionState);
+VARIANT_ENUM_CAST(SteamServer::NetworkingFakeIPType);
+VARIANT_ENUM_CAST(SteamServer::NetworkingGetConfigValueResult);
+VARIANT_ENUM_CAST(SteamServer::NetworkingIdentityType);
+VARIANT_ENUM_CAST(SteamServer::NetworkingSocketsDebugOutputType);
+VARIANT_ENUM_CAST(SteamServer::NotificationPosition);
 
-VARIANT_ENUM_CAST(Steam::OverlayToStoreFlag);
-VARIANT_ENUM_CAST(Steam::OverlayToWebPageMode);
+VARIANT_ENUM_CAST(SteamServer::OverlayToStoreFlag);
+VARIANT_ENUM_CAST(SteamServer::OverlayToWebPageMode);
 
-VARIANT_ENUM_CAST(Steam::P2PSend);
-VARIANT_ENUM_CAST(Steam::P2PSessionError);
-VARIANT_ENUM_CAST(Steam::ParentalFeature);
-VARIANT_ENUM_CAST(Steam::PartyBeaconLocationData);
-VARIANT_ENUM_CAST(Steam::PartyBeaconLocationType);
-VARIANT_BITFIELD_CAST(Steam::PersonaChange);
-VARIANT_ENUM_CAST(Steam::PersonaState);
-VARIANT_ENUM_CAST(Steam::PlayerResult);
+VARIANT_ENUM_CAST(SteamServer::P2PSend);
+VARIANT_ENUM_CAST(SteamServer::P2PSessionError);
+VARIANT_ENUM_CAST(SteamServer::PartyBeaconLocationData);
+VARIANT_ENUM_CAST(SteamServer::PartyBeaconLocationType);
+VARIANT_BITFIELD_CAST(SteamServer::PersonaChange);
+VARIANT_ENUM_CAST(SteamServer::PersonaState);
+VARIANT_ENUM_CAST(SteamServer::PlayerResult);
 
-VARIANT_BITFIELD_CAST(Steam::RemoteStoragePlatform);
-VARIANT_ENUM_CAST(Steam::RemoteStoragePublishedFileVisibility);
-VARIANT_ENUM_CAST(Steam::Result);
+VARIANT_BITFIELD_CAST(SteamServer::RemoteStoragePlatform);
+VARIANT_ENUM_CAST(SteamServer::RemoteStoragePublishedFileVisibility);
+VARIANT_ENUM_CAST(SteamServer::Result);
 
-VARIANT_ENUM_CAST(Steam::SocketConnectionType);
-VARIANT_ENUM_CAST(Steam::SocketState);
-VARIANT_ENUM_CAST(Steam::ServerMode);
+VARIANT_ENUM_CAST(SteamServer::SocketConnectionType);
+VARIANT_ENUM_CAST(SteamServer::SocketState);
+VARIANT_ENUM_CAST(SteamServer::ServerMode);
 
-VARIANT_ENUM_CAST(Steam::TextFilteringContext);
+VARIANT_ENUM_CAST(SteamServer::TextFilteringContext);
 
-VARIANT_ENUM_CAST(Steam::Universe);
-VARIANT_ENUM_CAST(Steam::UGCContentDescriptorID);
-VARIANT_ENUM_CAST(Steam::UGCMatchingUGCType);
-VARIANT_ENUM_CAST(Steam::UGCQuery);
-VARIANT_ENUM_CAST(Steam::UGCReadAction);
-VARIANT_ENUM_CAST(Steam::UserHasLicenseForAppResult);
-VARIANT_BITFIELD_CAST(Steam::UserRestriction);
-VARIANT_ENUM_CAST(Steam::UserUGCList);
-VARIANT_ENUM_CAST(Steam::UserUGCListSortOrder);
+VARIANT_ENUM_CAST(SteamServer::Universe);
+VARIANT_ENUM_CAST(SteamServer::UGCContentDescriptorID);
+VARIANT_ENUM_CAST(SteamServer::UGCMatchingUGCType);
+VARIANT_ENUM_CAST(SteamServer::UGCQuery);
+VARIANT_ENUM_CAST(SteamServer::UGCReadAction);
+VARIANT_ENUM_CAST(SteamServer::UserHasLicenseForAppResult);
+VARIANT_BITFIELD_CAST(SteamServer::UserRestriction);
+VARIANT_ENUM_CAST(SteamServer::UserUGCList);
+VARIANT_ENUM_CAST(SteamServer::UserUGCListSortOrder);
 
-VARIANT_ENUM_CAST(Steam::VoiceResult);
-VARIANT_ENUM_CAST(Steam::VRScreenshotType);
+VARIANT_ENUM_CAST(SteamServer::VoiceResult);
 
-VARIANT_ENUM_CAST(Steam::WorkshopEnumerationType);
-VARIANT_ENUM_CAST(Steam::WorkshopFileAction);
-VARIANT_ENUM_CAST(Steam::WorkshopFileType);
-VARIANT_ENUM_CAST(Steam::WorkshopVideoProvider);
-VARIANT_ENUM_CAST(Steam::WorkshopVote);
+VARIANT_ENUM_CAST(SteamServer::WorkshopEnumerationType);
+VARIANT_ENUM_CAST(SteamServer::WorkshopFileAction);
+VARIANT_ENUM_CAST(SteamServer::WorkshopFileType);
+VARIANT_ENUM_CAST(SteamServer::WorkshopVideoProvider);
+VARIANT_ENUM_CAST(SteamServer::WorkshopVote);
 
-VARIANT_ENUM_CAST(Steam::XboxOrigin);
 
 #endif // GODOTSTEAM_H

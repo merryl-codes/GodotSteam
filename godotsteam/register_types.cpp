@@ -11,19 +11,19 @@
 
 using namespace godot;
 
-static Steam *SteamPtr;
+static SteamServer *SteamPtr;
 
 void initialize_godotsteam(ModuleInitializationLevel level){
 	if(level == MODULE_INITIALIZATION_LEVEL_SCENE){
-		ClassDB::register_class<Steam>();
-		SteamPtr = memnew(Steam);
-		Engine::get_singleton()->register_singleton("Steam", Steam::get_singleton());
+		ClassDB::register_class<SteamServer>();
+		SteamPtr = memnew(SteamServer);
+		Engine::get_singleton()->register_singleton("SteamServer", SteamServer::get_singleton());
 	}
 }
 
 void uninitialize_godotsteam(ModuleInitializationLevel level){
 	if(level == MODULE_INITIALIZATION_LEVEL_SCENE){
-		Engine::get_singleton()->unregister_singleton("Steam");
+		Engine::get_singleton()->unregister_singleton("SteamServer");
 		memdelete(SteamPtr);
 	}
 }
