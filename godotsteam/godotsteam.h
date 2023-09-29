@@ -1846,53 +1846,53 @@ class SteamServer: public Object {
 		/////////////////////////////////////////
 		//
 		// Apps callbacks ///////////////////////
-		STEAM_CALLBACK(SteamServer, dlc_installed, DlcInstalled_t, callbackDLCInstalled);
-		STEAM_CALLBACK(SteamServer, file_details_result, FileDetailsResult_t, callbackFileDetailsResult);
-		STEAM_CALLBACK(SteamServer, new_launch_url_parameters, NewUrlLaunchParameters_t, callbackNewLaunchURLParameters);
-		STEAM_CALLBACK(SteamServer, timed_trial_status, TimedTrialStatus_t, callbackTimedTrialStatus);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, dlc_installed, DlcInstalled_t, callbackDLCInstalled);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, file_details_result, FileDetailsResult_t, callbackFileDetailsResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, new_launch_url_parameters, NewUrlLaunchParameters_t, callbackNewLaunchURLParameters);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, timed_trial_status, TimedTrialStatus_t, callbackTimedTrialStatus);
 
 		// Apps List callbacks //////////////////
-		STEAM_CALLBACK(SteamServer, app_installed, SteamAppInstalled_t, callbackAppInstalled);
-		STEAM_CALLBACK(SteamServer, app_uninstalled, SteamAppUninstalled_t, callbackAppUninstalled);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, app_installed, SteamAppInstalled_t, callbackAppInstalled);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, app_uninstalled, SteamAppUninstalled_t, callbackAppUninstalled);
 
 		// Friends callbacks ////////////////////
-		STEAM_CALLBACK(SteamServer, avatar_loaded, AvatarImageLoaded_t, callbackAvatarLoaded);
-		STEAM_CALLBACK(SteamServer, avatar_image_loaded, AvatarImageLoaded_t, callbackAvatarImageLoaded);
-		STEAM_CALLBACK(SteamServer, clan_activity_downloaded, DownloadClanActivityCountsResult_t, callbackClanActivityDownloaded);
-		STEAM_CALLBACK(SteamServer, friend_rich_presence_update, FriendRichPresenceUpdate_t, callbackFriendRichPresenceUpdate);
-		STEAM_CALLBACK(SteamServer, connected_chat_join, GameConnectedChatJoin_t, callbackConnectedChatJoin);
-		STEAM_CALLBACK(SteamServer, connected_chat_leave, GameConnectedChatLeave_t, callbackConnectedChatLeave);
-		STEAM_CALLBACK(SteamServer, connected_clan_chat_message, GameConnectedClanChatMsg_t, callbackConnectedClanChatMessage);
-		STEAM_CALLBACK(SteamServer, connected_friend_chat_message, GameConnectedFriendChatMsg_t, callbackConnectedFriendChatMessage);
-		STEAM_CALLBACK(SteamServer, join_requested, GameLobbyJoinRequested_t, callbackJoinRequested);
-		STEAM_CALLBACK(SteamServer, overlay_toggled, GameOverlayActivated_t, callbackOverlayToggled);
-		STEAM_CALLBACK(SteamServer, join_game_requested, GameRichPresenceJoinRequested_t, callbackJoinGameRequested);
-		STEAM_CALLBACK(SteamServer, change_server_requested, GameServerChangeRequested_t, callbackChangeServerRequested);
-		STEAM_CALLBACK(SteamServer, join_clan_chat_complete, JoinClanChatRoomCompletionResult_t, callbackJoinClanChatComplete);
-		STEAM_CALLBACK(SteamServer, persona_state_change, PersonaStateChange_t, callbackPersonaStateChange);
-		STEAM_CALLBACK(SteamServer, name_changed, SetPersonaNameResponse_t, callbackNameChanged);
-		STEAM_CALLBACK(SteamServer, overlay_browser_protocol, OverlayBrowserProtocolNavigation_t, callbackOverlayBrowserProtocol);
-		STEAM_CALLBACK(SteamServer, unread_chat_messages_changed, UnreadChatMessagesChanged_t, callbackUnreadChatMessagesChanged);
-		STEAM_CALLBACK(SteamServer, equipped_profile_items_changed, EquippedProfileItemsChanged_t, callbackEquippedProfileItemsChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, avatar_loaded, AvatarImageLoaded_t, callbackAvatarLoaded);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, avatar_image_loaded, AvatarImageLoaded_t, callbackAvatarImageLoaded);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, clan_activity_downloaded, DownloadClanActivityCountsResult_t, callbackClanActivityDownloaded);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, friend_rich_presence_update, FriendRichPresenceUpdate_t, callbackFriendRichPresenceUpdate);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, connected_chat_join, GameConnectedChatJoin_t, callbackConnectedChatJoin);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, connected_chat_leave, GameConnectedChatLeave_t, callbackConnectedChatLeave);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, connected_clan_chat_message, GameConnectedClanChatMsg_t, callbackConnectedClanChatMessage);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, connected_friend_chat_message, GameConnectedFriendChatMsg_t, callbackConnectedFriendChatMessage);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, join_requested, GameLobbyJoinRequested_t, callbackJoinRequested);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, overlay_toggled, GameOverlayActivated_t, callbackOverlayToggled);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, join_game_requested, GameRichPresenceJoinRequested_t, callbackJoinGameRequested);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, change_server_requested, GameServerChangeRequested_t, callbackChangeServerRequested);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, join_clan_chat_complete, JoinClanChatRoomCompletionResult_t, callbackJoinClanChatComplete);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, persona_state_change, PersonaStateChange_t, callbackPersonaStateChange);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, name_changed, SetPersonaNameResponse_t, callbackNameChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, overlay_browser_protocol, OverlayBrowserProtocolNavigation_t, callbackOverlayBrowserProtocol);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, unread_chat_messages_changed, UnreadChatMessagesChanged_t, callbackUnreadChatMessagesChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, equipped_profile_items_changed, EquippedProfileItemsChanged_t, callbackEquippedProfileItemsChanged);
 
 		// Game Search callbacks ////////////////
-		STEAM_CALLBACK(SteamServer, search_for_game_progress, SearchForGameProgressCallback_t, callbackSearchForGameProgress);
-		STEAM_CALLBACK(SteamServer, search_for_game_result, SearchForGameResultCallback_t, callbackSearchForGameResult);
-		STEAM_CALLBACK(SteamServer, request_players_for_game_progress, RequestPlayersForGameProgressCallback_t, callbackRequestPlayersForGameProgress);
-		STEAM_CALLBACK(SteamServer, request_players_for_game_result, RequestPlayersForGameResultCallback_t, callbackRequestPlayersForGameResult);
-		STEAM_CALLBACK(SteamServer, request_players_for_game_final_result, RequestPlayersForGameFinalResultCallback_t, callbackRequestPlayersForGameFinalResult);
-		STEAM_CALLBACK(SteamServer, submit_player_result, SubmitPlayerResultResultCallback_t, callbackSubmitPlayerResult);
-		STEAM_CALLBACK(SteamServer, end_game_result, EndGameResultCallback_t, callbackEndGameResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, search_for_game_progress, SearchForGameProgressCallback_t, callbackSearchForGameProgress);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, search_for_game_result, SearchForGameResultCallback_t, callbackSearchForGameResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, request_players_for_game_progress, RequestPlayersForGameProgressCallback_t, callbackRequestPlayersForGameProgress);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, request_players_for_game_result, RequestPlayersForGameResultCallback_t, callbackRequestPlayersForGameResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, request_players_for_game_final_result, RequestPlayersForGameFinalResultCallback_t, callbackRequestPlayersForGameFinalResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, submit_player_result, SubmitPlayerResultResultCallback_t, callbackSubmitPlayerResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, end_game_result, EndGameResultCallback_t, callbackEndGameResult);
 
 		// HTTP callbacks ///////////////////////
-		STEAM_CALLBACK(SteamServer, http_request_completed, HTTPRequestCompleted_t, callbackHTTPRequestCompleted);
-		STEAM_CALLBACK(SteamServer, http_request_data_received, HTTPRequestDataReceived_t, callbackHTTPRequestDataReceived);
-		STEAM_CALLBACK(SteamServer, http_request_headers_received, HTTPRequestHeadersReceived_t, callbackHTTPRequestHeadersReceived);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, http_request_completed, HTTPRequestCompleted_t, callbackHTTPRequestCompleted);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, http_request_data_received, HTTPRequestDataReceived_t, callbackHTTPRequestDataReceived);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, http_request_headers_received, HTTPRequestHeadersReceived_t, callbackHTTPRequestHeadersReceived);
 
 		// Inventory callbacks //////////////////
-		STEAM_CALLBACK(SteamServer, inventory_definition_update, SteamInventoryDefinitionUpdate_t, callbackInventoryDefinitionUpdate);
-		STEAM_CALLBACK(SteamServer, inventory_full_update, SteamInventoryFullUpdate_t, callbackInventoryFullUpdate);
-		STEAM_CALLBACK(SteamServer, inventory_result_ready, SteamInventoryResultReady_t, callbackInventoryResultReady);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, inventory_definition_update, SteamInventoryDefinitionUpdate_t, callbackInventoryDefinitionUpdate);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, inventory_full_update, SteamInventoryFullUpdate_t, callbackInventoryFullUpdate);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, inventory_result_ready, SteamInventoryResultReady_t, callbackInventoryResultReady);
 
 		// Game Server callbacks ////////////////
 		// TODO: define funtions for all callbacks //
@@ -1907,80 +1907,80 @@ class SteamServer: public Object {
 		STEAM_GAMESERVER_CALLBACK(SteamServer, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
 
 		// Matchmaking callbacks ////////////////
-		STEAM_CALLBACK(SteamServer, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
-		STEAM_CALLBACK(SteamServer, favorites_list_changed, FavoritesListChanged_t, callbackFavoritesListChanged);
-		STEAM_CALLBACK(SteamServer, lobby_message, LobbyChatMsg_t, callbackLobbyMessage);
-		STEAM_CALLBACK(SteamServer, lobby_chat_update, LobbyChatUpdate_t, callbackLobbyChatUpdate);
-		STEAM_CALLBACK(SteamServer, lobby_data_update, LobbyDataUpdate_t, callbackLobbyDataUpdate);
-		STEAM_CALLBACK(SteamServer, lobby_joined, LobbyEnter_t, callbackLobbyJoined);
-		STEAM_CALLBACK(SteamServer, lobby_game_created, LobbyGameCreated_t, callbackLobbyGameCreated);
-		STEAM_CALLBACK(SteamServer, lobby_invite, LobbyInvite_t, callbackLobbyInvite);
-		STEAM_CALLBACK(SteamServer, lobby_kicked, LobbyKicked_t, callbackLobbyKicked);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, favorites_list_changed, FavoritesListChanged_t, callbackFavoritesListChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_message, LobbyChatMsg_t, callbackLobbyMessage);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_chat_update, LobbyChatUpdate_t, callbackLobbyChatUpdate);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_data_update, LobbyDataUpdate_t, callbackLobbyDataUpdate);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_joined, LobbyEnter_t, callbackLobbyJoined);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_game_created, LobbyGameCreated_t, callbackLobbyGameCreated);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_invite, LobbyInvite_t, callbackLobbyInvite);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, lobby_kicked, LobbyKicked_t, callbackLobbyKicked);
 
 		// Networking callbacks /////////////////
-		STEAM_CALLBACK(SteamServer, p2p_session_connect_fail, P2PSessionConnectFail_t, callbackP2PSessionConnectFail);
-		STEAM_CALLBACK(SteamServer, p2p_session_request, P2PSessionRequest_t, callbackP2PSessionRequest);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, p2p_session_connect_fail, P2PSessionConnectFail_t, callbackP2PSessionConnectFail);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, p2p_session_request, P2PSessionRequest_t, callbackP2PSessionRequest);
 
 		// Networking Messages callbacks ////////
-		STEAM_CALLBACK(SteamServer, network_messages_session_request, SteamNetworkingMessagesSessionRequest_t, callbackNetworkMessagesSessionRequest);
-		STEAM_CALLBACK(SteamServer, network_messages_session_failed, SteamNetworkingMessagesSessionFailed_t, callbackNetworkMessagesSessionFailed);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, network_messages_session_request, SteamNetworkingMessagesSessionRequest_t, callbackNetworkMessagesSessionRequest);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, network_messages_session_failed, SteamNetworkingMessagesSessionFailed_t, callbackNetworkMessagesSessionFailed);
 
 		// Networking Sockets callbacks /////////
-		STEAM_CALLBACK(SteamServer, network_connection_status_changed, SteamNetConnectionStatusChangedCallback_t, callbackNetworkConnectionStatusChanged);
-		STEAM_CALLBACK(SteamServer, network_authentication_status, SteamNetAuthenticationStatus_t, callbackNetworkAuthenticationStatus);
-		STEAM_CALLBACK(SteamServer, fake_ip_result, SteamNetworkingFakeIPResult_t, callbackNetworkingFakeIPResult);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, network_connection_status_changed, SteamNetConnectionStatusChangedCallback_t, callbackNetworkConnectionStatusChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, network_authentication_status, SteamNetAuthenticationStatus_t, callbackNetworkAuthenticationStatus);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, fake_ip_result, SteamNetworkingFakeIPResult_t, callbackNetworkingFakeIPResult);
 
 		// Networking Utils callbacks ///////////
-		STEAM_CALLBACK(SteamServer, relay_network_status, SteamRelayNetworkStatus_t, callbackRelayNetworkStatus);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, relay_network_status, SteamRelayNetworkStatus_t, callbackRelayNetworkStatus);
 
 		// Parties callbacks ////////////////////
-		STEAM_CALLBACK(SteamServer, reservation_notification, ReservationNotificationCallback_t, callbackReserveNotification);
-		STEAM_CALLBACK(SteamServer, available_beacon_locations_updated, AvailableBeaconLocationsUpdated_t, callbackAvailableBeaconLocationsUpdated);
-		STEAM_CALLBACK(SteamServer, active_beacons_updated, ActiveBeaconsUpdated_t, callbackActiveBeaconsUpdated);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, reservation_notification, ReservationNotificationCallback_t, callbackReserveNotification);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, available_beacon_locations_updated, AvailableBeaconLocationsUpdated_t, callbackAvailableBeaconLocationsUpdated);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, active_beacons_updated, ActiveBeaconsUpdated_t, callbackActiveBeaconsUpdated);
 
 		// Remote Play callbacks ////////////////
-		STEAM_CALLBACK(SteamServer, remote_play_session_connected, SteamRemotePlaySessionConnected_t, callbackRemotePlaySessionConnected);
-		STEAM_CALLBACK(SteamServer, remote_play_session_disconnected, SteamRemotePlaySessionDisconnected_t, callbackRemotePlaySessionDisconnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, remote_play_session_connected, SteamRemotePlaySessionConnected_t, callbackRemotePlaySessionConnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, remote_play_session_disconnected, SteamRemotePlaySessionDisconnected_t, callbackRemotePlaySessionDisconnected);
 
 		// Remote Storage callbacks /////////////
 		STEAM_CALLBACK(SteamServer, local_file_changed, RemoteStorageLocalFileChange_t, callbackLocalFileChanged);
 
 		// Screenshot callbacks /////////////////
-		STEAM_CALLBACK(SteamServer, screenshot_ready, ScreenshotReady_t, callbackScreenshotReady);
-		STEAM_CALLBACK(SteamServer, screenshot_requested, ScreenshotRequested_t, callbackScreenshotRequested);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, screenshot_ready, ScreenshotReady_t, callbackScreenshotReady);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, screenshot_requested, ScreenshotRequested_t, callbackScreenshotRequested);
 
 		// UGC callbacks ////////////////////////
-		STEAM_CALLBACK(SteamServer, item_downloaded, DownloadItemResult_t, callbackItemDownloaded);
-		STEAM_CALLBACK(SteamServer, item_installed, ItemInstalled_t, callbackItemInstalled);
-		STEAM_CALLBACK(SteamServer, user_subscribed_items_list_changed, UserSubscribedItemsListChanged_t, callbackUserSubscribedItemsListChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, item_downloaded, DownloadItemResult_t, callbackItemDownloaded);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, item_installed, ItemInstalled_t, callbackItemInstalled);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, user_subscribed_items_list_changed, UserSubscribedItemsListChanged_t, callbackUserSubscribedItemsListChanged);
 
 		// User callbacks ///////////////////////
-		STEAM_CALLBACK(SteamServer, client_game_server_deny, ClientGameServerDeny_t, callbackClientGameServerDeny);
-		STEAM_CALLBACK(SteamServer, game_web_callback, GameWebCallback_t, callbackGameWebCallback);
-		STEAM_CALLBACK(SteamServer, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetAuthSessionTicketResponse);
-		STEAM_CALLBACK(SteamServer, get_ticket_for_web_api, GetTicketForWebApiResponse_t, callbackGetTicketForWebApiResponse);
-		STEAM_CALLBACK(SteamServer, ipc_failure, IPCFailure_t, callbackIPCFailure);
-		STEAM_CALLBACK(SteamServer, licenses_updated, LicensesUpdated_t, callbackLicensesUpdated);
-		STEAM_CALLBACK(SteamServer, microtransaction_auth_response, MicroTxnAuthorizationResponse_t, callbackMicrotransactionAuthResponse);
-		STEAM_CALLBACK(SteamServer, steam_server_connected, SteamServersConnected_t, callbackSteamServerConnected);
-		STEAM_CALLBACK(SteamServer, steam_server_disconnected, SteamServersDisconnected_t, callbackSteamServerDisconnected);
-		STEAM_CALLBACK(SteamServer, validate_auth_ticket_response, ValidateAuthTicketResponse_t, callbackValidateAuthTicketResponse);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, client_game_server_deny, ClientGameServerDeny_t, callbackClientGameServerDeny);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, game_web_callback, GameWebCallback_t, callbackGameWebCallback);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetAuthSessionTicketResponse);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, get_ticket_for_web_api, GetTicketForWebApiResponse_t, callbackGetTicketForWebApiResponse);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, ipc_failure, IPCFailure_t, callbackIPCFailure);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, licenses_updated, LicensesUpdated_t, callbackLicensesUpdated);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, microtransaction_auth_response, MicroTxnAuthorizationResponse_t, callbackMicrotransactionAuthResponse);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, steam_server_connected, SteamServersConnected_t, callbackSteamServerConnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, steam_server_disconnected, SteamServersDisconnected_t, callbackSteamServerDisconnected);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, validate_auth_ticket_response, ValidateAuthTicketResponse_t, callbackValidateAuthTicketResponse);
 
 		// User stat callbacks //////////////////
-		STEAM_CALLBACK(SteamServer, user_achievement_stored, UserAchievementStored_t, callbackUserAchievementStored);
-		STEAM_CALLBACK(SteamServer, current_stats_received, UserStatsReceived_t, callbackCurrentStatsReceived);
-		STEAM_CALLBACK(SteamServer, user_stats_stored, UserStatsStored_t, callbackUserStatsStored);
-		STEAM_CALLBACK(SteamServer, user_stats_unloaded, UserStatsUnloaded_t, callbackUserStatsUnloaded);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, user_achievement_stored, UserAchievementStored_t, callbackUserAchievementStored);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, current_stats_received, UserStatsReceived_t, callbackCurrentStatsReceived);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, user_stats_stored, UserStatsStored_t, callbackUserStatsStored);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, user_stats_unloaded, UserStatsUnloaded_t, callbackUserStatsUnloaded);
 
 		// Utility callbacks ////////////////////
-		STEAM_CALLBACK(SteamServer, gamepad_text_input_dismissed, GamepadTextInputDismissed_t, callbackGamepadTextInputDismissed);
-		STEAM_CALLBACK(SteamServer, ip_country, IPCountry_t, callbackIPCountry);
-		STEAM_CALLBACK(SteamServer, low_power, LowBatteryPower_t, callbackLowPower);
-		STEAM_CALLBACK(SteamServer, steam_api_call_completed, SteamAPICallCompleted_t, callbackSteamAPICallCompleted);
-		STEAM_CALLBACK(SteamServer, steam_shutdown, SteamShutdown_t, callbackSteamShutdown);
-		STEAM_CALLBACK(SteamServer, app_resuming_from_suspend, AppResumingFromSuspend_t, callbackAppResumingFromSuspend);
-		STEAM_CALLBACK(SteamServer, floating_gamepad_text_input_dismissed, FloatingGamepadTextInputDismissed_t, callbackFloatingGamepadTextInputDismissed);
-		STEAM_CALLBACK(SteamServer, filter_text_dictionary_changed, FilterTextDictionaryChanged_t, callbackFilterTextDictionaryChanged);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, gamepad_text_input_dismissed, GamepadTextInputDismissed_t, callbackGamepadTextInputDismissed);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, ip_country, IPCountry_t, callbackIPCountry);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, low_power, LowBatteryPower_t, callbackLowPower);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, steam_api_call_completed, SteamAPICallCompleted_t, callbackSteamAPICallCompleted);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, steam_shutdown, SteamShutdown_t, callbackSteamShutdown);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, app_resuming_from_suspend, AppResumingFromSuspend_t, callbackAppResumingFromSuspend);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, floating_gamepad_text_input_dismissed, FloatingGamepadTextInputDismissed_t, callbackFloatingGamepadTextInputDismissed);
+		STEAM_GAMESERVER_CALLBACK(SteamServer, filter_text_dictionary_changed, FilterTextDictionaryChanged_t, callbackFilterTextDictionaryChanged);
 
 
 		/////////////////////////////////////////
