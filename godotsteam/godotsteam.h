@@ -2723,15 +2723,15 @@ class Steam: public Object {
 
 		// Game Server callbacks ////////////////
 		// TODO: define funtions for all callbacks //
-		STEAM_CALLBACK(Steam, client_approved, GSClientApprove_t, callbackClientApproved);
-		STEAM_CALLBACK(Steam, client_denied, GSClientDeny_t, callbackClientDenied);
-		//STEAM_CALLBACK(Steam, client_group_status, GSClientGroupStatus_t, callbackClientGroupStatus);
-		STEAM_CALLBACK(Steam, client_kick, GSClientKick_t, callbackClientKick);
-		STEAM_CALLBACK(Steam, player_compat, ComputeNewPlayerCompatibilityResult_t, callbackPlayerCompat);
-		STEAM_CALLBACK(Steam, policy_response, GSPolicyResponse_t, callbackPolicyResponse);
-		STEAM_CALLBACK(Steam, server_connect_failure, SteamServerConnectFailure_t, callbackConnectFailure);
-		STEAM_CALLBACK(Steam, server_connected, SteamServersConnected_t, callbackServerConnected);
-		STEAM_CALLBACK(Steam, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
+		STEAM_GAMESERVER_CALLBACK(Steam, client_approved, GSClientApprove_t, callbackClientApproved);
+		STEAM_GAMESERVER_CALLBACK(Steam, client_denied, GSClientDeny_t, callbackClientDenied);
+		//STEAM_GAMESERVER_CALLBACK(Steam, client_group_status, GSClientGroupStatus_t, callbackClientGroupStatus);
+		STEAM_GAMESERVER_CALLBACK(Steam, client_kick, GSClientKick_t, callbackClientKick);
+		STEAM_GAMESERVER_CALLBACK(Steam, player_compat, ComputeNewPlayerCompatibilityResult_t, callbackPlayerCompat);
+		STEAM_GAMESERVER_CALLBACK(Steam, policy_response, GSPolicyResponse_t, callbackPolicyResponse);
+		STEAM_GAMESERVER_CALLBACK(Steam, server_connect_failure, SteamServerConnectFailure_t, callbackConnectFailure);
+		STEAM_GAMESERVER_CALLBACK(Steam, server_connected, SteamServersConnected_t, callbackServerConnected);
+		STEAM_GAMESERVER_CALLBACK(Steam, server_disconnected, SteamServersDisconnected_t, callbackServerDisconnected);
 
 		// Matchmaking callbacks ////////////////
 		STEAM_CALLBACK(Steam, favorites_list_accounts_updated, FavoritesListAccountsUpdated_t, callbackFavoritesListAccountsUpdated);
