@@ -350,7 +350,7 @@ bool SteamServer::serverInit(const String &ip, int game_port, int query_port, Se
 				break;
 			}
 		}
-		unIP *= 256; // Send the previous byte further
+		unIP *= 256; // Send the previous value 1 byte back
 		unIP += n;	 // Add the current byte
 	}
 	is_init_success = SteamGameServer_Init(unIP, (uint16)game_port, (uint16)query_port, (EServerMode)server_mode, version_string.utf8().get_data());
@@ -9592,7 +9592,6 @@ void SteamServer::_bind_methods(){
 	ClassDB::bind_method(D_METHOD("setLobbyOwner", "steam_lobby_id", "steam_id_new_owner"), &SteamServer::setLobbyOwner);
 
 	// GAME SERVERS BIND METHODS /////////
-    ClassDB::bind_method(D_METHOD("serverInit", "ip", "game_port", "query_port", "server_mode", "version_string"), &SteamServer::serverInit);
 	ClassDB::bind_method(D_METHOD("associateWithClan", "clan_id"), &SteamServer::associateWithClan);
 	ClassDB::bind_method(D_METHOD("beginServerAuthSession", "auth_ticket", "steam_id"), &SteamServer::beginServerAuthSession);
 	ClassDB::bind_method(D_METHOD("cancelServerAuthTicket", "auth_ticket"), &SteamServer::cancelServerAuthTicket);
