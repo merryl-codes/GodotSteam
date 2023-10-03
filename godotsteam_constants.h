@@ -30,24 +30,24 @@
 #define PERSONA_NAME_MAX_UTF8 k_cchPersonaNameMax
 #define PERSONA_NAME_MAX_UTF16 k_cwchPersonaNameMax
 
-// Define HTML Surface constants
-#define INVALID_HTMLBROWSER 0
-
 // Define HTTP constants
 #define HTTPCOOKIE_INVALID_HANDLE INVALID_HTTPCOOKIE_HANDLE
 #define HTTPREQUEST_INVALID_HANDLE INVALID_HTTPREQUEST_HANDLE
 
-// Define Input constants
-#define INPUT_MAX_ANALOG_ACTIONS STEAM_INPUT_MAX_ANALOG_ACTIONS
-#define INPUT_MAX_ANALOG_ACTION_DATA STEAM_INPUT_MAX_ANALOG_ACTION_DATA
-#define INPUT_MAX_COUNT STEAM_INPUT_MAX_COUNT
-#define INPUT_MAX_DIGITAL_ACTIONS STEAM_INPUT_MAX_DIGITAL_ACTIONS
-#define INPUT_MAX_ORIGINS STEAM_INPUT_MAX_ORIGINS
-#define INPUT_MIN_ANALOG_ACTION_DATA STEAM_INPUT_MIN_ANALOG_ACTION_DATA
-
 // Define Inventory constants
 #define INVENTORY_RESULT_INVALID k_SteamInventoryResultInvalid
 #define ITEM_INSTANCE_ID_INVALID k_SteamItemInstanceIDInvalid
+
+// Define Game Server constants
+#define SERVER_FLAG_ACTIVE k_unServerFlagActive
+#define SERVER_FLAG_DEDICATED k_unServerFlagDedicated
+#define SERVER_FLAG_LINUX k_unServerFlagLinux
+#define SERVER_FLAG_NONE k_unServerFlagNone
+#define SERVER_FLAG_PASSWORDED k_unServerFlagPassworded
+#define SERVER_FLAG_PRIVATE k_unServerFlagPrivate
+#define SERVER_FLAG_SECURE k_unServerFlagSecure
+#define MASTER_SERVER_UPDATER_PORT MASTERSERVERUPDATERPORT_USEGAMESOCKETSHARE
+#define STEAM_GAME_SERVER_INTERFACE_VERSION STEAMGAMESERVER_INTERFACE_VERSION
 
 // Define Matchmaking constants
 #define SERVER_QUERY_INVALID HSERVERQUERY_INVALID
@@ -64,22 +64,11 @@
 #define MAX_GAME_SERVER_TAGS k_cbMaxGameServerTags
 #define MAX_GAME_SERVER_GAME_DATA k_cbMaxGameServerGameData
 
-// Define Music Remote constants
-#define MUSIC_NAME_MAX_LENGTH k_SteamMusicNameMaxLength
-#define MUSIC_PNG_MAX_LENGTH k_SteamMusicPNGMaxLength
-
 // Define Networking Message constants
 #define NETWORKING_SEND_UNRELIABLE k_EP2PSendUnreliable
 #define NETWORKING_SEND_NO_NAGLE k_EP2PSendUnreliableNoDelay
 #define NETWORKING_SEND_NO_DELAY k_EP2PSendReliable
 #define NETWORKING_SEND_RELIABLE k_EP2PSendReliableWithBuffering
-
-// Define Remote Play constants
-#define DEVICE_FORM_FACTOR_UNKNOWN k_ESteamDeviceFormFactorUnknown
-#define DEVICE_FORM_FACTOR_PHONE k_ESteamDeviceFormFactorPhone
-#define DEVICE_FORM_FACTOR_TABLET k_ESteamDeviceFormFactorTablet
-#define DEVICE_FORM_FACTOR_COMPUTER k_ESteamDeviceFormFactorComputer
-#define DEVICE_FORM_FACTOR_TV k_ESteamDeviceFormFactorTV
 
 // Define Remote Storage constants
 #define FILE_NAME_MAX k_cchFilenameMax
@@ -94,14 +83,6 @@
 #define UGC_HANDLE_INVALID k_UGCHandleInvalid
 #define ENUMERATE_PUBLISHED_FILES_MAX_RESULTS k_unEnumeratePublishedFilesMaxResults
 #define MAX_CLOUD_FILE_CHUNK_SIZE k_unMaxCloudFileChunkSize
-
-// Define Screenshot constants
-#define SCREENSHOT_INVALID_HANDLE INVALID_SCREENSHOT_HANDLE
-#define UFS_TAG_TYPE_MAX k_cubUFSTagTypeMax
-#define UFS_TAG_VALUE_MAX k_cubUFSTagValueMax
-#define MAX_TAGGED_PUBLISHED_FILES k_nScreenshotMaxTaggedPublishedFiles
-#define MAX_TAGGED_USERS k_nScreenshotMaxTaggedUsers
-#define SCREENSHOT_THUMB_WIDTH k_ScreenshotThumbWidth
 
 // Define UGC constants
 #define NUM_UGC_RESULTS_PER_PAGE kNumUGCResultsPerPage

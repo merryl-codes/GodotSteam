@@ -52,4 +52,5 @@ doxygen/
 *.pidb
 *.svclog
 *.scc
+.vscode/
 

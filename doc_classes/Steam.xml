@@ -78,49 +78,6 @@
 				Reconfigure the controller to use the specified action set layer.
 			</description>
 		</method>
-		<method name="activateGameOverlay">
-			<return type="void" />
-			<argument index="0" name="type" type="String" default="&quot;&quot;" />
-			<description>
-				Activates the overlay with optional dialog to open the following: [b]Friend, Community, Players, Settings, OfficialGameGroup, Stats, Achievements, or LobbyInvite.[/b]
-			</description>
-		</method>
-		<method name="activateGameOverlayInviteDialog">
-			<return type="void" />
-			<argument index="0" name="steam_id" type="int" />
-			<description>
-				Activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
-			</description>
-		</method>
-		<method name="activateGameOverlayInviteDialogConnectString">
-			<return type="void" />
-			<argument index="0" name="connect_string" type="String" />
-			<description>
-				Activates the game overlay to open an invite dialog that will send the provided Rich Presence connect string to selected friends.
-			</description>
-		</method>
-		<method name="activateGameOverlayToStore">
-			<return type="void" />
-			<argument index="0" name="app_id" type="int" default="0" />
-			<description>
-				Activates the overlay with the application / game Steam store page.
-			</description>
-		</method>
-		<method name="activateGameOverlayToUser">
-			<return type="void" />
-			<argument index="0" name="type" type="String" default="&quot;&quot;" />
-			<argument index="1" name="steam_id" type="int" default="0" />
-			<description>
-				Activates the overlay to one of the following: [b]steamid, chat, jointrade, stats, achievements, friendadd, friendremove, friendrequestaccept, or friendrequestignore.[/b]
-			</description>
-		</method>
-		<method name="activateGameOverlayToWebPage">
-			<return type="void" />
-			<argument index="0" name="url" type="String" />
-			<description>
-				Activates the overlay with specified web address.
-			</description>
-		</method>
 		<method name="activationSuccess">
 			<return type="bool" />
 			<argument index="0" name="activate" type="bool" />
@@ -233,15 +190,6 @@
 				[b]Note:[/b] This must be set before you submit the UGC update handle using [method Steam.submitItemUpdate].
 			</description>
 		</method>
-		<method name="addItemPreviewVideo">
-			<return type="bool" />
-			<argument index="0" name="query_handle" type="int" />
-			<argument index="1" name="video_id" type="String" />
-			<description>
-				Adds an additional video preview from YouTube for the item.
-				[b]Note:[/b] This must be set before you submit the UGC update handle using [submitItemUpdate](/functions/ugc/#submititemupdate).
-			</description>
-		</method>
 		<method name="addItemToFavorites">
 			<return type="void" />
 			<argument index="0" name="app_id" type="int" />
@@ -345,25 +293,6 @@
 			<description>
 				Adds the requirement that the returned items from the pending UGC Query have at least one of the tags in the given set (logical "or"). For each tag group that is added, at least one tag from each group is required to be on the matching items.
 				[b]Note:[/b] This must be set before you submit the UGC update handle using [method Steam.submitItemUpdate].
-			</description>
-		</method>
-		<method name="addScreenshotToLibrary">
-			<return type="int" />
-			<argument index="0" name="filename" type="String" />
-			<argument index="1" name="thumbnail_filename" type="String" />
-			<argument index="2" name="width" type="int" />
-			<argument index="3" name="height" type="int" />
-			<description>
-				Adds a screenshot to the user's Steam screenshot library from disk. 
-			</description>
-		</method>
-		<method name="addVRScreenshotToLibrary">
-			<return type="int" />
-			<argument index="0" name="type" type="int" enum="Steam.VRScreenshotType" />
-			<argument index="1" name="filename" type="String" />
-			<argument index="2" name="vr_filename" type="String" />
-			<description>
-				Adds a VR screenshot to the user's Steam screenshot library from disk in the supported type. 
 			</description>
 		</method>
 		<method name="advertiseGame">
@@ -916,12 +845,6 @@
 				This will only send the data if the key existed. There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.
 			</description>
 		</method>
-		<method name="deregisterSteamMusicRemote">
-			<return type="bool" />
-			<description>
-				Disconnect from remote music client / host.
-			</description>
-		</method>
 		<method name="deserializeResult">
 			<return type="int" />
 			<argument index="0" name="buffer" type="PackedByteArray" />
@@ -953,12 +876,6 @@
 			<description>
 				Destroys a result handle and frees all associated memory.
 				[b]Note:[/b] If the argument this_inventory_handle is omitted, GodotSteam will use the internally stored ID.
-			</description>
-		</method>
-		<method name="dismissFloatingGamepadTextInput">
-			<return type="bool" />
-			<description>
-				Dismisses the floating keyboard.
 			</description>
 		</method>
 		<method name="downloadClanActivityCounts">
@@ -1007,54 +924,6 @@
 				If you want to download entries based on their ranking or friends of the current user then you should use [method Steam.downloadLeaderboardEntries].
 				You must call [method Steam.findLeaderboard] or [method Steam.findOrCreateLeaderboard] to get a leaderboard handle prior to calling this function.
 				Triggers a [signal Steam.leaderboard_scores_downloaded] callback.
-			</description>
-		</method>
-		<method name="enableDeviceCallbacks">
-			<return type="void" />
-			<description>
-				Enable [signal Steam.input_device_connected] and [signal Steam.input_device_disconnected] callbacks. Each controller that is already connected will generate a device connected callback when you enable them.
-			</description>
-		</method>
-		<method name="enableLooped">
-			<return type="bool" />
-			<argument index="0" name="loop" type="bool" />
-			<description>
-				Enable track loop on client.
-			</description>
-		</method>
-		<method name="enablePlayNext">
-			<return type="bool" />
-			<argument index="0" name="next" type="bool" />
-			<description>
-				Play the next track on client.
-			</description>
-		</method>
-		<method name="enablePlayPrevious">
-			<return type="bool" />
-			<argument index="0" name="previous" type="bool" />
-			<description>
-				Play previous track on client.
-			</description>
-		</method>
-		<method name="enablePlaylists">
-			<return type="bool" />
-			<argument index="0" name="playlists" type="bool" />
-			<description>
-				Enable playlists on client.
-			</description>
-		</method>
-		<method name="enableQueue">
-			<return type="bool" />
-			<argument index="0" name="queue" type="bool" />
-			<description>
-				Enable the music queue on the client.
-			</description>
-		</method>
-		<method name="enableShuffled">
-			<return type="bool" />
-			<argument index="0" name="shuffle" type="bool" />
-			<description>
-				Enable shuffle on the client.
 			</description>
 		</method>
 		<method name="endAuthSession">
@@ -1123,14 +992,6 @@
 				Will allow the item to be exchanged for either one #101 and one #102, five #103s or three #104s and three #105s. See the Steam Inventory Schema documentation for more details.
 				The inventory handle, which is also stored internally. It will overwrite any previously stored inventory handle.
 				[b]Note:[/b] You must call [method Steam.destroyResult] on the provided inventory result when you are done with it.
-			</description>
-		</method>
-		<method name="executeJavascript">
-			<return type="void" />
-			<argument index="0" name="script" type="String" />
-			<argument index="1" name="this_handle" type="int" default="0" />
-			<description>
-				Run a javascript script in the currently loaded page.
 			</description>
 		</method>
 		<method name="fileDelete">
@@ -1426,21 +1287,6 @@
 				Get an action origin that you can use in your glyph look up table or passed into [method Steam.getGlyphForActionOrigin] or [method Steam.getStringForActionOrigin].
 			</description>
 		</method>
-		<method name="getActionSetHandle">
-			<return type="int" />
-			<argument index="0" name="action_set_name" type="String" />
-			<description>
-				Fill an array with all of the currently active action set layers for a specified controller handle.
-			</description>
-		</method>
-		<method name="getActiveActionSetLayers">
-			<return type="Array" />
-			<argument index="0" name="input_handle" type="int" />
-			<description>
-				Fill an array with all of the currently active action set layers for a specified controller handle.
-				Contains a list of handles (int).
-			</description>
-		</method>
 		<method name="getAllItems">
 			<return type="bool" />
 			<description>
@@ -1457,33 +1303,6 @@
 				Get lobby data by the lobby's ID.
 				The returned dictionary contains the following keys: [b]index (int), key (string), and value (string).[/b]
 				[b]Note:[/b] This is a GodotSteam specific function.
-			</description>
-		</method>
-		<method name="getAnalogActionData">
-			<return type="Dictionary" />
-			<argument index="0" name="input_handle" type="int" />
-			<argument index="1" name="analog_action_handle" type="int" />
-			<description>
-				Gets the current state of the supplied analog game action.
-				The returned dictionary contains the following keys: [b]mode (int), x (float),y (float), and active (bool).[/b]
-			</description>
-		</method>
-		<method name="getAnalogActionHandle">
-			<return type="int" />
-			<argument index="0" name="action_name" type="String" />
-			<description>
-				Get the handle of the specified analog action.
-				[b]Note:[/b] This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two different action sets, this function will only ever return one of them and the other will be ignored.
-			</description>
-		</method>
-		<method name="getAnalogActionOrigins">
-			<return type="Array" />
-			<argument index="0" name="input_handle" type="int" />
-			<argument index="1" name="action_set_handle" type="int" />
-			<argument index="2" name="analog_action_handle" type="int" />
-			<description>
-				Get the origin(s) for an analog action within an action set by filling the return array with handles. Use this to display the appropriate on-screen prompt for the action.
-				Contains a list of handles (int).
 			</description>
 		</method>
 		<method name="getAppBuildId">
@@ -1774,13 +1593,6 @@
 				The returned dictionary contains the following keys: [b]type (int), scope (int), and next_value (int).[/b]
 			</description>
 		</method>
-		<method name="getConnectedControllers">
-			<return type="Array" />
-			<description>
-				Enumerates currently connected controllers by filling returned array with controller handles.
-				Contains a list of controller handle (int).
-			</description>
-		</method>
 		<method name="getConnectionInfo">
 			<return type="Dictionary" />
 			<argument index="0" name="connection_handle" type="int" />
@@ -1934,37 +1746,6 @@
 				┠╴major (int)
 				┖╴minor (int)
 				[/codeblock]
-			</description>
-		</method>
-		<method name="getDigitalActionData">
-			<return type="Dictionary" />
-			<argument index="0" name="input_handle" type="int" />
-			<argument index="1" name="digital_action_handle" type="int" />
-			<description>
-				Returns the current state of the supplied digital game action.
-				The returned dictionary contains the following keys:
-				[codeblock]
-				┠╴state (bool)
-				┖╴active (bool)
-				[/codeblock]
-			</description>
-		</method>
-		<method name="getDigitalActionHandle">
-			<return type="int" />
-			<argument index="0" name="action_name" type="String" />
-			<description>
-				Get the handle of the specified digital action.
-				[b]Note:[/b] This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two different action sets, this function will only ever return one of them and the other will be ignored.
-			</description>
-		</method>
-		<method name="getDigitalActionOrigins">
-			<return type="Array" />
-			<argument index="0" name="input_handle" type="int" />
-			<argument index="1" name="action_set_handle" type="int" />
-			<argument index="2" name="digital_action_handle" type="int" />
-			<description>
-				Get the origin(s) for a digital action within an action set by filling return array with input handles. Use this to display the appropriate on-screen prompt for the action.
-				Contains a list of handles (int).
 			</description>
 		</method>
 		<method name="getDirectPingToPOP">
@@ -3513,12 +3294,6 @@
 				Returns the value of connection state or 0 if no connection exists with specified peer. You may pass false for either get_connection or get_status if you do not need the corresponding details. Note that sessions time out after a while, so if a connection fails, or [method Steam.sendMessageToUser] returns 3, you cannot wait indefinitely to obtain the reason for failure.
 			</description>
 		</method>
-		<method name="getSessionCount">
-			<return type="int" />
-			<description>
-				Get the number of currently connected Steam Remote Play sessions.
-			</description>
-		</method>
 		<method name="getSessionID">
 			<return type="int" />
 			<argument index="0" name="index" type="int" />
@@ -4498,69 +4273,6 @@
 			<argument index="1" name="this_handle" type="int" default="0" />
 			<description>
 				Tells an HTML surface that a mouse button has been released. The click will occur where the surface thinks the mouse is based on the last call to [method Steam.mouseMove].
-			</description>
-		</method>
-		<method name="mouseWheel">
-			<return type="void" />
-			<argument index="0" name="delta" type="int" />
-			<argument index="1" name="this_handle" type="int" default="0" />
-			<description>
-				Tells an HTML surface that the mouse wheel has moved.
-			</description>
-		</method>
-		<method name="musicGetVolume">
-			<return type="float" />
-			<description>
-				Gets the current volume of the Steam Music player.
-			</description>
-		</method>
-		<method name="musicIsEnabled">
-			<return type="bool" />
-			<description>
-				Checks if Steam Music is enabled.
-			</description>
-		</method>
-		<method name="musicIsPlaying">
-			<return type="bool" />
-			<description>
-				Checks if Steam Music is active. This does not necessarily a song is currently playing, it may be paused. For finer grain control use [method Steam.getPlaybackStatus].
-			</description>
-		</method>
-		<method name="musicPause">
-			<return type="void" />
-			<description>
-				Pause the Steam Music player.
-			</description>
-		</method>
-		<method name="musicPlay">
-			<return type="void" />
-			<description>
-				Have the Steam Music player resume playing.
-			</description>
-		</method>
-		<method name="musicPlayNext">
-			<return type="void" />
-			<description>
-				Have the Steam Music player skip to the next song.
-			</description>
-		</method>
-		<method name="musicPlayPrev">
-			<return type="void" />
-			<description>
-				Have the Steam Music player play the previous song.
-			</description>
-		</method>
-		<method name="musicSetVolume">
-			<return type="void" />
-			<argument index="0" name="volume" type="float" />
-			<description>
-				Sets the volume of the Steam Music player.
-			</description>
-		</method>
-		<method name="newDataAvailable">
-			<return type="bool" />
-			<description>
-				Returns true if new data has been received since the last time action data was accessed via [method Steam.getDigitalActionData] or [method Steam.getAnalogActionData]. The game will still need to call [method Steam.runFrame] or [method Steam.run_callbacks] before this to update the data stream.
 			</description>
 		</method>
 		<method name="onReservationCompleted">
@@ -6278,29 +5990,6 @@
 			<argument index="0" name="input_handle" type="int" />
 			<description>
 				Invokes the Steam overlay and brings up the binding screen.
-			</description>
-		</method>
-		<method name="showFloatingGamepadTextInput">
-			<return type="bool" />
-			<argument index="0" name="input_mode" type="int" enum="Steam.FloatingGamepadTextInputMode" />
-			<argument index="1" name="text_field_x_position" type="int" />
-			<argument index="2" name="text_field_y_position" type="int" />
-			<argument index="3" name="text_field_width" type="int" />
-			<argument index="4" name="text_field_height" type="int" />
-			<description>
-				Opens a floating keyboard over the game content and sends OS keyboard keys directly to the game.
-				The text field position is specified in pixels relative the origin of the game window and is used to position the floating keyboard in a way that doesn't cover the text field.
-			</description>
-		</method>
-		<method name="showGamepadTextInput">
-			<return type="bool" />
-			<argument index="0" name="input_mode" type="int" enum="Steam.GamepadTextInputMode" />
-			<argument index="1" name="line_input_mode" type="int" enum="Steam.GamepadTextInputLineMode" />
-			<argument index="2" name="description" type="String" />
-			<argument index="3" name="max_text" type="int" />
-			<argument index="4" name="preset_text" type="String" />
-			<description>
-				Activates the Big Picture text input dialog which only supports gamepad input.
 			</description>
 		</method>
 		<method name="showWorkshopEULA">
@@ -8788,14 +8477,6 @@
 		</constant>
 		<constant name="FILE_PATH_TYPE_API_FILENAME" value="2" enum="FilePathType">
 		</constant>
-		<constant name="FLOATING_GAMEPAD_TEXT_INPUT_MODE_SINGLE_LINE" value="0" enum="FloatingGamepadTextInputMode">
-		</constant>
-		<constant name="FLOATING_GAMEPAD_TEXT_INPUT_MODE_MULTIPLE_LINES" value="1" enum="FloatingGamepadTextInputMode">
-		</constant>
-		<constant name="FLOATING_GAMEPAD_TEXT_INPUT_MODE_EMAIL" value="2" enum="FloatingGamepadTextInputMode">
-		</constant>
-		<constant name="FLOATING_GAMEPAD_TEXT_INPUT_MODE_NUMERIC" value="3" enum="FloatingGamepadTextInputMode">
-		</constant>
 		<constant name="FRIEND_FLAG_NONE" value="0" enum="FriendFlags">
 		</constant>
 		<constant name="FRIEND_FLAG_BLOCKED" value="1" enum="FriendFlags">
@@ -8849,10 +8530,6 @@
 		<constant name="GAMEPAD_TEXT_INPUT_LINE_MODE_SINGLE_LINE" value="0" enum="GamepadTextInputLineMode">
 		</constant>
 		<constant name="GAMEPAD_TEXT_INPUT_LINE_MODE_MULTIPLE_LINES" value="1" enum="GamepadTextInputLineMode">
-		</constant>
-		<constant name="GAMEPAD_TEXT_INPUT_MODE_NORMAL" value="0" enum="GamepadTextInputMode">
-		</constant>
-		<constant name="GAMEPAD_TEXT_INPUT_MODE_PASSWORD" value="1" enum="GamepadTextInputMode">
 		</constant>
 		<constant name="GAME_SEARCH_ERROR_CODE_OK" value="1" enum="GameSearchErrorCode">
 		</constant>
@@ -10103,90 +9780,6 @@
 		<constant name="SERVER_FAILED_TO_RESPOND" value="1" enum="MatchMakingServerResponse">
 		</constant>
 		<constant name="NO_SERVERS_LISTED_ON_MASTER_SERVER" value="2" enum="MatchMakingServerResponse">
-		</constant>
-		<constant name="DC_USER" value="0" enum="MouseCursor">
-		</constant>
-		<constant name="DC_NONE" value="1" enum="MouseCursor">
-		</constant>
-		<constant name="DC_ARROW" value="2" enum="MouseCursor">
-		</constant>
-		<constant name="DC_IBEAM" value="3" enum="MouseCursor">
-		</constant>
-		<constant name="DC_HOUR_GLASS" value="4" enum="MouseCursor">
-		</constant>
-		<constant name="DC_WAIT_ARROW" value="5" enum="MouseCursor">
-		</constant>
-		<constant name="DC_CROSSHAIR" value="6" enum="MouseCursor">
-		</constant>
-		<constant name="DC_UP" value="7" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_NW" value="8" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_SE" value="9" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_NE" value="10" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_SW" value="11" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_W" value="12" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_E" value="13" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_N" value="14" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_S" value="15" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_WE" value="16" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_NS" value="17" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SIZE_ALL" value="18" enum="MouseCursor">
-		</constant>
-		<constant name="DC_NO" value="19" enum="MouseCursor">
-		</constant>
-		<constant name="DC_HAND" value="20" enum="MouseCursor">
-		</constant>
-		<constant name="DC_BLANK" value="21" enum="MouseCursor">
-		</constant>
-		<constant name="DC_MIDDLE_PAN" value="22" enum="MouseCursor">
-		</constant>
-		<constant name="DC_NORTH_PAN" value="23" enum="MouseCursor">
-		</constant>
-		<constant name="DC_NORTH_EAST_PAN" value="24" enum="MouseCursor">
-		</constant>
-		<constant name="DC_EAST_PAN" value="25" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SOUTH_EAST_PAN" value="26" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SOUTH_PAN" value="27" enum="MouseCursor">
-		</constant>
-		<constant name="DC_SOUTH_WEST_PAN" value="28" enum="MouseCursor">
-		</constant>
-		<constant name="DC_WEST_PAN" value="29" enum="MouseCursor">
-		</constant>
-		<constant name="DC_NORTH_WEST_PAN" value="30" enum="MouseCursor">
-		</constant>
-		<constant name="DC_ALIAS" value="31" enum="MouseCursor">
-		</constant>
-		<constant name="DC_CELL" value="32" enum="MouseCursor">
-		</constant>
-		<constant name="DC_COL_RESIZE" value="33" enum="MouseCursor">
-		</constant>
-		<constant name="DC_COPY_CUR" value="34" enum="MouseCursor">
-		</constant>
-		<constant name="DC_VERTICAL_TEXT" value="35" enum="MouseCursor">
-		</constant>
-		<constant name="DC_ROW_RESIZE" value="36" enum="MouseCursor">
-		</constant>
-		<constant name="DC_ZOOM_IN" value="37" enum="MouseCursor">
-		</constant>
-		<constant name="DC_ZOOM_OUT" value="38" enum="MouseCursor">
-		</constant>
-		<constant name="DC_HELP" value="39" enum="MouseCursor">
-		</constant>
-		<constant name="DC_CUSTOM" value="40" enum="MouseCursor">
-		</constant>
-		<constant name="DC_LAST" value="41" enum="MouseCursor">
 		</constant>
 		<constant name="NETWORKING_AVAILABILITY_CANNOT_TRY" value="-102" enum="NetworkingAvailability">
 		</constant>
