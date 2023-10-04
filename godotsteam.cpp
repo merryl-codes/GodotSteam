@@ -139,7 +139,7 @@ SteamServer::SteamServer() :
 		// User callbacks ///////////////////////////
 		callbackClientGameServerDeny(this, &SteamServer::client_game_server_deny),
 		callbackGameWebCallback(this, &SteamServer::game_web_callback),
-		callbackGetAuthSessionTicketResponse(this, &SteamServer::get_auth_session_ticket_response),
+		callbackGetUserAuthSessionTicketResponse(this, &SteamServer::get_auth_session_ticket_response),
 		callbackGetTicketForWebApiResponse(this, &SteamServer::get_ticket_for_web_api),
 		callbackIPCFailure(this, &SteamServer::ipc_failure),
 		callbackLicensesUpdated(this, &SteamServer::licenses_updated),
@@ -221,7 +221,7 @@ bool SteamServer::serverInit(const String &ip, int game_port, int query_port, Se
 		unIP *= 256; // Send the previous value 1 byte back
 		unIP += n; // Add the current byte
 	}
-	is_init_success = SteamGameServer_Init(unIP, (uint16)game_port, (uint16)query_port, (EServerMode)server_mode, version_string.utf8().get_data());
+	is_init_success = SteamGameServer_InitEx(unIP, (uint16)game_port, (uint16)query_port, (EServerMode)server_mode, version_string.utf8().get_data(), &init_error_message);
 	return is_init_success;
 }
 
@@ -2621,10 +2621,9 @@ void SteamServer::associateWithClan(uint64_t clan_id) {
 	SteamGameServer()->AssociateWithClan(clan_id);
 }
 
-//!
-int SteamServer::beginServerAuthSession(int auth_ticket, uint64_t steam_id) {
-	SteamGameServer()->BeginAuthSession((void *)&auth_ticket, 1024, steam_id);
-	return 0;
+//! With a ticket generated, begin server authentication
+int SteamServer::beginServerAuthSession(PackedByteArray auth_ticket, int ticket_size, uint64_t steam_id) {
+	return (int)SteamGameServer()->BeginAuthSession(auth_ticket.ptr(), ticket_size, steam_id);
 }
 
 void SteamServer::cancelServerAuthTicket(uint32 auth_ticket) {
@@ -2643,20 +2642,22 @@ void SteamServer::endServerAuthSession(uint64_t steam_id) {
 	SteamGameServer()->EndAuthSession(steam_id);
 }
 
-/*
-Dictionary getServerAuthSessionTicket(){
-	// TODO
-}
-*/
-
-void getNextOutgoingPacket() {
-	// TODO
+//! Requests the ticket for authentication, works by altering the variables in place, using pointers to them
+uint32 SteamServer::getServerAuthSessionTicket(PackedByteArray auth_ticket, int max_ticket_size, uint32_t ticket_size, uint32 ip_addr, uint16 port) {
+	// Ensure correct size of buffer
+	auth_ticket.clear();
+	auth_ticket.resize(max_ticket_size);
+	networking_identity.Clear();
+	networking_identity.SetIPv4Addr(ip_addr, port);
+	//Request the ticket and return a handle to it
+	return SteamGameServer()->GetAuthSessionTicket((void *)auth_ticket.ptr(), max_ticket_size, &ticket_size, &networking_identity);
 }
 
 void SteamServer::getNextOutgoingPacket() {
-	// TODO
+	// TODO: Im in a rush right now, i cant finish all functions
 }
 
+//! Asks Steam for this servers public IP. It gets returned as an int, but godot uses string for ips
 uint32 SteamServer::getPublicIP() {
 	return SteamGameServer()->GetPublicIP().m_unIPv4;
 }
@@ -2667,7 +2668,7 @@ uint64_t SteamServer::getSteamServerID() {
 
 /*
 PackedByteArray Steam::handleIncomingPacket(int packet, const String &ip, int port){
-	// TODO: This function
+	// TODO: Im in a rush right now, i cant finish all functions
 	return PackedByteArray();
 }
 */
@@ -2682,22 +2683,27 @@ void SteamServer::logOff() {
 	SteamGameServer()->LogOff();
 }
 
+//! Logs on using a token from https://steamcommunity.com/dev/managegameservers
 void SteamServer::logOn(const String &token) {
 	SteamGameServer()->LogOn(token.utf8().get_data());
 }
 
+//! Logs in without a token
 void SteamServer::logOnAnonymous() {
 	SteamGameServer()->LogOnAnonymous();
 }
 
+//! Returns if the server is marked as secured
 bool SteamServer::secure() {
 	return SteamGameServer()->BSecure();
 }
 
+//! Enables sending heartbeats to steam to appear in the server browser
 void SteamServer::setAdvertiseServerActive(bool active) {
 	SteamGameServer()->SetAdvertiseServerActive(active);
 }
 
+//! Most of these functions down here set variables that show up on the server browser
 void SteamServer::setBotPlayerCount(int bots) {
 	SteamGameServer()->SetBotPlayerCount(bots);
 }
@@ -2761,6 +2767,10 @@ void SteamServer::setSpectatorServerName(const String &name) {
 //! After receiving a user's authentication data, and passing it to SendUserConnectAndAuthenticate, use this function to determine if the user owns downloadable content specified by the provided AppID.
 int SteamServer::serverUserHasLicenseForApp(uint64_t steam_id, uint32 app_id) {
 	return (int)SteamGameServer()->UserHasLicenseForApp(steam_id, app_id);
+}
+
+String SteamServer::get_init_error_message() {
+	return String(init_error_message);
 }
 
 /////////////////////////////////////////////////
@@ -6232,7 +6242,7 @@ void SteamServer::endAuthSession(uint64_t steam_id) {
 }
 
 // Get the authentication ticket data.
-Dictionary SteamServer::getAuthSessionTicket(const String &identity_reference) {
+Dictionary SteamServer::getUserAuthSessionTicket(const String &identity_reference) {
 	// Create the dictionary to use
 	Dictionary auth_ticket;
 	if (SteamUser() != NULL) {
@@ -9288,13 +9298,14 @@ void SteamServer::_bind_methods() {
 
 	// GAME SERVERS BIND METHODS /////////
 	ClassDB::bind_method(D_METHOD("associateWithClan", "clan_id"), &SteamServer::associateWithClan);
-	ClassDB::bind_method(D_METHOD("beginServerAuthSession", "auth_ticket", "steam_id"), &SteamServer::beginServerAuthSession);
+	ClassDB::bind_method(D_METHOD("beginServerAuthSession", "auth_ticket", "ticket_size", "steam_id"), &SteamServer::beginServerAuthSession);
 	ClassDB::bind_method(D_METHOD("cancelServerAuthTicket", "auth_ticket"), &SteamServer::cancelServerAuthTicket);
 	ClassDB::bind_method(D_METHOD("clearAllKeyValues"), &SteamServer::clearAllKeyValues);
 	ClassDB::bind_method(D_METHOD("computeNewPlayerCompatibility", "steam_id"), &SteamServer::computeNewPlayerCompatibility);
 	ClassDB::bind_method(D_METHOD("endServerAuthSession", "steam_id"), &SteamServer::endServerAuthSession);
 	ClassDB::bind_method(D_METHOD("getPublicIP"), &SteamServer::getPublicIP);
 	ClassDB::bind_method(D_METHOD("getSteamServerID"), &SteamServer::getSteamServerID);
+	ClassDB::bind_method(D_METHOD("getServerAuthSessionTicket", "auth_ticket", "max_ticket_size", "ticket_size", "ip_addr", "port"), &SteamServer::getServerAuthSessionTicket);
 	ClassDB::bind_method(D_METHOD("logOff"), &SteamServer::logOff);
 	ClassDB::bind_method(D_METHOD("logOn", "token"), &SteamServer::logOn);
 	ClassDB::bind_method(D_METHOD("logOnAnonymous"), &SteamServer::logOnAnonymous);
@@ -9316,6 +9327,9 @@ void SteamServer::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("setSpectatorPort", "port"), &SteamServer::setSpectatorPort);
 	ClassDB::bind_method(D_METHOD("setSpectatorServerName", "name"), &SteamServer::setSpectatorServerName);
 	ClassDB::bind_method(D_METHOD("serverUserHasLicenseForApp", "steam_id", "app_id"), &SteamServer::serverUserHasLicenseForApp);
+
+	ClassDB::bind_method(D_METHOD("get_init_error_message"), &SteamServer::get_init_error_message);
+	ADD_PROPERTY(PropertyInfo(Variant::STRING, "init_error_message"), "set_init_error_message", "get_init_error_message");
 
 	// MATCHMAKING SERVERS BIND METHODS /////////
 	ClassDB::bind_method(D_METHOD("cancelQuery", "server_list_request"), &SteamServer::cancelQuery);
@@ -9603,7 +9617,7 @@ void SteamServer::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("cancelAuthTicket", "auth_ticket"), &SteamServer::cancelAuthTicket);
 	ClassDB::bind_method(D_METHOD("decompressVoice", "voice", "voice_size", "sample_rate"), &SteamServer::decompressVoice);
 	ClassDB::bind_method(D_METHOD("endAuthSession", "steam_id"), &SteamServer::endAuthSession);
-	ClassDB::bind_method(D_METHOD("getAuthSessionTicket", "identity_reference"), &SteamServer::getAuthSessionTicket, DEFVAL(""));
+	ClassDB::bind_method(D_METHOD("getAuthSessionTicket", "identity_reference"), &SteamServer::getUserAuthSessionTicket, DEFVAL(""));
 	ClassDB::bind_method(D_METHOD("getAuthTicketForWebApi", "identity_reference"), &SteamServer::getAuthTicketForWebApi, DEFVAL(""));
 	ClassDB::bind_method("getAvailableVoice", &SteamServer::getAvailableVoice);
 	ClassDB::bind_method("getDurationControl", &SteamServer::getDurationControl);

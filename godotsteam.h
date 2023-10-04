@@ -1347,13 +1347,13 @@ public:
 
 	// Game Servers /////////////////////////
 	void associateWithClan(uint64_t clan_id);
-	int beginServerAuthSession(int auth_ticket, uint64_t steam_id);
+	int beginServerAuthSession(PackedByteArray auth_ticket, int ticket_size, uint64_t steam_id);
 	void cancelServerAuthTicket(uint32 auth_ticket);
 	void clearAllKeyValues();
 	void computeNewPlayerCompatibility(uint64_t steam_id);
 	void endServerAuthSession(uint64_t steam_id);
-	// Dictionary getServerAuthSessionTicket();
 	void getNextOutgoingPacket();
+	uint32 getServerAuthSessionTicket(PackedByteArray auth_ticket, int max_ticket_size, uint32_t ticket_size, uint32 ip_addr, uint16 port);
 	uint32 getPublicIP();
 	uint64_t getSteamServerID();
 	// PackedByteArray handleIncomingPacket(int packet, const String& ip, int port);
@@ -1379,6 +1379,9 @@ public:
 	void setSpectatorPort(uint32 port);
 	void setSpectatorServerName(const String &name);
 	int serverUserHasLicenseForApp(uint64_t steam_id, uint32 app_id);
+
+	String get_init_error_message();
+	void set_init_error_message();
 
 	// Matchmaking Servers //////////////////
 	void cancelQuery(uint64_t server_list_request = 0);
@@ -1667,7 +1670,7 @@ public:
 	void cancelAuthTicket(uint32_t auth_ticket);
 	Dictionary decompressVoice(const PackedByteArray &voice, uint32 voice_size, uint32 sample_rate);
 	void endAuthSession(uint64_t steam_id);
-	Dictionary getAuthSessionTicket(const String &identity_reference = "");
+	Dictionary getUserAuthSessionTicket(const String &identity_reference = "");
 	uint32 getAuthTicketForWebApi(const String &service_identity = "");
 	Dictionary getAvailableVoice();
 	void getDurationControl();
@@ -1835,8 +1838,12 @@ private:
 	// Utils
 	uint64_t api_handle = 0;
 
-	// Run the Steamworks API callbacks /////
-	void run_callbacks() {
+	// Error handler
+	SteamErrMsg init_error_message;
+
+		// Run the Steamworks API callbacks /////
+	void
+	run_callbacks() {
 		SteamGameServer_RunCallbacks();
 	}
 
@@ -1947,7 +1954,7 @@ private:
 	// User callbacks ///////////////////////
 	STEAM_GAMESERVER_CALLBACK(SteamServer, client_game_server_deny, ClientGameServerDeny_t, callbackClientGameServerDeny);
 	STEAM_GAMESERVER_CALLBACK(SteamServer, game_web_callback, GameWebCallback_t, callbackGameWebCallback);
-	STEAM_GAMESERVER_CALLBACK(SteamServer, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetAuthSessionTicketResponse);
+	STEAM_GAMESERVER_CALLBACK(SteamServer, get_auth_session_ticket_response, GetAuthSessionTicketResponse_t, callbackGetUserAuthSessionTicketResponse);
 	STEAM_GAMESERVER_CALLBACK(SteamServer, get_ticket_for_web_api, GetTicketForWebApiResponse_t, callbackGetTicketForWebApiResponse);
 	STEAM_GAMESERVER_CALLBACK(SteamServer, ipc_failure, IPCFailure_t, callbackIPCFailure);
 	STEAM_GAMESERVER_CALLBACK(SteamServer, licenses_updated, LicensesUpdated_t, callbackLicensesUpdated);
